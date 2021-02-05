@@ -1,0 +1,20 @@
+package jaysonjson.papierfuchs.events.entity.player;
+
+import jaysonjson.papierfuchs.data.DataHandler;
+import jaysonjson.papierfuchs.data.player.FuchsPlayer;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerBedLeaveEvent;
+
+public class PlayerSleep implements Listener {
+
+    @EventHandler
+    public void playerSleepEvent(PlayerBedLeaveEvent event) {
+        FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(event.getPlayer().getUniqueId());
+        if(fuchsPlayer.getPlayerSpecial().alcohol > 0) {
+            fuchsPlayer.getPlayerSpecial().alcohol *= 0.5;
+            DataHandler.savePlayer(fuchsPlayer);
+        }
+
+    }
+}

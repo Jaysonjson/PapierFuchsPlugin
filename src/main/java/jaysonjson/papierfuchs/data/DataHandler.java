@@ -1,0 +1,296 @@
+package jaysonjson.papierfuchs.data;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import jaysonjson.papierfuchs.Utility;
+import jaysonjson.papierfuchs.data.area.data.zArea;
+import jaysonjson.papierfuchs.data.backpack.data.zBackPack;
+import jaysonjson.papierfuchs.data.crafting.data.zCrafting;
+import jaysonjson.papierfuchs.data.crafting.obj.brewery.objs.zCraftingBreweryLiquidInput;
+import jaysonjson.papierfuchs.data.crafting.obj.brewery.objs.zCraftingBreweryLiquidOutput;
+import jaysonjson.papierfuchs.data.crafting.obj.brewery.zCraftingBrewery;
+import jaysonjson.papierfuchs.data.discord.data.zDiscord;
+import jaysonjson.papierfuchs.data.drop.data.zDrops;
+import jaysonjson.papierfuchs.data.drop.obj.zMobDrop;
+import jaysonjson.papierfuchs.data.guild.data.zGuild;
+import jaysonjson.papierfuchs.data.player.FuchsPlayer;
+import jaysonjson.papierfuchs.data.server.data.zServer;
+import jaysonjson.papierfuchs.object.item.ItemList;
+import jaysonjson.papierfuchs.object.liquid.LiquidList;
+import org.bukkit.entity.EntityType;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Modifier;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.UUID;
+import java.util.stream.Stream;
+
+public class DataHandler {
+
+    private static final Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
+    private static final Gson gson = new Gson();
+
+
+    public static FuchsPlayer loadPlayer(UUID uuid) {
+        File file = new File(FileHandler.PLAYER_DIR + uuid.toString() + ".json");
+        FuchsPlayer player;
+        if(!file.exists()) {
+            player = new FuchsPlayer();
+            player.setUUID(uuid);
+            savePlayer(player);
+        } else {
+            player = gson.fromJson(readData(file), FuchsPlayer.class);
+        }
+        player.setUUID(uuid);
+        return player;
+    }
+
+    public static void savePlayer(FuchsPlayer player) {
+        String json = gsonBuilder.toJson(player);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.PLAYER_DIR + player.getUUID().toString() + ".json"));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.append(json);
+            outputStreamWriter.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static zBackPack loadBackPack(UUID uuid) {
+        File file = new File(FileHandler.BACKPACK_DIR + uuid.toString() + ".json");
+        zBackPack backPack;
+        if(!file.exists()) {
+            backPack = new zBackPack();
+            backPack.setUUID(uuid);
+            saveBackPack(backPack);
+        } else {
+            backPack = gson.fromJson(readData(file), zBackPack.class);
+        }
+        backPack.setUUID(uuid);
+        return backPack;
+    }
+
+    public static void saveBackPack(zBackPack backPack) {
+        String json = gsonBuilder.toJson(backPack);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.BACKPACK_DIR + backPack.getUUID().toString() + ".json"));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.append(json);
+            outputStreamWriter.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void deleteBackPack(UUID uuid) {
+        new File(FileHandler.BACKPACK_DIR + uuid.toString() + ".json").delete();
+    }
+
+    public static boolean backPackExists(UUID uuid) {
+        return new File(FileHandler.BACKPACK_DIR + uuid.toString() + ".json").exists();
+    }
+
+
+    public static void saveServer(zServer server) {
+        String json = gsonBuilder.toJson(server);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.SERVER_DIR + "server.json"));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.append(json);
+            outputStreamWriter.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static zServer loadServer() {
+        File file = new File(FileHandler.SERVER_DIR + "server.json");
+        zServer server;
+        if(!file.exists()) {
+            server = new zServer();
+            saveServer(server);
+        } else {
+            server = gson.fromJson(readData(file), zServer.class);
+        }
+        return server;
+    }
+
+    public static void saveDiscord(zDiscord discord) {
+        String json = gsonBuilder.toJson(discord);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.SERVER_DIR + "discord.json"));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.append(json);
+            outputStreamWriter.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static zDiscord loadDiscord() {
+        File file = new File(FileHandler.SERVER_DIR + "discord.json");
+        zDiscord discord;
+        if(!file.exists()) {
+            discord = new zDiscord();
+            saveDiscord(discord);
+        } else {
+            discord = gson.fromJson(readData(file), zDiscord.class);
+        }
+        return discord;
+    }
+
+
+
+    public static void saveArea(zArea area) {
+        String json = gsonBuilder.toJson(area);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.AREA_DIR + area.getUuid().toString() + ".json"));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.append(json);
+            outputStreamWriter.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static zArea loadArea(UUID uuid) {
+        File file = new File(FileHandler.AREA_DIR + uuid.toString() + ".json");
+        zArea area;
+        if(!file.exists()) {
+            area = new zArea();
+            area.setUuid(uuid);
+            saveArea(area);
+        } else {
+            area = gson.fromJson(readData(file), zArea.class);
+        }
+        return area;
+    }
+
+    public static void saveGuild(zGuild guild) {
+        String json = gsonBuilder.toJson(guild);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.GUILD_DIR + guild.getUUID().toString() + ".json"));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.append(json);
+            outputStreamWriter.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static zGuild loadGuild(UUID uuid) {
+        return loadGuild(uuid.toString());
+    }
+
+    public static zGuild loadGuild(String uuid) {
+        File file = new File(FileHandler.GUILD_DIR + uuid.toString() + ".json");
+        zGuild guild;
+        if(!file.exists()) {
+            guild = new zGuild();
+            guild.setName("Unbekannt");
+            saveGuild(guild);
+        } else {
+            guild = gson.fromJson(readData(file), zGuild.class);
+        }
+        return guild;
+    }
+
+    public static zDrops loadDrops() {
+        File mobDrops = new File(FileHandler.MOBDROPS_DIR);
+        zDrops zDrops = new zDrops();
+        for (File file : mobDrops.listFiles()) {
+            if(file.getName().toLowerCase().contains("json")) {
+                zMobDrop mobDrop = gson.fromJson(readData(file), zMobDrop.class);
+                for (String s : mobDrop.itemDropsID.keySet()) {
+                    if(Utility.itemIDExists(s)) {
+                        mobDrop.itemDrops.put(Utility.getFuchsItemByID(s), mobDrop.itemDropsID.get(s));
+                        System.out.println("[Fuchs {MobDrops}] " + mobDrop.itemDrops);
+                    } else {
+                        System.out.println("[Fuchs {MobDrops}] Item mit der ID " + s + " existiert nicht, überspringen...");
+                    }
+                }
+                zDrops.getMobDrops().add(mobDrop);
+            }
+        }
+        return zDrops;
+    }
+
+    public static zCrafting loadCrafting() {
+        File brewery = new File(FileHandler.BREWERY_DIR);
+        zCrafting zCrafting = new zCrafting();
+        for (File file : brewery.listFiles()) {
+            if(file.getName().toLowerCase().contains("json")) {
+                zCraftingBrewery zCraftingBrewery = gson.fromJson(readData(file),zCraftingBrewery.class);
+                for (String s : zCraftingBrewery.inputsID) {
+                    if(Utility.itemIDExists(s)) {
+                        zCraftingBrewery.inputs.add(Utility.getFuchsItemByID(s));
+
+                        System.out.println("[Fuchs {Crafting}] " + s);
+                    } else {
+                        System.out.println("[Fuchs {Crafting}] Item mit der ID " + s + " existiert nicht, überspringen...");
+                    }
+                }
+                zCrafting.breweries.add(zCraftingBrewery);
+            }
+        }
+        return zCrafting;
+    }
+
+    public static void createMobDrop() {
+        zMobDrop mobDrop = new zMobDrop();
+        mobDrop.type = EntityType.ZOMBIFIED_PIGLIN;
+        mobDrop.itemDropsID.put("scrapItem", 2);
+        String json = gsonBuilder.toJson(mobDrop);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.MOBDROPS_DIR + "test.json"));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.append(json);
+            outputStreamWriter.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void createBreweryCrafting() {
+
+        zCraftingBrewery craftingBrewery = new zCraftingBrewery();
+        craftingBrewery.inputsID.add(ItemList.HOP.getID());
+        craftingBrewery.inputsID.add(ItemList.MALT.getID());
+        zCraftingBreweryLiquidInput liquidInput = new zCraftingBreweryLiquidInput();
+        liquidInput.liquidAmount = 1.5;
+        liquidInput.liquidInputID = LiquidList.WATER.getID();
+        zCraftingBreweryLiquidOutput liquidOutput = new zCraftingBreweryLiquidOutput();
+        liquidOutput.liquidAmount = 2;
+        liquidOutput.liquidOutputID = LiquidList.BEER.getID();
+        craftingBrewery.liquidInput = liquidInput;
+        craftingBrewery.liquidOutput = liquidOutput;
+        String json = gsonBuilder.toJson(craftingBrewery);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.BREWERY_DIR + "test.json"));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.append(json);
+            outputStreamWriter.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static String readData(File file) {
+        StringBuilder contentBuilder = new StringBuilder();
+
+        try (Stream<String> stream = Files.lines(Paths.get(file.getPath()), StandardCharsets.UTF_8)) {
+            stream.forEach(s -> contentBuilder.append(s).append("\n"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return contentBuilder.toString();
+    }
+
+}
