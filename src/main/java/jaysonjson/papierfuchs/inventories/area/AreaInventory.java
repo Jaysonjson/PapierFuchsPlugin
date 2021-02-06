@@ -99,6 +99,9 @@ public class AreaInventory implements Listener {
                             player.closeInventory();
                         }
 
+                        if(itemName.equalsIgnoreCase("Lage") && player.isOp()) {
+                            player.teleport(area.createTeleportLocation(player.getWorld()));
+                        }
           
                         switch(itemName) {
                         	case "Blöcke Zerstören":

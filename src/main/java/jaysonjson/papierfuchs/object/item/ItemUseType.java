@@ -9,6 +9,7 @@ public enum ItemUseType implements IItemUseType {
     ABILITY(ChatColor.AQUA + "Benutzbar"),
     CURRENCY(ChatColor.AQUA + "Währung"),
     TOOL(ChatColor.AQUA + "Werkzeug"),
+    DECO(ChatColor.AQUA + "Dekoration"),
     OTHER("");
 
     private final String loreText;

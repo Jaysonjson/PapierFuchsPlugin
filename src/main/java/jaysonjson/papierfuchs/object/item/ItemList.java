@@ -6,10 +6,7 @@ import jaysonjson.papierfuchs.object.item.type.currency.GoldBarItem;
 import jaysonjson.papierfuchs.object.item.type.currency.GoldNuggetItem;
 import jaysonjson.papierfuchs.object.item.type.currency.HackSilverItem;
 import jaysonjson.papierfuchs.object.item.type.currency.ZoryhaShardItem;
-import jaysonjson.papierfuchs.object.item.type.other.GasContainerItem;
-import jaysonjson.papierfuchs.object.item.type.other.LiquidContainerItem;
-import jaysonjson.papierfuchs.object.item.type.other.ScrapItem;
-import jaysonjson.papierfuchs.object.item.type.other.SkillBookItem;
+import jaysonjson.papierfuchs.object.item.type.other.*;
 import jaysonjson.papierfuchs.object.item.type.vanillaOverride.IronOreItem;
 import org.bukkit.Material;
 
@@ -30,5 +27,6 @@ public class ItemList {
     public static VilumIngotItem VILUM_INGOT = new VilumIngotItem("vilumIngotItem", Material.FEATHER, ItemUseType.CRAFTING);
     public static IronOreItem IRON_ORE = new IronOreItem("ironOreItem", Material.IRON_ORE, ItemUseType.CRAFTING);
     public static ScrapItem SCRAP = new ScrapItem("scrapItem", Material.NETHERITE_SCRAP, ItemUseType.CURRENCY);
-
+    public static ItemWithTexture DARK_OAK_BOWL = new ItemWithTexture("darkOakBowl", Material.FEATHER, ItemUseType.DECO, "Schüssel", 21, "§8Dunkle Eiche");
+    public static LegendaryChestBook LEGENDARY_CHEST_BOOK = new LegendaryChestBook("legendaryChestBook", Material.WRITTEN_BOOK, ItemUseType.OTHER);
 }

@@ -121,6 +121,19 @@ public class Utility {
         return distances.get(distancesD.get(0));
     }
 
+    public static ArrayList<zArea> getNearestAreas(int radius, World.Environment environment, Location location) {
+        ArrayList<zArea> areaList = new ArrayList<>();
+        for (zArea areas : PapierFuchs.INSTANCE.areas) {
+            if(areas.getWorld().getEnvironment().equals(environment)) {
+                double distance = location.distance(areas.createLocation(location.getWorld()));
+                if(distance <= radius) {
+                    areaList.add(areas);
+                }
+            }
+        }
+        return areaList;
+    }
+
     public static zArea getNearestAreaOutsidePlayer(Player player) {
         ArrayList<Double> distancesD = new ArrayList<>();
         HashMap<Double, zArea> distances = new HashMap<>();
@@ -144,24 +157,33 @@ public class Utility {
         }
     }
 
+    public static zArea getNearestAreaPlayerExceptCurrent(Player player, zArea area) {
+        ArrayList<Double> distancesD = new ArrayList<>();
+        HashMap<Double, zArea> distances = new HashMap<>();
+        if(PapierFuchs.INSTANCE.areas.size() < 1) {
+            return new zArea();
+        }
+        for (zArea areas : PapierFuchs.INSTANCE.areas) {
+            if(area != areas) {
+                if (areas.getWorld().getEnvironment().equals(player.getWorld().getEnvironment())) {
+                    double distance = player.getLocation().distance(areas.createLocation(player.getWorld()));
+                    distances.put(distance, areas);
+                    distancesD.add(distance);
+                }
+            }
+        }
+        Collections.sort(distancesD);
+        if(distancesD.size() > 0) {
+            return distances.get(distancesD.get(0));
+        } else {
+            return new zArea();
+        }
+    }
+
     public static zArea getNearestArea(Player player) {
         return getNearestArea(player.getWorld().getEnvironment(), player.getLocation());
     }
 
-    @Deprecated
-    public static zLocation getNearestAreaDistanceDEP(Location location) {
-        ArrayList<Double> distancesX = new ArrayList<>();
-        ArrayList<Double> distancesZ = new ArrayList<>();
-        for (zArea areas : PapierFuchs.INSTANCE.areas) {
-            distancesX.add(location.getX() - areas.getLocation().x);
-            distancesZ.add(location.getZ() - areas.getLocation().z);
-        }
-        Collections.sort(distancesX);
-        Collections.reverse(distancesX);
-        Collections.sort(distancesZ);
-        Collections.reverse(distancesZ);
-        return new zLocation(distancesX.get(0), 0, distancesZ.get(0));
-    }
 
     public static zLocation getNearestAreaDistance(World.Environment environment, Location location) {
         zArea area = getNearestArea(environment, location);
@@ -171,6 +193,10 @@ public class Utility {
 
     public static zLocation getNearestAreaDistanceOutsidePlayer(Player player) {
         zArea area = getNearestAreaOutsidePlayer(player);
+        return new zLocation(area.getLocation().x - player.getLocation().getX(), 0, area.getLocation().z - player.getLocation().getZ());
+    }
+    public static zLocation getNearestAreaDistanceOutsidePlayerExceptCurrent(Player player, zArea current) {
+        zArea area = getNearestAreaPlayerExceptCurrent(player, current);
         return new zLocation(area.getLocation().x - player.getLocation().getX(), 0, area.getLocation().z - player.getLocation().getZ());
     }
 

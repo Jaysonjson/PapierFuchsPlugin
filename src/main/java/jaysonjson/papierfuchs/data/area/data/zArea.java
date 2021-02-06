@@ -28,6 +28,10 @@ public class zArea {
         return new Location(world, location.x, location.y, location.z);
     }
 
+    public Location createTeleportLocation(World world) {
+        return new Location(world, location.x, location.y + 2, location.z);
+    }
+
     public boolean canOverlap(Player player) {
         if(player != null) {
             if (player.getUniqueId().equals(owner)) {

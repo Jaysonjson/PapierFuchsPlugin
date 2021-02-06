@@ -11,6 +11,7 @@ import jaysonjson.papierfuchs.data.crafting.obj.brewery.objs.zCraftingBreweryLiq
 import jaysonjson.papierfuchs.data.crafting.obj.brewery.zCraftingBrewery;
 import jaysonjson.papierfuchs.data.discord.data.zDiscord;
 import jaysonjson.papierfuchs.data.drop.data.zDrops;
+import jaysonjson.papierfuchs.data.drop.obj.ItemDropChance;
 import jaysonjson.papierfuchs.data.drop.obj.zMobDrop;
 import jaysonjson.papierfuchs.data.guild.data.zGuild;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
@@ -207,12 +208,21 @@ public class DataHandler {
         for (File file : mobDrops.listFiles()) {
             if(file.getName().toLowerCase().contains("json")) {
                 zMobDrop mobDrop = gson.fromJson(readData(file), zMobDrop.class);
-                for (String s : mobDrop.itemDropsID.keySet()) {
+                /*for (String s : mobDrop.itemDropsID.keySet()) {
                     if(Utility.itemIDExists(s)) {
                         mobDrop.itemDrops.put(Utility.getFuchsItemByID(s), mobDrop.itemDropsID.get(s));
                         System.out.println("[Fuchs {MobDrops}] " + mobDrop.itemDrops);
                     } else {
                         System.out.println("[Fuchs {MobDrops}] Item mit der ID " + s + " existiert nicht, überspringen...");
+                    }
+                }*/
+                for (ItemDropChance item : mobDrop.items) {
+                    if(Utility.itemIDExists(item.item)) {
+                        item.setFuchsItem(Utility.getFuchsItemByID(item.item));
+                        mobDrop.itemDropChances.add(item);
+                        System.out.println("[Fuchs {MobDrops}] " + item.toString());
+                    } else {
+                        System.out.println("[PapierFuchs {MobDrops}] Item mit der ID " + item.item + " existiert nicht, überspringen...");
                     }
                 }
                 zDrops.getMobDrops().add(mobDrop);
@@ -244,8 +254,8 @@ public class DataHandler {
 
     public static void createMobDrop() {
         zMobDrop mobDrop = new zMobDrop();
-        mobDrop.type = EntityType.ZOMBIFIED_PIGLIN;
-        mobDrop.itemDropsID.put("scrapItem", 2);
+        mobDrop.type = EntityType.ZOMBIE;
+        mobDrop.items.add(new ItemDropChance("scrapItem", 2, 1, 1));
         String json = gsonBuilder.toJson(mobDrop);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.MOBDROPS_DIR + "test.json"));

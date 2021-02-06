@@ -1,5 +1,6 @@
 package jaysonjson.papierfuchs.other;
 
+import jaysonjson.papierfuchs.PapierFuchs;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.area.data.zArea;
@@ -14,6 +15,7 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class Scoreboard {
 
@@ -25,12 +27,19 @@ public class Scoreboard {
         sendScoreboard(player, fuchsPlayer, Utility.countMoneyBackpack(player.getInventory()), Utility.countZoryhaShardBackpack(player.getInventory()), Utility.getNearestArea(player.getWorld().getEnvironment(), player.getLocation()), Utility.getNearestAreaDistance(player.getWorld().getEnvironment(), player.getLocation()));
     }
 
-    public static void sendScoreboard(Player player, FuchsPlayer fuchsPlayer, double money, double zoryhaShardValue, zArea area, zLocation areaDistance) {
+    public static void updateScoreboard(Player player, FuchsPlayer fuchsPlayer, ArrayList<zArea> areas) {
+        sendScoreboard(player, fuchsPlayer, Utility.countMoneyBackpack(player.getInventory()), Utility.countZoryhaShardBackpack(player.getInventory()), areas, Utility.getNearestAreaDistance(player.getWorld().getEnvironment(), player.getLocation()));
+    }
+    public static void sendScoreboard(Player player, FuchsPlayer fuchsPlayer, double money, double zoryhaShardValue, zArea areas, zLocation areaDistance) {
+        ArrayList<zArea> areaList = new ArrayList<>();
+        sendScoreboard(player, fuchsPlayer, money, zoryhaShardValue, areaList, areaDistance);
+    }
+    public static void sendScoreboard(Player player, FuchsPlayer fuchsPlayer, double money, double zoryhaShardValue, ArrayList<zArea> areas, zLocation areaDistance) {
         ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
         org.bukkit.scoreboard.Scoreboard scoreboard = scoreboardManager.getNewScoreboard();
-        Objective score = scoreboard.registerNewObjective("Zapan", "dummy", "Zapan");
+        Objective score = scoreboard.registerNewObjective("PapierFuchs", "dummy", "PapierFuchs");
 
-        score.setDisplayName(player.getDisplayName());
+        score.setDisplayName(player.getDisplayName() + " | PapierFuchs " + PapierFuchs.version);
         score.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         Score lineSpace0 = score.getScore("-0------=0=------0-");
@@ -56,15 +65,24 @@ public class Scoreboard {
         Score zoryhaShardScore = score.getScore(ChatColor.AQUA + "Zoryha Bruckstücke" + ChatColor.DARK_GRAY + ": " + ChatColor.GOLD + zoryhaShardSTR + "¢");
         Score lineSpace1 = score.getScore("-0------=1=------0-");
         String areaColor = ChatColor.GOLD + "";
-        Score nextAreaScore = null;
-        boolean inArea = Utility.isInArea(area, player);
-        if(inArea) {
-            zArea nextArea = Utility.getNearestAreaOutsidePlayer(player);
-            zLocation nextAreaLoc = Utility.getNearestAreaDistanceOutsidePlayer(player);
-            nextAreaScore = score.getScore(ChatColor.GOLD + nextArea.getDisplayName() + ChatColor.RESET + " (" + ChatColor.BOLD + Utility.formatInteger((int)nextAreaLoc.x) + ChatColor.RESET + ", " +  ChatColor.BOLD + Utility.formatInteger((int) nextAreaLoc.z) + ChatColor.RESET + ")");
-            areaColor = ChatColor.DARK_PURPLE + "";
+        Score nextAreaScore = score.getScore("Gebiet0");
+        Score areaScore = score.getScore("Gebiet1");
+        if(areas.size() > 0) {
+            zArea currentArea = areas.get(0);
+            boolean inArea = false;
+            for (zArea area : areas) {
+                inArea = Utility.isInArea(area, player);
+                if (inArea) {
+                    currentArea = area;
+                    //zArea nextArea = Utility.getNearestAreaPlayerExceptCurrent(player, currentArea);
+                    areaColor = ChatColor.DARK_PURPLE + "";
+                }
+            }
+            zArea nextArea = Utility.getNearestAreaPlayerExceptCurrent(player, currentArea);
+            zLocation nextAreaLoc = Utility.getNearestAreaDistanceOutsidePlayerExceptCurrent(player, currentArea);
+            nextAreaScore = score.getScore(ChatColor.GOLD + nextArea.getDisplayName() + ChatColor.RESET + " (" + ChatColor.BOLD + Utility.formatInteger((int) nextAreaLoc.x) + ChatColor.RESET + ", " + ChatColor.BOLD + Utility.formatInteger((int) nextAreaLoc.z) + ChatColor.RESET + ")");
+            areaScore = score.getScore(areaColor + currentArea.getDisplayName() + ChatColor.RESET + " (" + ChatColor.BOLD + Utility.formatInteger((int) areaDistance.x) + ChatColor.RESET + ", " + ChatColor.BOLD + Utility.formatInteger((int) areaDistance.z) + ChatColor.RESET + ")");
         }
-        Score areaScore = score.getScore(areaColor + area.getDisplayName() + ChatColor.RESET + " (" + ChatColor.BOLD + Utility.formatInteger((int)areaDistance.x) + ChatColor.RESET + ", " +  ChatColor.BOLD + Utility.formatInteger((int) areaDistance.z) + ChatColor.RESET + ")");
         Score lineSpace2 = score.getScore("-0------=2=------0-");
         Score levelScore = score.getScore("LvL: " + fuchsPlayer.getLevel().level);
         Score alcoholScore = null;

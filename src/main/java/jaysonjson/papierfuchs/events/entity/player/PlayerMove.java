@@ -1,5 +1,6 @@
 package jaysonjson.papierfuchs.events.entity.player;
 
+import jaysonjson.papierfuchs.PapierFuchs;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.area.data.zArea;
@@ -14,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class PlayerMove implements Listener {
@@ -32,22 +34,32 @@ public class PlayerMove implements Listener {
                 fuchsPlayer.getPlayerSpecial().alcohol -= random.nextDouble() / 10;
             }
         }
-        Scoreboard.updateScoreboard(player, fuchsPlayer);
-        zArea area = Utility.getNearestArea(event.getPlayer().getWorld().getEnvironment(), player.getLocation());
+       /* for (zArea area : PapierFuchs.INSTANCE.areas) {
+            Location locationP0 = area.createLocation(player.getWorld()).add(area.getSize(), area.getSize(), area.getSize());
+            Location locationP1 = area.createLocation(player.getWorld()).subtract(area.getSize(), area.getSize(), area.getSize());
+            if (Utility.isInArea(player.getLocation(), locationP0, locationP1)) {
+                player.sendActionBar(new ComponentBuilder(area.getDisplayName().toUpperCase()).color(ChatColor.DARK_PURPLE).create());
+            }
+        }*/
+        //TODO NÄCHSTE GEBIETE ZUSAMMENFASSEN
+      /*  zArea area = Utility.getNearestArea(event.getPlayer().getWorld().getEnvironment(), player.getLocation());
         Location locationP0 = area.createLocation(player.getWorld()).add(area.getSize(), area.getSize(), area.getSize());
         Location locationP1 = area.createLocation(player.getWorld()).subtract(area.getSize(), area.getSize(), area.getSize());
         if (Utility.isInArea(player.getLocation(), locationP0, locationP1)) {
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(area.getDisplayName().toUpperCase()).color(ChatColor.DARK_PURPLE).create());
-            //if (!players.contains(player)) {
-                //player.sendMessage("Du bist jetzt im Gebiet " + area.name + "!");
-                //players.add(player);
-            //}
-        }// else {
-            //if (players.contains(player)) {
-                //player.sendMessage("Du hast das Gebiet " + area.name + " verlassen!");
-                //players.remove(player);
-           // }
-        //}
-        DataHandler.savePlayer(fuchsPlayer);
+            player.sendActionBar(new ComponentBuilder(area.getDisplayName().toUpperCase()).color(ChatColor.DARK_PURPLE).create());
+        }*/
+
+        ArrayList<zArea> areaList = Utility.getNearestAreas(750, player.getWorld().getEnvironment(), player.getLocation());
+        for (zArea area : areaList) {
+            Location locationP0 = area.createLocation(player.getWorld()).add(area.getSize(), area.getSize(), area.getSize());
+            Location locationP1 = area.createLocation(player.getWorld()).subtract(area.getSize(), area.getSize(), area.getSize());
+            if (Utility.isInArea(player.getLocation(), locationP0, locationP1)) {
+                player.sendActionBar(new ComponentBuilder(area.getDisplayName().toUpperCase()).color(ChatColor.DARK_PURPLE).create());
+            }
+        }
+        Scoreboard.updateScoreboard(player, fuchsPlayer, areaList);
+
+
+        //DataHandler.savePlayer(fuchsPlayer);
     }
 }

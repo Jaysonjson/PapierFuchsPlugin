@@ -122,4 +122,13 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     public double itemVersion() {
         return 0.1;
     }
+
+    @Override
+    public String toString() {
+        return "FuchsItem{" +
+                "id='" + id + '\'' +
+                ", material=" + material +
+                ", itemUseType=" + itemUseType +
+                '}';
+    }
 }
