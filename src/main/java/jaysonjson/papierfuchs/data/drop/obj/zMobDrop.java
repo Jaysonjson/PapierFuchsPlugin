@@ -1,10 +1,8 @@
 package jaysonjson.papierfuchs.data.drop.obj;
 
-import jaysonjson.papierfuchs.object.item.FuchsItem;
 import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class zMobDrop {
     public EntityType type = EntityType.BOAT;

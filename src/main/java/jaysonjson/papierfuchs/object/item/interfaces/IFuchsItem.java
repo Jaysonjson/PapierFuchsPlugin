@@ -19,11 +19,9 @@ public interface IFuchsItem {
         return createItem(null, itemStack);
     };
 
-    ItemStack update(Player player, ItemStack itemStack);
     IItemUseType getItemUse();
     @NotNull
     Material getMaterial();
-    void setMaterial(Material material);
     NBTTagCompound getTag(NBTTagCompound tag);
 
 }

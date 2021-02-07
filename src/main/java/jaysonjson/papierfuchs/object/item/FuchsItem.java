@@ -38,11 +38,6 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     }
 
     @Override
-    public ItemStack update(Player player, ItemStack itemStack) {
-        return null;
-    }
-
-    @Override
     public IItemUseType getItemUse() {
         return itemUseType;
     }
@@ -50,11 +45,6 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     @Override
     public @NotNull Material getMaterial() {
         return material;
-    }
-
-    @Override
-    public void setMaterial(Material material) {
-
     }
 
     @Override

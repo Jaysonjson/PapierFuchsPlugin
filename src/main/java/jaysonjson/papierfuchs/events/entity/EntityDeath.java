@@ -1,10 +1,8 @@
 package jaysonjson.papierfuchs.events.entity;
 
 import jaysonjson.papierfuchs.References;
-import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.drop.obj.ItemDropChance;
 import jaysonjson.papierfuchs.data.drop.obj.zMobDrop;
-import jaysonjson.papierfuchs.object.item.FuchsItem;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -11,8 +11,6 @@ import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-
 public class MagicPowderItem extends FuchsItem {
 
     public MagicType magicType;

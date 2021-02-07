@@ -1,7 +1,6 @@
 package jaysonjson.papierfuchs.events;
 
 import jaysonjson.papierfuchs.Utility;
-import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsMCItem;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;

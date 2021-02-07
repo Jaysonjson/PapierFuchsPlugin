@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
 import java.util.Random;
 
 public class IronIngotItem extends FuchsItem {

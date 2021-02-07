@@ -1,14 +1,5 @@
 package jaysonjson.papierfuchs.object.item.type.other;
 
-import jaysonjson.papierfuchs.object.item.FuchsItem;
-import net.minecraft.server.v1_16_R3.NBTTagCompound;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
 public class BackPackItemNBT {
     /*
 	int inventorySize;

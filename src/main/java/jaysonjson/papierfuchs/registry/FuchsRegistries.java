@@ -5,7 +5,6 @@ import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 
 import java.lang.reflect.Field;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -47,7 +46,7 @@ public class FuchsRegistries {
         }
     }
 
-    public static void register(Class listClass) {
+    public static void register(Class<?> listClass) {
         Field[] fields = listClass.getDeclaredFields();
         for (Field field : fields) {
             try {

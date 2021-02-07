@@ -1,13 +1,11 @@
 package jaysonjson.papierfuchs.events.entity.player;
 
-import jaysonjson.papierfuchs.PapierFuchs;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.area.data.zArea;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.other.Scoreboard;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
