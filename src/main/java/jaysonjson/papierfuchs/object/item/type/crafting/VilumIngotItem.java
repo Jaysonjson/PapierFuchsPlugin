@@ -69,4 +69,8 @@ public class VilumIngotItem extends FuchsItem {
         return 6;
     }
 
+    @Override
+    public int getCustomModelData() {
+        return 20;
+    }
 }

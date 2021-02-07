@@ -4,8 +4,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import jaysonjson.papierfuchs.data.server.data.zServer;
-import jaysonjson.papierfuchs.data.server.obj.zNPC;
+import jaysonjson.papierfuchs.data.server.data.FuchsServer;
+import jaysonjson.papierfuchs.data.server.obj.FuchsNPC;
 import jaysonjson.papierfuchs.data.DataHandler;
 import net.minecraft.server.v1_16_R3.*;
 import org.bukkit.Bukkit;
@@ -25,31 +25,31 @@ public class NPC {
 
 
     public static void createNPC(Player player, String name, String skinName) {
-        zServer zServer = DataHandler.loadServer();
+        FuchsServer fuchsServer = DataHandler.loadServer();
         MinecraftServer server = ((CraftServer) Bukkit.getServer()).getServer();
         WorldServer world = ((CraftWorld) Bukkit.getWorld(player.getWorld().getName())).getHandle();
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), name);
-        zNPC zNPC = new zNPC();
+        FuchsNPC fuchsNPC = new FuchsNPC();
         if(skinName != null) {
             String[] textures = getTextureData(skinName);
             gameProfile.getProperties().put("textures", new Property("textures", textures[0], textures[1]));
-            zNPC.texture = textures[0];
-            zNPC.signature = textures[1];
+            fuchsNPC.texture = textures[0];
+            fuchsNPC.signature = textures[1];
         }
         EntityPlayer npc = new EntityPlayer(server, world, gameProfile, new PlayerInteractManager(world));
         npc.setLocation(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), player.getLocation().getYaw(), player.getLocation().getPitch());
-        zNPC.skinName = skinName;
-        zNPC.name = name;
-        zNPC.pitch = npc.pitch;
-        zNPC.world = npc.getWorld().getWorld().getName();
-        zNPC.yaw = npc.yaw;
-        zNPC.x = (int) npc.locX();
-        zNPC.y = (int) npc.locY();
-        zNPC.z = (int) npc.locZ();
-        zNPC.uuid = npc.getUniqueID();
+        fuchsNPC.skinName = skinName;
+        fuchsNPC.name = name;
+        fuchsNPC.pitch = npc.pitch;
+        fuchsNPC.world = npc.getWorld().getWorld().getName();
+        fuchsNPC.yaw = npc.yaw;
+        fuchsNPC.x = (int) npc.locX();
+        fuchsNPC.y = (int) npc.locY();
+        fuchsNPC.z = (int) npc.locZ();
+        fuchsNPC.uuid = npc.getUniqueID();
         NPC.add(npc);
-        zServer.zNPC.add(zNPC);
-        DataHandler.saveServer(zServer);
+        fuchsServer.fuchsNPC.add(fuchsNPC);
+        DataHandler.saveServer(fuchsServer);
         sendPackets();
     }
 
@@ -91,18 +91,18 @@ public class NPC {
     }
 
     public static void loadNPCS() {
-        zServer zServer = DataHandler.loadServer();
-        for (zNPC zNPC : zServer.zNPC) {
+        FuchsServer fuchsServer = DataHandler.loadServer();
+        for (FuchsNPC FuchsNPC : fuchsServer.fuchsNPC) {
             MinecraftServer server = ((CraftServer) Bukkit.getServer()).getServer();
-            WorldServer world = ((CraftWorld) Bukkit.getWorld(zNPC.world)).getHandle();
-            GameProfile gameProfile = new GameProfile(zNPC.uuid, zNPC.name);;
+            WorldServer world = ((CraftWorld) Bukkit.getWorld(FuchsNPC.world)).getHandle();
+            GameProfile gameProfile = new GameProfile(FuchsNPC.uuid, FuchsNPC.name);;
             EntityPlayer npc = new EntityPlayer(server, world, gameProfile, new PlayerInteractManager(world));
-            npc.setLocation(zNPC.x, zNPC.y, zNPC.z, zNPC.yaw, zNPC.pitch);
-            if(zNPC.skinName != null) {
-                gameProfile.getProperties().put("textures", new Property("textures", zNPC.texture, zNPC.signature));
+            npc.setLocation(FuchsNPC.x, FuchsNPC.y, FuchsNPC.z, FuchsNPC.yaw, FuchsNPC.pitch);
+            if(FuchsNPC.skinName != null) {
+                gameProfile.getProperties().put("textures", new Property("textures", FuchsNPC.texture, FuchsNPC.signature));
             }
             NPC.add(npc);
-            DataHandler.saveServer(zServer);
+            DataHandler.saveServer(fuchsServer);
         }
     }
 

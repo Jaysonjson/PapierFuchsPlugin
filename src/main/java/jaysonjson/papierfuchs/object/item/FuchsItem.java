@@ -7,10 +7,11 @@ import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, IFuchsItem, IFuchsItemAlchemy, IFuchsItemTexture, IItemUseType, IFuchsItemAbility {
+public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, IFuchsItem, IFuchsItemAlchemy, IFuchsItemTexture, IItemUseType, IFuchsItemAbility, IFuchsItemEntityInteraction {
 
     String id;
     Material material;
@@ -34,11 +35,6 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     @Override
     public void consume() {
 
-    }
-
-    @Override
-    public ItemStack createItem(Player player, ItemStack stack) {
-        return null;
     }
 
     @Override
@@ -130,5 +126,10 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
                 ", material=" + material +
                 ", itemUseType=" + itemUseType +
                 '}';
+    }
+
+    @Override
+    public void onEntityInteract(PlayerInteractEntityEvent event) {
+
     }
 }

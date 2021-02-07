@@ -2,7 +2,7 @@ package jaysonjson.papierfuchs.data.server.obj;
 
 import java.util.UUID;
 
-public class zNPC {
+public class FuchsNPC {
     public int x = 0;
     public int y = 0;
     public int z = 0;

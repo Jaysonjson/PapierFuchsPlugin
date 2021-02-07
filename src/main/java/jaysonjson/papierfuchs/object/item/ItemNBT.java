@@ -23,4 +23,6 @@ public class ItemNBT {
     public static final String CONTAINED_GAS = "containedGas";
     public static final String CONTAINED_LIQUIDS = "containedLiquids";
     public static final String CONTAINED_GASSES = "containedGasses";
+
+    public static final String MAGIC_TYPE = "magicType";
 }

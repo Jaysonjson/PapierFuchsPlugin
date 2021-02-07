@@ -15,7 +15,7 @@ import jaysonjson.papierfuchs.data.drop.obj.ItemDropChance;
 import jaysonjson.papierfuchs.data.drop.obj.zMobDrop;
 import jaysonjson.papierfuchs.data.guild.data.zGuild;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
-import jaysonjson.papierfuchs.data.server.data.zServer;
+import jaysonjson.papierfuchs.data.server.data.FuchsServer;
 import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
 import org.bukkit.entity.EntityType;
@@ -98,7 +98,7 @@ public class DataHandler {
     }
 
 
-    public static void saveServer(zServer server) {
+    public static void saveServer(FuchsServer server) {
         String json = gsonBuilder.toJson(server);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.SERVER_DIR + "server.json"));
@@ -110,14 +110,14 @@ public class DataHandler {
         }
     }
 
-    public static zServer loadServer() {
+    public static FuchsServer loadServer() {
         File file = new File(FileHandler.SERVER_DIR + "server.json");
-        zServer server;
+        FuchsServer server;
         if(!file.exists()) {
-            server = new zServer();
+            server = new FuchsServer();
             saveServer(server);
         } else {
-            server = gson.fromJson(readData(file), zServer.class);
+            server = gson.fromJson(readData(file), FuchsServer.class);
         }
         return server;
     }

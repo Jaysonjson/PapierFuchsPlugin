@@ -1,17 +1,20 @@
 package jaysonjson.papierfuchs.object.item.type.other;
 
+import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.DataHandler;
-import jaysonjson.papierfuchs.data.player.FuchsPlayer;
+import jaysonjson.papierfuchs.data.FuchsLocation;
+import jaysonjson.papierfuchs.data.server.data.FuchsServer;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
 import jaysonjson.papierfuchs.object.item.interfaces.IItemUseType;
-import net.minecraft.server.v1_16_R3.NBTTagCompound;
+import net.minecraft.server.v1_16_R3.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.block.Chest;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
@@ -20,7 +23,6 @@ import java.util.List;
 
 public class LegendaryChestBook extends FuchsItem {
 
-
     public LegendaryChestBook(String id, Material material, IItemUseType itemUseType) {
         super(id, material, itemUseType);
     }
@@ -28,28 +30,46 @@ public class LegendaryChestBook extends FuchsItem {
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player);
-        oItem.setItem(ChatColor.GOLD + "Das Buch der legendären Kiste");
-
-        if(player != null) {
-            createBookTag(player, oItem.item);
-        }
+        oItem.setItem(ChatColor.GOLD + "Das Buch der legendären Kiste Kapitel 1");
 
         oItem.createNMSCopy();
         oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
         oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
-        oItem.item.setItemMeta(createBookTag(player, oItem.item));
+        oItem.item.setItemMeta(createBookTag(oItem.item));
         return oItem.item;
     }
 
-    public BookMeta createBookTag(Player player, ItemStack itemStack) {
-        FuchsPlayer zPlayer = DataHandler.loadPlayer(player.getUniqueId());
+    public BookMeta createBookTag(ItemStack itemStack) {
         BookMeta bookMeta = (BookMeta) itemStack.getItemMeta();
         bookMeta.setTitle("Das Buch der legendären Kiste");
         bookMeta.setAuthor("Jayson & Nick");
         List<String> pages = new ArrayList<>();
-        pages.add("ja");
+        pages.add("Man besagt, dieses Buch kann Kisten zur Unendlichkeit öffnen");
         bookMeta.setPages(pages);
         return bookMeta;
+    }
+
+    @Override
+    public void ability(PlayerInteractEvent event) {
+        if(event.getClickedBlock() != null) {
+            if (event.getClickedBlock().getState() instanceof Chest) {
+                Chest chest = (Chest) event.getClickedBlock().getState();
+                chest.open();
+                FuchsServer fuchsServer = DataHandler.loadServer();
+                FuchsLocation fuchsLocation =  new FuchsLocation(chest.getX(), chest.getY(), chest.getZ());
+                if(!Utility.arrayContainsFuchsLocation(fuchsServer.OPEN_CHESTS, fuchsLocation)) {
+                    fuchsServer.OPEN_CHESTS.add(fuchsLocation);
+                    DataHandler.saveServer(fuchsServer);
+                }
+            } else if (event.getClickedBlock().getType() == Material.GOLD_BLOCK) {
+                Utility.openOpenedChests(event.getClickedBlock().getWorld());
+            }
+        }
+    }
+
+    @Override
+    public boolean isAbilityItem() {
+        return true;
     }
 
     @Override
@@ -58,9 +78,8 @@ public class LegendaryChestBook extends FuchsItem {
         return tag;
     }
 
-
     @Override
-    public boolean isAbilityItem() {
-        return true;
+    public int getCustomModelData() {
+        return 1;
     }
 }

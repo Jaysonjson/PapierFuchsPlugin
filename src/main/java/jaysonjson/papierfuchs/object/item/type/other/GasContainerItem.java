@@ -71,5 +71,8 @@ public class GasContainerItem extends FuchsItem {
         return tag;
     }
 
-
+    @Override
+    public int getCustomModelData() {
+        return 15;
+    }
 }

@@ -67,4 +67,9 @@ public class CopperIngotItem extends FuchsItem {
     public int getWaterValue() {
         return 6;
     }
+
+    @Override
+    public int getCustomModelData() {
+        return 1;
+    }
 }

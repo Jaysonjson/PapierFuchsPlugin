@@ -20,7 +20,8 @@ public class ItemUse implements Listener {
                 if (Utility.isAbilityItemAll(event.getPlayer(), event.getItem())) {
                     FuchsItem FuchsItem = Utility.getFuchsItemFromNMS(event.getItem());
                     if (FuchsItem != null && FuchsItem.isAbilityItem()) {
-                        FuchsItem.ability(event.getPlayer().getWorld(), event.getPlayer(), event.getItem());
+                        //FuchsItem.ability(event.getPlayer().getWorld(), event.getPlayer(), event.getItem());
+                        FuchsItem.ability(event);
                     }
                 }
             }

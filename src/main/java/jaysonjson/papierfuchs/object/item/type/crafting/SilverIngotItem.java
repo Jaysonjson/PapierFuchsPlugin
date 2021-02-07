@@ -58,4 +58,8 @@ public class SilverIngotItem extends FuchsItem {
         return tag;
     }
 
+    @Override
+    public int getCustomModelData() {
+        return 2;
+    }
 }

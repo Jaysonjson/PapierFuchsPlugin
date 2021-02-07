@@ -1,11 +1,15 @@
 package jaysonjson.papierfuchs.object.item;
 
+import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.FireEs01BlazeRodItem;
+import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.WallBlazeRodItem;
 import jaysonjson.papierfuchs.object.item.type.crafting.*;
 import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperIngotItem;
 import jaysonjson.papierfuchs.object.item.type.currency.GoldBarItem;
 import jaysonjson.papierfuchs.object.item.type.currency.GoldNuggetItem;
 import jaysonjson.papierfuchs.object.item.type.currency.HackSilverItem;
 import jaysonjson.papierfuchs.object.item.type.currency.ZoryhaShardItem;
+import jaysonjson.papierfuchs.object.item.type.magic.MagicPowderItem;
+import jaysonjson.papierfuchs.object.item.type.magic.MagicType;
 import jaysonjson.papierfuchs.object.item.type.other.*;
 import jaysonjson.papierfuchs.object.item.type.vanillaOverride.IronOreItem;
 import org.bukkit.Material;
@@ -29,4 +33,24 @@ public class ItemList {
     public static ScrapItem SCRAP = new ScrapItem("scrapItem", Material.NETHERITE_SCRAP, ItemUseType.CURRENCY);
     public static ItemWithTexture DARK_OAK_BOWL = new ItemWithTexture("darkOakBowl", Material.FEATHER, ItemUseType.DECO, "Schüssel", 21, "§8Dunkle Eiche");
     public static LegendaryChestBook LEGENDARY_CHEST_BOOK = new LegendaryChestBook("legendaryChestBook", Material.WRITTEN_BOOK, ItemUseType.OTHER);
+    public static IDCardItem ID_CARD = new IDCardItem("idCard", Material.WRITTEN_BOOK, ItemUseType.OTHER);
+
+    public static BackPackItem BACKPACK_9 = new BackPackItem("backPackItem9", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 9);
+    public static BackPackItem BACKPACK_18 = new BackPackItem("backPackItem18", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 18);
+    public static BackPackItem BACKPACK_27 = new BackPackItem("backPackItem27", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 27);
+    public static BackPackItem BACKPACK_36 = new BackPackItem("backPackItem36", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 36);
+    public static BackPackItem BACKPACK_45 = new BackPackItem("backPackItem45", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 45);
+    public static BackPackItem BACKPACK_54 = new BackPackItem("backPackItem54", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 54);
+
+    public static FireEs01BlazeRodItem FIRE_ESSENCE_01 = new FireEs01BlazeRodItem("fireEs01BlazeRodItem", Material.BLAZE_POWDER, ItemUseType.ABILITY);
+    public static WallBlazeRodItem WALL_BLAZE_ROD = new WallBlazeRodItem("wallBlazeRodItem", Material.BLAZE_POWDER, ItemUseType.ABILITY);
+
+    public static AlcoholTestItem ALCOHOL_TEST = new AlcoholTestItem("alcoholTestItem", Material.FEATHER, ItemUseType.ABILITY);
+
+    public static MagicPowderItem FIRE_POWDER = new MagicPowderItem("fireMagicPowder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.FIRE, 1);
+    public static MagicPowderItem WATER_POWDER = new MagicPowderItem("waterMagicPowder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.WATER, 4);
+    public static MagicPowderItem EARTH_POWDER = new MagicPowderItem("earthMagicPowder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.EARTH, 3);
+    public static MagicPowderItem AIR_POWDER = new MagicPowderItem("airMagicPowder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.AIR, 2);
+    public static MagicPowderItem LIGHT_POWDER = new MagicPowderItem("lightMagicPowder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.LIGHT, 5);
+
 }

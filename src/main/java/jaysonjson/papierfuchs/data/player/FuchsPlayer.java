@@ -89,4 +89,8 @@ public class FuchsPlayer implements IHasUUID {
         return level;
     }
 
+    public int countBounty() {
+        return Utility.countBounty(this);
+    }
+
 }

@@ -2,11 +2,13 @@ package jaysonjson.papierfuchs;
 
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.FileHandler;
+import jaysonjson.papierfuchs.data.FuchsLocation;
 import jaysonjson.papierfuchs.data.area.data.zArea;
 import jaysonjson.papierfuchs.data.area.obj.zLocation;
 import jaysonjson.papierfuchs.data.backpack.data.zBackPack;
 import jaysonjson.papierfuchs.data.guild.data.zGuild;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
+import jaysonjson.papierfuchs.data.server.data.FuchsServer;
 import jaysonjson.papierfuchs.object.gas.FuchsGas;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsMCItem;
@@ -22,6 +24,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Chest;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.output.ByteArrayOutputStream;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
@@ -779,6 +782,44 @@ public class Utility {
         if(updated) {
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder("Dein Inventar wurde aktualisiert!").color(ChatColor.DARK_PURPLE).create());
         }
+    }
+
+    public static boolean arrayContainsFuchsLocation(ArrayList<FuchsLocation> array, FuchsLocation location) {
+        for (FuchsLocation arrayLoc : array) {
+            if(arrayLoc.compare(location)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void arrayRemoveFuchsLocation(ArrayList<FuchsLocation> array, FuchsLocation location) {
+        for (int i = 0; i < array.size(); i++) {
+            if (array.get(i).compare(location)) {
+                array.remove(i);
+            }
+        }
+    }
+
+    public static void openOpenedChests(World world) {
+        FuchsServer fuchsServer = DataHandler.loadServer();
+        for (FuchsLocation fuchsLocation : fuchsServer.OPEN_CHESTS) {
+            if(world.getBlockAt(fuchsLocation.createLocation(world)).getState() instanceof Chest) {
+                Chest chest = (Chest) world.getBlockAt(fuchsLocation.createLocation(world)).getState();
+                chest.open();
+                System.out.println("Kiste bei " + fuchsLocation + " geöffnet!");
+            } else {
+                //Utility.arrayRemoveFuchsLocation(zServer.OPEN_CHESTS, fuchsLocation);
+            }
+        }
+    }
+
+    public static int countBounty(FuchsPlayer fuchsPlayer) {
+        int bounty = 0;
+        for (Integer value : fuchsPlayer.getPlayerSpecial().bounties.values()) {
+            bounty += value;
+        }
+        return bounty;
     }
 
 }

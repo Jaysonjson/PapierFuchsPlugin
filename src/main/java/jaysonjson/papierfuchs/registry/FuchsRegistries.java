@@ -5,13 +5,16 @@ import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 
 import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class FuchsRegistries {
 
-    public static HashMap<String, FuchsItem> items = new HashMap<>();
-    public static HashMap<String, FuchsLiquid> liquids = new HashMap<>();
-    public static HashMap<String, FuchsGas> gasses = new HashMap<>();
+    public static Map<String, FuchsItem> items = new HashMap<>();
+    public static Map<String, FuchsLiquid> liquids = new HashMap<>();
+    public static Map<String, FuchsGas> gasses = new HashMap<>();
 
     public static void registerItems(FuchsItem... fuchsItem) {
         for (FuchsItem item : fuchsItem) {
@@ -63,6 +66,10 @@ public class FuchsRegistries {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void sort() {
+        items = new TreeMap<>(items);
     }
 
 }

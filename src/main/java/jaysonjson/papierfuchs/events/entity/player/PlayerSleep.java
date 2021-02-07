@@ -12,7 +12,7 @@ public class PlayerSleep implements Listener {
     public void playerSleepEvent(PlayerBedLeaveEvent event) {
         FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(event.getPlayer().getUniqueId());
         if(fuchsPlayer.getPlayerSpecial().alcohol > 0) {
-            fuchsPlayer.getPlayerSpecial().alcohol *= 0.5;
+            fuchsPlayer.getPlayerSpecial().alcohol /= 0.5;
             DataHandler.savePlayer(fuchsPlayer);
         }
 
