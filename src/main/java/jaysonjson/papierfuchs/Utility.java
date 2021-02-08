@@ -8,6 +8,8 @@ import jaysonjson.papierfuchs.data.area.obj.zLocation;
 import jaysonjson.papierfuchs.data.backpack.data.zBackPack;
 import jaysonjson.papierfuchs.data.guild.data.zGuild;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
+import jaysonjson.papierfuchs.data.server.data.BlockMetadataSetter;
+import jaysonjson.papierfuchs.data.server.data.EntityMetadataSetter;
 import jaysonjson.papierfuchs.data.server.data.FuchsServer;
 import jaysonjson.papierfuchs.object.gas.FuchsGas;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
@@ -24,9 +26,12 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.output.ByteArrayOutputStream;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -34,6 +39,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.io.BukkitObjectInputStream;
@@ -814,12 +820,50 @@ public class Utility {
         }
     }
 
+    public static void setEntityMetadatas(World world) {
+        FuchsServer fuchsServer = DataHandler.loadServer();
+        for (EntityMetadataSetter metadata : fuchsServer.ENTITY_METADATA) {
+            Entity entity = world.getEntity(metadata.uuid);
+            if(entity != null) {
+                entity.setMetadata(metadata.key, new FixedMetadataValue(PapierFuchs.INSTANCE, metadata.value));
+                System.out.println("Metadata für Entity " + entity.getName() + " gesetzt!");
+            }
+        }
+    }
+
+    public static void setBlockMetadatas(World world) {
+        FuchsServer fuchsServer = DataHandler.loadServer();
+        for (BlockMetadataSetter metadata : fuchsServer.BLOCK_METADATA) {
+            Block block = world.getBlockAt(metadata.location.createLocation(world));
+            if(block.getType() == metadata.type) {
+                block.setMetadata(metadata.key, new FixedMetadataValue(PapierFuchs.INSTANCE, metadata.value));
+                System.out.println("Metadata für Block " + block.getTranslationKey() + " " + metadata.location + "gesetzt!");
+            }
+        }
+    }
+
     public static int countBounty(FuchsPlayer fuchsPlayer) {
         int bounty = 0;
         for (Integer value : fuchsPlayer.getPlayerSpecial().bounties.values()) {
             bounty += value;
         }
         return bounty;
+    }
+
+    public static boolean inventoryHasItem(Inventory inventory, ItemStack itemStack) {
+        for (ItemStack content : inventory.getContents()) {
+            if(content != null) {
+                List<String> lore = new ArrayList<>();
+                ItemStack n_c = new ItemStack(content);
+                ItemStack n_s = new ItemStack(itemStack);
+                n_c.setLore(lore);
+                n_s.setLore(lore);
+                if (n_c.isSimilar(n_s)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

@@ -1,5 +1,6 @@
 package jaysonjson.papierfuchs.object.item;
 
+import jaysonjson.papierfuchs.object.item.type.ability.CraftingUpgradekitItem;
 import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.FireEs01BlazeRodItem;
 import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.WallBlazeRodItem;
 import jaysonjson.papierfuchs.object.item.type.crafting.*;
@@ -32,6 +33,7 @@ public class ItemList {
     public static IronOreItem IRON_ORE = new IronOreItem("ironOreItem", Material.IRON_ORE, ItemUseType.CRAFTING);
     public static ScrapItem SCRAP = new ScrapItem("scrapItem", Material.NETHERITE_SCRAP, ItemUseType.CURRENCY);
     public static ItemWithTexture DARK_OAK_BOWL = new ItemWithTexture("darkOakBowl", Material.FEATHER, ItemUseType.DECO, "Schüssel", 21, "§8Dunkle Eiche");
+    public static ItemWithTexture OAK_BOWL = new ItemWithTexture("oakBowl", Material.FEATHER, ItemUseType.DECO, "Schüssel", 23, "§8Eiche");
     public static LegendaryChestBook LEGENDARY_CHEST_BOOK = new LegendaryChestBook("legendaryChestBook", Material.WRITTEN_BOOK, ItemUseType.OTHER);
     public static IDCardItem ID_CARD = new IDCardItem("idCard", Material.WRITTEN_BOOK, ItemUseType.OTHER);
 
@@ -53,4 +55,5 @@ public class ItemList {
     public static MagicPowderItem AIR_POWDER = new MagicPowderItem("airMagicPowder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.AIR, 2);
     public static MagicPowderItem LIGHT_POWDER = new MagicPowderItem("lightMagicPowder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.LIGHT, 5);
 
+    public static CraftingUpgradekitItem CRAFTING_UPGRADE_KIT = new CraftingUpgradekitItem("craftingUpgradeKit", Material.FEATHER, ItemUseType.ABILITY);
 }

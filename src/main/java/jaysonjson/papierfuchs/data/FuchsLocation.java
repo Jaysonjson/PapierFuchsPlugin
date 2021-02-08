@@ -12,6 +12,12 @@ public class FuchsLocation {
 
     }
 
+    public FuchsLocation(Location location) {
+        this.x = location.getX();
+        this.y = location.getY();
+        this.z = location.getZ();
+    }
+
     public FuchsLocation(double x, double y, double z) {
         this.x = x;
         this.y = y;

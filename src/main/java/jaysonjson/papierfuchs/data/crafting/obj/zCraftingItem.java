@@ -1,24 +1,24 @@
 package jaysonjson.papierfuchs.data.crafting.obj;
 
-import jaysonjson.papierfuchs.object.item.FuchsItem;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
-
+import java.util.ArrayList;
 
 public class zCraftingItem {
 
-	public String itemID = "";
-	public String lore = "";
+	public String fuchsItem = "";
+	public Material material = Material.AIR;
 	public Integer amount = 0;
-	public HashMap<String, Integer> stats = new HashMap<>();
+	public ArrayList<CraftingItemNBT> nbt = new ArrayList<>();
 	
-	public transient FuchsItem item;
+	public transient ItemStack itemStack;
 	
-	public FuchsItem getItem() {
-		return item;
+	public ItemStack getItem() {
+		return itemStack;
 	}
 	
 	public String getItemID() {
-		return itemID;
+		return fuchsItem;
 	}
 }

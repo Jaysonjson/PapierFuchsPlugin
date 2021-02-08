@@ -30,7 +30,7 @@ public class LegendaryChestBook extends FuchsItem {
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player);
-        oItem.setItem(ChatColor.GOLD + "Das Buch der legendären Kiste Kapitel 1");
+        oItem.setItem(ChatColor.GOLD + "Das Buch der legendären Kiste");
 
         oItem.createNMSCopy();
         oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
@@ -44,7 +44,8 @@ public class LegendaryChestBook extends FuchsItem {
         bookMeta.setTitle("Das Buch der legendären Kiste");
         bookMeta.setAuthor("Jayson & Nick");
         List<String> pages = new ArrayList<>();
-        pages.add("Man besagt, dieses Buch kann Kisten zur Unendlichkeit öffnen");
+        pages.add("Man besagt, dieses Buch kann Kisten zur Unendlichkeit öffnen.");
+        pages.add("Nach dem Eröffnen der Welt, werden alle davor zur unendlichkeit geöffneten Kisten wieder zu sein. Um das zu ändern, benutzt dieses Buch auf einen Goldenen Block");
         bookMeta.setPages(pages);
         return bookMeta;
     }

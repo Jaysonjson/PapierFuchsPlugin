@@ -6,9 +6,12 @@ import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.area.data.zArea;
 import jaysonjson.papierfuchs.data.backpack.data.zBackPack;
 import jaysonjson.papierfuchs.data.crafting.data.zCrafting;
+import jaysonjson.papierfuchs.data.crafting.obj.CraftingItemNBT;
 import jaysonjson.papierfuchs.data.crafting.obj.brewery.objs.zCraftingBreweryLiquidInput;
 import jaysonjson.papierfuchs.data.crafting.obj.brewery.objs.zCraftingBreweryLiquidOutput;
 import jaysonjson.papierfuchs.data.crafting.obj.brewery.zCraftingBrewery;
+import jaysonjson.papierfuchs.data.crafting.obj.general.zCraftingGeneral;
+import jaysonjson.papierfuchs.data.crafting.obj.zCraftingItem;
 import jaysonjson.papierfuchs.data.discord.data.zDiscord;
 import jaysonjson.papierfuchs.data.drop.data.zDrops;
 import jaysonjson.papierfuchs.data.drop.obj.ItemDropChance;
@@ -18,7 +21,11 @@ import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.data.server.data.FuchsServer;
 import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
+import net.minecraft.server.v1_16_R3.NBTTagCompound;
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -233,6 +240,7 @@ public class DataHandler {
 
     public static zCrafting loadCrafting() {
         File brewery = new File(FileHandler.BREWERY_DIR);
+        File general = new File(FileHandler.CRAFTING_GENERAL_DIR);
         zCrafting zCrafting = new zCrafting();
         for (File file : brewery.listFiles()) {
             if(file.getName().toLowerCase().contains("json")) {
@@ -249,7 +257,52 @@ public class DataHandler {
                 zCrafting.breweries.add(zCraftingBrewery);
             }
         }
+
+        for (File file : general.listFiles()) {
+            if(file.getName().toLowerCase().contains("json")) {
+                zCraftingGeneral craftingGeneral = gson.fromJson(readData(file), zCraftingGeneral.class);
+                for (zCraftingItem input : craftingGeneral.inputs) {
+                    createCraftingItemStack(input);
+                }
+                createCraftingItemStack(craftingGeneral.output);
+                zCrafting.generals.add(craftingGeneral);
+            }
+        }
         return zCrafting;
+    }
+
+    private static void createCraftingItemStack(zCraftingItem craftingItem) {
+        ItemStack itemStack = null;
+        if(craftingItem.material != Material.AIR) {
+            itemStack = new ItemStack(craftingItem.material);
+        } else {
+            if(Utility.itemIDExists(craftingItem.getItemID())) {
+                itemStack = Utility.getFuchsItemByID(craftingItem.getItemID()).createItem();
+            } else {
+                System.out.println("[Fuchs {Crafting}] Item mit der ID " + craftingItem.getItemID() + " existiert nicht, überspringen...");
+            }
+        }
+        if(itemStack != null) {
+            net.minecraft.server.v1_16_R3.ItemStack nmsStack = CraftItemStack.asNMSCopy(itemStack);
+            NBTTagCompound tag = Utility.getItemTag(nmsStack);
+            for (CraftingItemNBT craftingItemNBT : craftingItem.nbt) {
+                switch (craftingItemNBT.type) {
+                    case STRING:
+                        tag.setString(craftingItemNBT.key, craftingItemNBT.string_value);
+                    case FLOAT:
+                        tag.setFloat(craftingItemNBT.key, craftingItemNBT.float_value);
+                    case BOOLEAN:
+                        tag.setBoolean(craftingItemNBT.key, craftingItemNBT.bool_value);
+                    case INTEGER:
+                        tag.setInt(craftingItemNBT.key, craftingItemNBT.int_value);
+                    case DOUBLE:
+                        tag.setDouble(craftingItemNBT.key, craftingItemNBT.double_value);
+                }
+            }
+            nmsStack.setTag(tag);
+            itemStack = CraftItemStack.asBukkitCopy(nmsStack);
+            craftingItem.itemStack = itemStack;
+        }
     }
 
     public static void createMobDrop() {
@@ -283,6 +336,31 @@ public class DataHandler {
         String json = gsonBuilder.toJson(craftingBrewery);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.BREWERY_DIR + "test.json"));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.append(json);
+            outputStreamWriter.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void createGeneralCraftingTest() {
+        zCraftingGeneral general = new zCraftingGeneral();
+        zCraftingItem input0 = new zCraftingItem();
+        input0.fuchsItem = ItemList.HOP.getID();
+        input0.nbt.add(new CraftingItemNBT());
+        zCraftingItem input1 = new zCraftingItem();
+        input1.material = Material.GOLDEN_APPLE;
+        general.inputs.add(input0);
+        general.inputs.add(input1);
+        zCraftingItem ouput = new zCraftingItem();
+        ouput.fuchsItem = ItemList.ALCOHOL_TEST.getID();
+        ouput.nbt.add(new CraftingItemNBT());
+        ouput.nbt.add(new CraftingItemNBT());
+        general.output = ouput;
+        String json = gsonBuilder.toJson(general);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.CRAFTING_GENERAL_DIR + "test.json"));
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
             outputStreamWriter.append(json);
             outputStreamWriter.close();

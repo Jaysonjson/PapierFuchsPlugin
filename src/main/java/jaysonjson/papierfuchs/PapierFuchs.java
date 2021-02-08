@@ -11,6 +11,7 @@ import jaysonjson.papierfuchs.data.FileHandler;
 import jaysonjson.papierfuchs.data.area.data.zArea;
 import jaysonjson.papierfuchs.events.ChatEvent;
 import jaysonjson.papierfuchs.events.Smelting;
+import jaysonjson.papierfuchs.events.WorldLoad;
 import jaysonjson.papierfuchs.events.block.BlockBreak;
 import jaysonjson.papierfuchs.events.block.BlockPlace;
 import jaysonjson.papierfuchs.events.entity.EntityDamage;
@@ -38,6 +39,7 @@ public final class PapierFuchs extends JavaPlugin {
     public PapierFuchs() {
         INSTANCE = this;
     }
+    public boolean firstJoin = false;
 
     @Override
     public void onEnable() {
@@ -51,7 +53,9 @@ public final class PapierFuchs extends JavaPlugin {
         FuchsRegistries.register(LiquidList.class);
         FuchsRegistries.sort();
         //DataHandler.createMobDrop();
+        //DataHandler.createGeneralCraftingTest();
         References.reloadDrops();
+        References.reloadCraftings();
         Utility.reloadAreas();
         NPC.loadNPCS();
         DataHandler.createBreweryCrafting();
@@ -74,7 +78,9 @@ public final class PapierFuchs extends JavaPlugin {
                 new ItemPickup(),
                 new ItemDespawn(),
                 new Smelting(),
-                new PlayerSleep()
+                new PlayerSleep(),
+                new WorldLoad(),
+                new PlayerInteractEntity()
         );
 
         registerCommands(
@@ -92,7 +98,9 @@ public final class PapierFuchs extends JavaPlugin {
                 new SpigotCommand("discordlink", new DiscordLinkCommand()),
                 new SpigotCommand("itemids", new ItemIDCommand()),
                 new SpigotCommand("classlist", new ClassListCommand()),
-                new SpigotCommand("fuchs", new FuchsCommand())
+                new SpigotCommand("fuchs", new FuchsCommand()),
+                new SpigotCommand("general_crafting", new CraftingInventoryCommand()),
+                new SpigotCommand("armorstandmetadata", new ArmorStandMetadata())
         );
     }
 

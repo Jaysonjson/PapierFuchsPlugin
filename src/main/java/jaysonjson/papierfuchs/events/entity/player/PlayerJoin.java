@@ -1,5 +1,6 @@
 package jaysonjson.papierfuchs.events.entity.player;
 
+import jaysonjson.papierfuchs.PapierFuchs;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.inventories.classes.StarterClassInventory;
@@ -26,6 +27,12 @@ public class PlayerJoin implements Listener {
             classInventory.openInventory(event.getPlayer());
         }
         Utility.updateInventory(player);
+        if(!PapierFuchs.INSTANCE.firstJoin) {
+            PapierFuchs.INSTANCE.firstJoin = true;
+            //Utility.openOpenedChests(player.getWorld());
+            Utility.setEntityMetadatas(player.getWorld());
+            Utility.setBlockMetadatas(player.getWorld());
+        }
         //AreaInventory areaInventory = new AreaInventory();
         //areaInventory.openInventory(player, Utility.getNearestArea(World.Environment.NORMAL, player.getLocation()).name);
         //GuildChunkInventory inventory = new GuildChunkInventory();

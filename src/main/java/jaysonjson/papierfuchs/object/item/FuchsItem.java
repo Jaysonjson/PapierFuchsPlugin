@@ -8,10 +8,11 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, IFuchsItem, IFuchsItemAlchemy, IFuchsItemTexture, IItemUseType, IFuchsItemAbility, IFuchsItemEntityInteraction {
+public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, IFuchsItem, IFuchsItemAlchemy, IFuchsItemTexture, IItemUseType, IFuchsItemAbility, IFuchsItemEntityInteraction, IFuchsItemBlockInteraction {
 
     String id;
     Material material;
@@ -120,6 +121,11 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
 
     @Override
     public void onEntityInteract(PlayerInteractEntityEvent event) {
+
+    }
+
+    @Override
+    public void onBlockInteract(PlayerInteractEvent event) {
 
     }
 }
