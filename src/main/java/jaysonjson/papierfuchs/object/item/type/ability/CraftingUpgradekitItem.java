@@ -14,9 +14,11 @@ import jaysonjson.papierfuchs.object.item.ItemNBT;
 import jaysonjson.papierfuchs.object.item.interfaces.IItemUseType;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -31,8 +33,10 @@ public class CraftingUpgradekitItem extends FuchsItem {
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player);
-        oItem.setItem(ChatColor.GOLD + "Herstellungs Upgrade Kit");
         oItem.lore.add("Ändert einen Block zu einer Fuchs-Werkbank");
+        oItem.lore.add("Item wird konsumiert,");
+        oItem.lore.add("droppt aber wenn der Block wieder zerstört wird");
+        oItem.setItem(ChatColor.GOLD + "Herstellungs Upgrade Kit");
         oItem.createNMSCopy();
         oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
         oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
@@ -50,15 +54,29 @@ public class CraftingUpgradekitItem extends FuchsItem {
     public void onBlockInteract(PlayerInteractEvent event) {
         Block block = event.getClickedBlock();
         block.setMetadata(BlockMetaData.GENERAL_CRAFTING_BLOCK, new FixedMetadataValue(PapierFuchs.INSTANCE, "s"));
+        block.setMetadata(BlockMetaData.CONTAINED_ITEM, new FixedMetadataValue(PapierFuchs.INSTANCE, getID()));
+        Location location = block.getLocation();
+        location.add(0.5, 0, 0.5);
+        location.subtract(0, 0.5, 0);
+        ArmorStand armorStand = block.getWorld().spawn(location, ArmorStand.class);
+        armorStand.setCustomName("Crafting");
+        armorStand.setInvisible(true);
+        armorStand.setCustomNameVisible(true);
+        armorStand.setMetadata(EntityMetaData.HIT_ABLE, new FixedMetadataValue(PapierFuchs.INSTANCE, true));
+        block.setMetadata(BlockMetaData.ARMOR_STAND_UUID, new FixedMetadataValue(PapierFuchs.INSTANCE, armorStand.getUniqueId().toString()));
         FuchsServer fuchsServer = DataHandler.loadServer();
-        fuchsServer.BLOCK_METADATA.add(new BlockMetadataSetter(new FuchsLocation(block.getLocation()), block.getType(), BlockMetaData.GENERAL_CRAFTING_BLOCK, "s"));
+        FuchsLocation fuchsLocation = new FuchsLocation(block.getLocation());
+        fuchsServer.BLOCK_METADATA.add(new BlockMetadataSetter(fuchsLocation, block.getType(), BlockMetaData.GENERAL_CRAFTING_BLOCK, "s"));
+        fuchsServer.BLOCK_METADATA.add(new BlockMetadataSetter(fuchsLocation, block.getType(), BlockMetaData.CONTAINED_ITEM, getID()));
+        fuchsServer.BLOCK_METADATA.add(new BlockMetadataSetter(fuchsLocation, block.getType(), BlockMetaData.ARMOR_STAND_UUID, armorStand.getUniqueId().toString()));
+        fuchsServer.ENTITY_METADATA.add(new EntityMetadataSetter(armorStand.getUniqueId(), EntityMetaData.HIT_ABLE, true));
         DataHandler.saveServer(fuchsServer);
         event.getItem().setAmount(event.getItem().getAmount() - 1);
     }
 
     @Override
     public int getCustomModelData() {
-        return 1;
+        return 24;
     }
 
 }

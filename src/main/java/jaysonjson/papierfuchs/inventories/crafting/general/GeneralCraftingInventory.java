@@ -112,7 +112,7 @@ public class GeneralCraftingInventory implements Listener {
     }
 
     public void openInventory(Player player, int page) {
-        inventory = Bukkit.createInventory(player, 54, "Items");
+        inventory = Bukkit.createInventory(player, 54, "Crafting");
         currentPage = page;
         createPage(player, inventory, page);
     }

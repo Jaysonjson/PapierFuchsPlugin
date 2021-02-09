@@ -1,8 +1,11 @@
 package jaysonjson.papierfuchs.events.entity;
 
 import jaysonjson.papierfuchs.References;
+import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.drop.obj.ItemDropChance;
 import jaysonjson.papierfuchs.data.drop.obj.zMobDrop;
+import jaysonjson.papierfuchs.data.server.data.EntityMetadataSetter;
+import jaysonjson.papierfuchs.data.server.data.FuchsServer;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +22,9 @@ public class EntityDeath implements Listener {
     public void entityDeathEvent(EntityDeathEvent event) {
         Random random = new Random();
         EntityType type = event.getEntityType();
+        FuchsServer fuchsServer = DataHandler.loadServer();
+        fuchsServer.ENTITY_METADATA.removeIf(entity_metadatum -> entity_metadatum.uuid.equals(event.getEntity().getUniqueId()));
+        DataHandler.saveServer(fuchsServer);
         for (zMobDrop mobDrop : References.drops.getMobDrops()) {
             if (type.equals(mobDrop.type)) {
                 /*for (FuchsItem FuchsItem : mobDrop.itemDrops.keySet()) {

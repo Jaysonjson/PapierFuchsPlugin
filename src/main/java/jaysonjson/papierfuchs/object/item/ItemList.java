@@ -5,6 +5,8 @@ import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.FireEs01Blaz
 import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.WallBlazeRodItem;
 import jaysonjson.papierfuchs.object.item.type.crafting.*;
 import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperIngotItem;
+import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperPipeItem;
+import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperRodItem;
 import jaysonjson.papierfuchs.object.item.type.currency.GoldBarItem;
 import jaysonjson.papierfuchs.object.item.type.currency.GoldNuggetItem;
 import jaysonjson.papierfuchs.object.item.type.currency.HackSilverItem;
@@ -56,4 +58,7 @@ public class ItemList {
     public static MagicPowderItem LIGHT_POWDER = new MagicPowderItem("lightMagicPowder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.LIGHT, 5);
 
     public static CraftingUpgradekitItem CRAFTING_UPGRADE_KIT = new CraftingUpgradekitItem("craftingUpgradeKit", Material.FEATHER, ItemUseType.ABILITY);
+
+    public static CopperPipeItem COPPER_PIPE = new CopperPipeItem("copperPipeItem", Material.FEATHER, ItemUseType.CRAFTING);
+    public static CopperRodItem COPPER_ROD = new CopperRodItem("copperRodItem", Material.FEATHER, ItemUseType.CRAFTING);
 }

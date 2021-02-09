@@ -4,9 +4,11 @@ import jaysonjson.papierfuchs.Constant;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
+import jaysonjson.papierfuchs.object.EntityMetaData;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,12 +19,19 @@ import org.bukkit.inventory.ItemStack;
 public class EntityDamage implements Listener {
     @EventHandler
     public void entityDamageEvent(EntityDamageByEntityEvent event) {
+        Entity entity = event.getEntity();
+        if(entity.hasMetadata(EntityMetaData.HIT_ABLE)) {
+            boolean hitAble = entity.getMetadata(EntityMetaData.HIT_ABLE).get(0).asBoolean();
+            if(!hitAble) {
+                event.setCancelled(true);
+            }
+        }
         if(event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
             FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
             event.setDamage(event.getDamage() + (fuchsPlayer.getStats().getStrength() * Constant.DAMAGE_MODIFIER));
             if(event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
-                ItemStack itemStack = ((Player) event.getDamager()).getItemInHand();
+               /* ItemStack itemStack = ((Player) event.getDamager()).getItemInHand();
                 net.minecraft.server.v1_16_R3.ItemStack nmsCopy = Utility.createNMSCopy(itemStack);
                 NBTTagCompound tag = Utility.getItemTag(nmsCopy);
                 if(tag.hasKey(ItemNBT.ITEM_DURABILITY)) {
@@ -30,6 +39,7 @@ public class EntityDamage implements Listener {
                     nmsCopy.setTag(tag);
                     ((Player) event.getDamager()).setItemInHand(CraftItemStack.asBukkitCopy(nmsCopy));
                 }
+                */
             }
         }
     }

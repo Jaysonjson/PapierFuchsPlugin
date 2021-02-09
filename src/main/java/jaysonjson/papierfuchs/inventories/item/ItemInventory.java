@@ -40,10 +40,10 @@ public class ItemInventory implements Listener {
         int page_check = stacks.size();
         for (ItemStack item : stacks) {
             page_index++;
-            if (page_index < 46) {
+            if (page_index <= 46) {
                 page_content.add(item);
             }
-            if (page_index >= 46 || page_index.equals(stacks.size()) || page_index.equals(page_check)) {
+            if (page_index >= 45 || page_index.equals(stacks.size()) || page_index.equals(page_check)) {
                 page++;
                 page_check -= 46;
                 InventoryPage<ArrayList<ItemStack>> pageInv = new InventoryPage<>(page_content, page);

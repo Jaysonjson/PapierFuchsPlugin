@@ -4,6 +4,7 @@ import jaysonjson.papierfuchs.data.FuchsLocation;
 import jaysonjson.papierfuchs.data.server.obj.FuchsNPC;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class FuchsServer {
 
@@ -11,6 +12,7 @@ public class FuchsServer {
     public ArrayList<FuchsLocation> OPEN_CHESTS = new ArrayList<>();
     public ArrayList<EntityMetadataSetter> ENTITY_METADATA = new ArrayList<>();
     public ArrayList<BlockMetadataSetter> BLOCK_METADATA = new ArrayList<>();
+    //public ArrayList<UUID> BLOCK_ARMORSTANDS = new ArrayList<>();
     public ArrayList<FuchsNPC> getFuchsNPC() {
 		return fuchsNPC;
 	}

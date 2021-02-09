@@ -37,20 +37,27 @@ public class ItemUse implements Listener {
             }*/
             if (event.getItem().getType() != Material.AIR) {
                 FuchsItem fuchsItem = Utility.getFuchsItemFromNMS(itemStack);
-                if (Utility.isAbilityItemAll(event.getPlayer(), itemStack)) {
-                    if (fuchsItem != null && fuchsItem.isAbilityItem()) {
-                        //FuchsItem.ability(event.getPlayer().getWorld(), event.getPlayer(), event.getItem());
-                        fuchsItem.ability(event);
+                if(fuchsItem != null) {
+                    if (Utility.isAbilityItemAll(event.getPlayer(), itemStack)) {
+                        if (fuchsItem.isAbilityItem()) {
+                            //FuchsItem.ability(event.getPlayer().getWorld(), event.getPlayer(), event.getItem());
+                            fuchsItem.ability(event);
+                        }
                     }
-                }
-                if (block != null) {
-                    if (block.getType() != Material.AIR) {
-                        if (fuchsItem != null) {
+
+                    switch (event.getAction()) {
+                        case RIGHT_CLICK_BLOCK: fuchsItem.onItemRightClickBlock(); break;
+                        case LEFT_CLICK_BLOCK: fuchsItem.onItemLeftClickBlock(); break;
+                        case LEFT_CLICK_AIR: fuchsItem.onItemLeftClickAir(); break;
+                        case RIGHT_CLICK_AIR: fuchsItem.onItemRightClickAir(); break;
+                    }
+
+                    if (block != null) {
+                        if (block.getType() != Material.AIR) {
                             fuchsItem.onBlockInteract(event);
                         }
                     }
                 }
-
             }
         }
     }

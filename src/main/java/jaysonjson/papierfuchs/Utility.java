@@ -28,7 +28,6 @@ import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.output.ByteArrayOutputStream;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
