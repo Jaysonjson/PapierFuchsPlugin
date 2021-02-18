@@ -41,9 +41,6 @@ public class GoldBarItem extends FuchsItem {
 
         oItem.lore.add(ChatColor.GRAY + "" + currencyValue + "Φ");
         oItem.setItem(ChatColor.GOLD + "Gold Barren");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

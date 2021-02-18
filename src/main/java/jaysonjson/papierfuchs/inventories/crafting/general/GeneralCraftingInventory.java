@@ -7,9 +7,11 @@ import jaysonjson.papierfuchs.data.crafting.obj.general.zCraftingGeneral;
 import jaysonjson.papierfuchs.data.crafting.obj.zCraftingItem;
 import jaysonjson.papierfuchs.other.InventoryPage;
 import jaysonjson.papierfuchs.other.InventoryPageContainer;
+import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class GeneralCraftingInventory implements Listener {
@@ -31,8 +34,10 @@ public class GeneralCraftingInventory implements Listener {
     public GeneralCraftingInventory() {
         Bukkit.getPluginManager().registerEvents(this, PapierFuchs.INSTANCE);
     }
-
+    public HashMap<Integer, Boolean> can_craft = new HashMap<>();
+    public HashMap<Integer, zCraftingGeneral> added_recipes = new HashMap<>();
     public void createPageData(Player player) {
+        pageContainer.pages.clear();
         Integer page_index = 0;
         Integer page = 0;
         ArrayList<ItemStack> page_content = new ArrayList<>();
@@ -57,7 +62,7 @@ public class GeneralCraftingInventory implements Listener {
 
     public ArrayList<ItemStack> getStacks(Player player) {
         ArrayList<ItemStack> itemStacks = new ArrayList<>();
-
+        int id = 0;
         for (zCraftingGeneral general : References.craftings.generals) {
             ItemStack itemStack = new ItemStack(general.output.itemStack);
             ItemMeta itemMeta = itemStack.getItemMeta();
@@ -66,6 +71,7 @@ public class GeneralCraftingInventory implements Listener {
                 defaultLore = new ArrayList<>();
             }
             defaultLore.add("~Crafting~");
+            int input_amount = 0;
             for (zCraftingItem input : general.inputs) {
                 String color = ChatColor.RED.toString();
                 String itemName = input.getItem().getI18NDisplayName();
@@ -74,14 +80,26 @@ public class GeneralCraftingInventory implements Listener {
                 }
                 if(Utility.inventoryHasItem(player.getInventory(), input.getItem())) {
                     color = ChatColor.GREEN.toString();
+                    input_amount++;
                 }
                 defaultLore.add(color + itemName + " - " + input.amount);
             }
             itemMeta.setLore(defaultLore);
             itemStack.setItemMeta(itemMeta);
             itemStack.setAmount(general.output.amount);
+            net.minecraft.server.v1_16_R3.ItemStack nmsCopy = Utility.createNMSCopy(itemStack);
+            NBTTagCompound tag = Utility.getItemTag(nmsCopy);
+            tag.setInt("id", id);
+            nmsCopy.setTag(tag);
+            itemStack = CraftItemStack.asBukkitCopy(nmsCopy);
             itemStacks.add(itemStack);
-
+            if(input_amount >= general.inputs.size()) {
+                can_craft.put(id, true);
+            } else {
+                can_craft.put(id, false);
+            }
+            added_recipes.put(id, general);
+            id++;
         }
         return itemStacks;
     }
@@ -93,9 +111,17 @@ public class GeneralCraftingInventory implements Listener {
             ItemStack clickedItem = event.getCurrentItem();
             if (clickedItem != null) {
                 if (clickedItem.hasItemMeta()) {
-                    //net.minecraft.server.v1_16_R3.ItemStack nmsCopy = Utility.createNMSCopy(clickedItem);
-                    //NBTTagCompound tag = Utility.getItemTag(nmsCopy);
-                    event.getView().setCursor(clickedItem);
+                    NBTTagCompound tag = Utility.getItemTag(clickedItem);
+                    if(tag.hasKey("id")) {
+                        System.out.println("Click0");
+                        if(can_craft.get(tag.getInt("id"))) {
+                            for (zCraftingItem input : added_recipes.get(tag.getInt("id")).inputs) {
+                                Utility.removeItemsFromInventory(event.getWhoClicked().getInventory(), input.getItem(), input.amount);
+                                System.out.println("Click1");
+                            }
+                            event.getView().setCursor(clickedItem);
+                        }
+                    }
                     if (clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase("Nächste Seite")) {
                         if (currentPage + 1 < pageContainer.size()) {
                             openInventory((Player) event.getWhoClicked(), currentPage + 1);

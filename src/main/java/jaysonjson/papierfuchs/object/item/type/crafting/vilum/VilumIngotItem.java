@@ -22,9 +22,6 @@ public class VilumIngotItem extends FuchsItem {
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player, stack);
         oItem.setItem(ChatColor.LIGHT_PURPLE + "Vilum");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

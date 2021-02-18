@@ -31,10 +31,6 @@ public class LegendaryChestBook extends FuchsItem {
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player);
         oItem.setItem(ChatColor.GOLD + "Das Buch der legendären Kiste");
-
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         oItem.item.setItemMeta(createBookTag(oItem.item));
         return oItem.item;
     }

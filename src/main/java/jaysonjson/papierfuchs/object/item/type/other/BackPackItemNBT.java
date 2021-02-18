@@ -31,9 +31,6 @@ public class BackPackItemNBT extends FuchsItem {
         fuchsItemData = new FuchsItemData(this, player, stack);
         fuchsItemData.lore.add(inventorySize + " Slots");
         fuchsItemData.setItem(ChatColor.RESET + "NBT Rucksack");
-        fuchsItemData.createNMSCopy();
-        fuchsItemData.nmsCopy.setTag(getTag(fuchsItemData.getTagCompound()));
-        fuchsItemData.item = CraftItemStack.asBukkitCopy(fuchsItemData.nmsCopy);
         return fuchsItemData.item;
     }
 

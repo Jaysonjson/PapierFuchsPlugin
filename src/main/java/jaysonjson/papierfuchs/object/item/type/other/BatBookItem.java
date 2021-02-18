@@ -1,7 +1,5 @@
 package jaysonjson.papierfuchs.object.item.type.other;
 
-import jaysonjson.papierfuchs.data.DataHandler;
-import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
@@ -9,22 +7,23 @@ import jaysonjson.papierfuchs.object.item.interfaces.IItemUseType;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class AlcoholTestItem extends FuchsItem {
+public class BatBookItem extends FuchsItem {
 
-    public AlcoholTestItem(String id, Material material, IItemUseType itemUseType) {
+    public BatBookItem(String id, Material material, IItemUseType itemUseType) {
         super(id, material, itemUseType);
     }
 
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player);
-
-        oItem.setItem(ChatColor.GRAY + "Alkohol Tester");
+        oItem.addToLore("Killt Fledermäuse in einen bestimmten Radius");
+        oItem.setItem(ChatColor.GRAY + "Fledermaus Buch");
         return oItem.item;
     }
 
@@ -36,11 +35,14 @@ public class AlcoholTestItem extends FuchsItem {
     }
 
     @Override
-    public void onEntityInteract(PlayerInteractEntityEvent event) {
-        if(event.getRightClicked() instanceof Player) {
-            Player clickedPlayer = (Player) event.getRightClicked();
-            FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(clickedPlayer.getUniqueId());
-            event.getPlayer().sendMessage(fuchsPlayer.getPlayerSpecial().getAlcohol() + "");
+    public void onItemUse(PlayerInteractEvent event) {
+        int bats_killed = 0;
+        for (Entity nearbyEntity : event.getPlayer().getNearbyEntities(15, 15, 15)) {
+            if(nearbyEntity.getType() == EntityType.BAT) {
+                nearbyEntity.remove();
+                bats_killed++;
+            }
         }
+        event.getPlayer().sendMessage("Es wurden " + bats_killed + " Fledermäuse gekillt!");
     }
 }

@@ -22,12 +22,7 @@ public class CopperSwordItem extends FuchsItem {
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player, stack);
         oItem.lore.add(ChatColor.GRAY + "Ein Schwert aus Kupfer");
-        oItem.addDamageLore();
-        oItem.addDurabilityLore();
         oItem.setItem(ChatColor.GOLD + "Kupfer Schwert");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

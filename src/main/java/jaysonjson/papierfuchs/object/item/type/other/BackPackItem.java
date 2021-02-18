@@ -37,9 +37,6 @@ public class BackPackItem extends FuchsItem {
         fuchsItemData.lore.add(inventorySize + " Slots");
         fuchsItemData.lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + fuchsItemData.uuid + "«");
         fuchsItemData.setItem(ChatColor.RESET + "Rucksack");
-        fuchsItemData.createNMSCopy();
-        fuchsItemData.nmsCopy.setTag(getTag(fuchsItemData.getTagCompound()));
-        fuchsItemData.item = CraftItemStack.asBukkitCopy(fuchsItemData.nmsCopy);
         return fuchsItemData.item;
     }
 

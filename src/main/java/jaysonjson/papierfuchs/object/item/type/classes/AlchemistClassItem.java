@@ -23,10 +23,6 @@ public class AlchemistClassItem extends FuchsItem {
         FuchsItemData oItem = new FuchsItemData(this, player);
 
         oItem.setItem(ChatColor.DARK_RED + "Alchemist");
-
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

@@ -28,10 +28,6 @@ public class ItemWithTexture extends FuchsItem {
 
         oItem.lore.add(lore);
         oItem.setItem(displayName);
-
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

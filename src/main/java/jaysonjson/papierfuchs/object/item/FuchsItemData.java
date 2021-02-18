@@ -119,6 +119,12 @@ public class FuchsItemData {
     }
     //@Deprecated
     public void setItem(String displayName) {
+        if(fuchsItem.getToolDamage() > 0) {
+            addDamageLore();
+        }
+        if(fuchsItem.getMaxDurability() > 0) {
+            addDurabilityLore();
+        }
         preTag = Utility.getItemTag(item);
         try {
             if(!fuchsItem.getItemUse().getLoreText().equalsIgnoreCase("")) {
@@ -189,14 +195,16 @@ public class FuchsItemData {
             itemMeta.setDisplayName(displayName);
             item.setItemMeta(itemMeta);
             //nmsCopy = createNMSCopy();
-
+            createNMSCopy();
+            nmsCopy.setTag(fuchsItem.getTag(getTagCompound()));
+            item = CraftItemStack.asBukkitCopy(nmsCopy);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Fehler beim Item: " + fuchsItem.getID());
         }
     }
 
-    public net.minecraft.server.v1_16_R3.ItemStack createNMSCopy() {
+    private net.minecraft.server.v1_16_R3.ItemStack createNMSCopy() {
         nmsCopy = CraftItemStack.asNMSCopy(item);
         return nmsCopy;
     }
@@ -211,5 +219,9 @@ public class FuchsItemData {
         tag.setString(ItemNBT.ITEM_ID, id);
         tag.setDouble(ItemNBT.ITEM_VERSION, fuchsItem.itemVersion());
         return tag;
+    }
+
+    public void addToLore(String lore) {
+        this.lore.add(lore);
     }
 }

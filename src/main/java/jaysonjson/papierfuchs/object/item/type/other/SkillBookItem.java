@@ -28,14 +28,9 @@ public class SkillBookItem extends FuchsItem {
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player);
         oItem.setItem(ChatColor.RESET + "Skillbuch");
-
         if(player != null) {
             createBookTag(player, oItem.item);
         }
-
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

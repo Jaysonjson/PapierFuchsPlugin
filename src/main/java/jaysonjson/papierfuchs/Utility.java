@@ -888,7 +888,7 @@ public class Utility {
                 ItemStack n_s = new ItemStack(itemStack);
                 n_c.setLore(lore);
                 n_s.setLore(lore);
-                if (n_c.isSimilar(n_s) && itemStack.getAmount() <= content.getAmount()) {
+                if (n_c.isSimilar(n_s) && itemStack.getAmount() <= countItemInInventory(inventory, itemStack)) {
                     return true;
                 }
             }
@@ -896,6 +896,42 @@ public class Utility {
         return false;
     }
 
+    public static int countItemInInventory(Inventory inventory, ItemStack itemStack) {
+        int amount = 0;
+        for (ItemStack content : inventory.getContents()) {
+            if(content != null) {
+                List<String> lore = new ArrayList<>();
+                ItemStack n_c = new ItemStack(content);
+                ItemStack n_s = new ItemStack(itemStack);
+                n_c.setLore(lore);
+                n_s.setLore(lore);
+                if (n_c.isSimilar(n_s)) {
+                    amount += content.getAmount();
+                }
+            }
+        }
+        return amount;
+    }
+
+    public static void removeItemsFromInventory(Inventory inventory, ItemStack itemStack, int amount) {
+        for (ItemStack content : inventory.getContents()) {
+            if(content != null) {
+                List<String> lore = new ArrayList<>();
+                ItemStack n_c = new ItemStack(content);
+                ItemStack n_s = new ItemStack(itemStack);
+                n_c.setLore(lore);
+                n_s.setLore(lore);
+                if (n_c.isSimilar(n_s)) {
+                    if(content.getAmount() >= amount) {
+                        content.setAmount(content.getAmount() - amount);
+                    } else {
+                        amount -= content.getAmount();
+                        content.setAmount(0);
+                    }
+                }
+            }
+        }
+    }
 
     public static boolean defaultAlcoholDrinkAction(World world, Player player, ItemStack itemStack, float alcoholMinus) {
         FuchsMCItem fuchsItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(itemStack), itemStack);
@@ -926,16 +962,23 @@ public class Utility {
         return false;
     }
 
-    public static ItemStack damageFuchsItem(FuchsItem fuchsItem, ItemStack itemStack) {
+    public static ItemStack damageFuchsItem(Player player, FuchsItem fuchsItem, ItemStack itemStack) {
         FuchsMCItem fuchsMCItem = new FuchsMCItem(fuchsItem, itemStack);
         if(fuchsMCItem.getTagFromOriginal().hasKey(ItemNBT.ITEM_DURABILITY)) {
             fuchsMCItem.changeIntTag(ItemNBT.ITEM_DURABILITY, fuchsMCItem.getIntFromTag(ItemNBT.ITEM_DURABILITY) - 1);
-            ItemStack newItem = new ItemStack(Material.AIR);
-            if(fuchsMCItem.getIntFromTag(ItemNBT.ITEM_DURABILITY) > 0) {
-                newItem = fuchsMCItem.getItemStack();
+            ItemStack newItem = fuchsMCItem.getItemStack();
+            if(fuchsMCItem.getIntFromTag(ItemNBT.ITEM_DURABILITY) < 1) {
+                newItem = new ItemStack(Material.AIR);
+                if(player != null) {
+                    player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1f, 1f);
+                }
             }
             return newItem;
         }
         return itemStack;
+    }
+
+    public static ItemStack damageFuchsItem(FuchsItem fuchsItem, ItemStack itemStack) {
+        return damageFuchsItem(null, fuchsItem, itemStack);
     }
 }

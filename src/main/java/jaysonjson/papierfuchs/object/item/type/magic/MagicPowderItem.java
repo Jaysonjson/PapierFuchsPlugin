@@ -27,9 +27,6 @@ public class MagicPowderItem extends FuchsItem {
 
         oItem.lore.add(ChatColor.RESET + "" + ChatColor.GRAY + "Verstärkt das Zauber-Attribut von " + magicType.getColor() + magicType.getName() + ChatColor.GRAY + " Gegenständen");
         oItem.setItem(magicType.getColor() + magicType.getName() + ChatColor.RESET + "-Zauber Staub");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

@@ -42,9 +42,6 @@ public class SilverIngotItem extends FuchsItem {
 
         oItem.lore.add(ChatColor.GRAY + "" + amount + "g");
         oItem.setItem(ChatColor.GRAY + "Silber");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

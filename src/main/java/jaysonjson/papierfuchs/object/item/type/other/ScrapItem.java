@@ -40,9 +40,6 @@ public class ScrapItem extends FuchsItem {
 
         oItem.lore.add(ChatColor.GRAY + "" + currencyValue + "Φ");
         oItem.setItem(ChatColor.RESET + "Schrott");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

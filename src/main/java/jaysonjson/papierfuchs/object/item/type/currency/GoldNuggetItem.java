@@ -41,9 +41,6 @@ public class GoldNuggetItem extends FuchsItem {
 
         oItem.lore.add(ChatColor.GRAY + "" + currencyValue + "Φ");
         oItem.setItem("\u00a76Goldklumpen");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

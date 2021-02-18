@@ -7,7 +7,6 @@ import jaysonjson.papierfuchs.object.item.interfaces.IItemUseType;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -22,12 +21,7 @@ public class VilumSwordItem extends FuchsItem {
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player, stack);
         oItem.lore.add(ChatColor.GRAY + "Ein Schwert aus Vilum");
-        oItem.addDamageLore();
-        oItem.addDurabilityLore();
         oItem.setItem(ChatColor.LIGHT_PURPLE + "Vilum Schwert");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

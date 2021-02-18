@@ -33,9 +33,6 @@ public class LiquidContainerItem extends FuchsItem {
         fuchsItemData.lore.add(fuchsItemData.liquid_amount + "ml");
         fuchsItemData.lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + fuchsItemData.contained_liquid + "«");
         fuchsItemData.setItem(ChatColor.RESET + "Flüssigkeitsbehälter");
-        fuchsItemData.createNMSCopy();
-        fuchsItemData.nmsCopy.setTag(getTag(fuchsItemData.getTagCompound()));
-        fuchsItemData.item = CraftItemStack.asBukkitCopy(fuchsItemData.nmsCopy);
         return fuchsItemData.item;
     }
 

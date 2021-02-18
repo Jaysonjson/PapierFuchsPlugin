@@ -24,10 +24,6 @@ public class TravelerClassItem extends FuchsItem {
         FuchsItemData oItem = new FuchsItemData(this, player);
         oItem.itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
         oItem.setItem(ChatColor.YELLOW + "Wanderer");
-
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

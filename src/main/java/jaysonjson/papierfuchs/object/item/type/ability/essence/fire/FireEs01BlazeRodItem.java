@@ -29,10 +29,6 @@ public class FireEs01BlazeRodItem extends FuchsItem {
         FuchsItemData oItem = new FuchsItemData(this, player);
         oItem.lore.add(ChatColor.GRAY + "Platziert zufällig Feuer in der Nähe");
         oItem.setItem(ChatColor.RED + "Feuer Es01");
-
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

@@ -32,9 +32,6 @@ public class GasContainerItem extends FuchsItem {
         fuchsItemData.lore.add(fuchsItemData.gas_amount + "ml");
         fuchsItemData.lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + fuchsItemData.contained_gas + "«");
         fuchsItemData.setItem(ChatColor.RESET + "Gasbehälter");
-        fuchsItemData.createNMSCopy();
-        fuchsItemData.nmsCopy.setTag(getTag(fuchsItemData.getTagCompound()));
-        fuchsItemData.item = CraftItemStack.asBukkitCopy(fuchsItemData.nmsCopy);
         return fuchsItemData.item;
     }
 

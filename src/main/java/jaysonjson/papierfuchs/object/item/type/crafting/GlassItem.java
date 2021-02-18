@@ -23,10 +23,6 @@ public class GlassItem extends FuchsItem {
         FuchsItemData oItem = new FuchsItemData(this, player);
 
         oItem.setItem(ChatColor.GRAY + "Glass");
-
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

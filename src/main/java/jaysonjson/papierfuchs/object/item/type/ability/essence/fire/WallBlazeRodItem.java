@@ -28,10 +28,6 @@ public class WallBlazeRodItem extends FuchsItem {
         FuchsItemData oItem = new FuchsItemData(this, player);
         oItem.lore.add(ChatColor.GRAY + "Macht eine diagonale Wand aus Feuer");
         oItem.setItem(ChatColor.RED + "Feuer Es05");
-
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

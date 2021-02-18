@@ -46,9 +46,6 @@ public class WaterItem extends FuchsItem {
         oItem.lore.add(ChatColor.GRAY + "" + amount + "ml");
         oItem.itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         oItem.setItem(ChatColor.AQUA + "Wasser");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

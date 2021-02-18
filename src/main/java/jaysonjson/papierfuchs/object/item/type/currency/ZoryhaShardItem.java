@@ -41,9 +41,6 @@ public class ZoryhaShardItem extends FuchsItem {
 
         oItem.lore.add(ChatColor.GRAY + "" + currencyValue + "¢");
         oItem.setItem(ChatColor.AQUA + "Zoryha Bruckstück");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

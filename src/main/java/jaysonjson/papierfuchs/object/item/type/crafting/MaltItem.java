@@ -23,10 +23,6 @@ public class MaltItem extends FuchsItem {
         FuchsItemData oItem = new FuchsItemData(this, player);
 
         oItem.setItem(ChatColor.YELLOW + "Malz");
-
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

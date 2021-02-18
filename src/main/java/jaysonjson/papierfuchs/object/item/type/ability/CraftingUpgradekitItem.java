@@ -37,9 +37,6 @@ public class CraftingUpgradekitItem extends FuchsItem {
         oItem.lore.add("Item wird konsumiert,");
         oItem.lore.add("droppt aber wenn der Block wieder zerstört wird");
         oItem.setItem(ChatColor.GOLD + "Herstellungs Upgrade Kit");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

@@ -25,10 +25,6 @@ public class CopperRodItem extends FuchsItem {
 
         oItem.lore.add(ChatColor.GRAY + "Eine Stange aus Kupfer");
         oItem.setItem(ChatColor.GOLD + "Kupfer Stange");
-
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

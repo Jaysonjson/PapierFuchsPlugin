@@ -75,4 +75,7 @@ public class ItemList {
     public static BackPackItemNBT BACKPACK_45_NBT = new BackPackItemNBT("backPackItem45", Material.FEATHER, ItemUseType.ABILITY, 45);
     public static BackPackItemNBT BACKPACK_54_NBT = new BackPackItemNBT("backPackItem54", Material.FEATHER, ItemUseType.ABILITY, 54);
 
+    public static TestSwordItem TEST_SWORD = new TestSwordItem("testSword", Material.FEATHER, ItemUseType.TOOL);
+
+    public static BatBookItem BAT_BOOK = new BatBookItem("batBook", Material.FEATHER, ItemUseType.ABILITY);
 }

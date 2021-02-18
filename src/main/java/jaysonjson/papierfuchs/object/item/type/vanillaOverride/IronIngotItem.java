@@ -45,9 +45,6 @@ public class IronIngotItem extends FuchsItem {
         oItem.lore.add(ChatColor.GRAY + "" + amount + "g");
         oItem.itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         oItem.setItem(ChatColor.GRAY + "Eisen");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         return oItem.item;
     }
 

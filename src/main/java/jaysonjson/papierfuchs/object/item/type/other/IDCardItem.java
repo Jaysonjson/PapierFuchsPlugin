@@ -27,16 +27,11 @@ public class IDCardItem extends FuchsItem {
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player);
-
         if(player != null) {
             oItem.setItem(ChatColor.RESET + "Ausweis von " + ChatColor.AQUA + "" + player.getDisplayName());
         } else {
             oItem.setItem(ChatColor.RESET + "Ausweis");
         }
-
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
         if(player != null) {
             oItem.item.setItemMeta(createBookTag(player, oItem.item));
         }
