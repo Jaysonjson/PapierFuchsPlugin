@@ -13,6 +13,7 @@ public class PlayerDeath implements Listener {
         //Player player = event.getEntity();
         FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(event.getEntity().getUniqueId());
         fuchsPlayer.getHealth().health -= 2;
+        fuchsPlayer.getPlayerSpecial().resetAlcohol();
         DataHandler.savePlayer(fuchsPlayer);
         //Utility.RefreshHearts(event.getEntity(), player);
     }

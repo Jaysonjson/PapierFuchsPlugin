@@ -16,46 +16,26 @@ import net.minecraft.server.v1_16_R3.NBTTagCompound;
 
 public class GasContainerItem extends FuchsItem {
 
-    String gas;
-    Double amount;
     FuchsGas abstractGas;
+    FuchsItemData fuchsItemData;
     public GasContainerItem(String id, Material material, IItemUseType itemUseType) {
         super(id, material, itemUseType);
     }
 
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
-        boolean exists = true;
-        if(stack == null) {
-            stack = new ItemStack(getMaterial());
-            exists = false;
-        }
-        FuchsItemData oItem = new FuchsItemData(this, player, stack);
+        fuchsItemData = new FuchsItemData(this, player, stack);
+        abstractGas = Utility.gasExists(fuchsItemData.contained_gas) ? Utility.getGasByID(fuchsItemData.contained_gas) : GasList.NONE;
 
-        if(exists) {
-            NBTTagCompound tag = getTag(Utility.getItemTag(Utility.createNMSCopy(stack)));
-            if(tag.hasKey(ItemNBT.CONTAINED_GAS)) {
-            	gas = tag.getString(ItemNBT.CONTAINED_GAS);
-            }
-            if(tag.hasKey(ItemNBT.GAS_AMOUNT)) {
-            	amount = tag.getDouble(ItemNBT.GAS_AMOUNT);
-            }
-        } else {
-        	gas = GasList.NONE.getID();
-        	amount = 0.0;
-        }
+        fuchsItemData.lore.add(abstractGas.getDisplayName());
 
-        abstractGas = Utility.gasExists(gas) ? Utility.getGasByID(gas) : GasList.NONE;
-              
-        oItem.lore.add(abstractGas.getDisplayName());
-        
-        oItem.lore.add(amount + "ml");
-        oItem.lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + gas + "«");
-        oItem.setItem(ChatColor.RESET + "Gasbehälter");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
-        return oItem.item;
+        fuchsItemData.lore.add(fuchsItemData.gas_amount + "ml");
+        fuchsItemData.lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + fuchsItemData.contained_gas + "«");
+        fuchsItemData.setItem(ChatColor.RESET + "Gasbehälter");
+        fuchsItemData.createNMSCopy();
+        fuchsItemData.nmsCopy.setTag(getTag(fuchsItemData.getTagCompound()));
+        fuchsItemData.item = CraftItemStack.asBukkitCopy(fuchsItemData.nmsCopy);
+        return fuchsItemData.item;
     }
 
     @Override
@@ -63,10 +43,10 @@ public class GasContainerItem extends FuchsItem {
         tag.setBoolean(ItemNBT.CAN_CRAFT_MINECRAFT, false);
         tag.setBoolean(ItemNBT.CAN_CRAFT, true);
         if(!tag.hasKey(ItemNBT.CONTAINED_GAS)) {
-            tag.setString(ItemNBT.CONTAINED_GAS, gas);
+            tag.setString(ItemNBT.CONTAINED_GAS, fuchsItemData.contained_gas);
         }
         if(!tag.hasKey(ItemNBT.GAS_AMOUNT)) {
-        	tag.setDouble(ItemNBT.GAS_AMOUNT, amount);
+        	tag.setDouble(ItemNBT.GAS_AMOUNT, fuchsItemData.gas_amount);
         }
         return tag;
     }

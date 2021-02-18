@@ -1,4 +1,4 @@
-package jaysonjson.papierfuchs.object.item.type.crafting.copper;
+package jaysonjson.papierfuchs.object.item.type.crafting.vilum;
 
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;
@@ -11,9 +11,9 @@ import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class CopperSwordItem extends FuchsItem {
+public class VilumSwordItem extends FuchsItem {
 
-    public CopperSwordItem(String id, Material material, IItemUseType itemUseType) {
+    public VilumSwordItem(String id, Material material, IItemUseType itemUseType) {
         super(id, material, itemUseType);
     }
 
@@ -21,10 +21,10 @@ public class CopperSwordItem extends FuchsItem {
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player, stack);
-        oItem.lore.add(ChatColor.GRAY + "Ein Schwert aus Kupfer");
+        oItem.lore.add(ChatColor.GRAY + "Ein Schwert aus Vilum");
         oItem.addDamageLore();
         oItem.addDurabilityLore();
-        oItem.setItem(ChatColor.GOLD + "Kupfer Schwert");
+        oItem.setItem(ChatColor.LIGHT_PURPLE + "Vilum Schwert");
         oItem.createNMSCopy();
         oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
         oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
@@ -43,11 +43,16 @@ public class CopperSwordItem extends FuchsItem {
 
     @Override
     public int getMaxDurability() {
-        return 1200;
+        return 120;
     }
 
     @Override
     public int getToolDamage() {
-        return 6;
+        return 13;
+    }
+
+    @Override
+    public int getCustomModelData() {
+        return 25;
     }
 }

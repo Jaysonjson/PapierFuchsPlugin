@@ -13,7 +13,7 @@ public class CraftItem implements Listener {
     @EventHandler
     public void craftItemEvent(CraftItemEvent event) {
         for (ItemStack content : event.getInventory().getContents()) {
-            if(content != null) {
+            if(content != null && !content.isSimilar(event.getInventory().getResult())) {
                 net.minecraft.server.v1_16_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(content);
                 if(nmsItem.hasTag()) {
                     NBTTagCompound tag = nmsItem.hasTag() ? nmsItem.getTag() : new NBTTagCompound();

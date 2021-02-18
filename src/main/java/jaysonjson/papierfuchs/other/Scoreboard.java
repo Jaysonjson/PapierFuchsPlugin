@@ -86,8 +86,8 @@ public class Scoreboard {
         Score lineSpace2 = score.getScore("-0------=2=------0-");
         Score levelScore = score.getScore("LvL: " + fuchsPlayer.getLevel().level);
         Score alcoholScore = null;
-        if(fuchsPlayer.getPlayerSpecial().alcohol > 0) {
-           alcoholScore = score.getScore(ChatColor.RED + "Alkohol: " + ChatColor.GOLD + new DecimalFormat("#.##").format(fuchsPlayer.getPlayerSpecial().alcohol));
+        if(fuchsPlayer.getPlayerSpecial().getAlcohol() > 0) {
+           alcoholScore = score.getScore(ChatColor.RED + "Alkohol: " + ChatColor.GOLD + new DecimalFormat("#.##").format(fuchsPlayer.getPlayerSpecial().getAlcohol()));
         }
         Score lineSpace3 = score.getScore("-0------=3=------0-");
         Score classSore = score.getScore(ChatColor.RED + fuchsPlayer.getPlayerClass().current.getName());

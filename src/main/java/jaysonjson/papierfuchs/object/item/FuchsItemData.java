@@ -3,6 +3,8 @@ package jaysonjson.papierfuchs.object.item;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
+import jaysonjson.papierfuchs.object.gas.GasList;
+import jaysonjson.papierfuchs.object.liquid.LiquidList;
 import jaysonjson.papierfuchs.skillclass.alchemist.zAlchemistClass;
 import jaysonjson.papierfuchs.skillclass.zClass;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
@@ -25,6 +27,15 @@ public class FuchsItemData {
     public Player player = null;
     NBTTagCompound preTag;
 
+    public int durability = 0;
+    public boolean exists = false;
+    public String contained_gas = GasList.NONE.getID();
+    public double gas_amount = 0;
+    public String contained_liquid = LiquidList.NONE.getID();;
+    public double liquid_amount = 0;
+    public String uuid = "";
+    public String inventory_content = "";
+
 
     public FuchsItemData(FuchsItem fuchsItem, Player player) {
         this.item = new ItemStack(fuchsItem.getMaterial());
@@ -36,12 +47,49 @@ public class FuchsItemData {
     }
 
     public FuchsItemData(FuchsItem fuchsItem, Player player, ItemStack itemStack) {
+        exists = true;
+        if(itemStack == null) {
+            itemStack = new ItemStack(fuchsItem.getMaterial());
+            exists = false;
+        }
         this.item = itemStack;
         this.itemMeta = this.item.getItemMeta();
         this.lore = new ArrayList<>();
         this.id = fuchsItem.getID();
         this.fuchsItem = fuchsItem;
         this.player = player;
+        getTagDatas();
+    }
+
+    public void getTagDatas() {
+        if(fuchsItem != null) {
+            if (exists) {
+                NBTTagCompound tag = fuchsItem.getTag(Utility.getItemTag(Utility.createNMSCopy(item)));
+                if (tag.hasKey(ItemNBT.ITEM_DURABILITY)) {
+                    durability = tag.getInt(ItemNBT.ITEM_DURABILITY);
+                }
+                if (tag.hasKey(ItemNBT.CONTAINED_LIQUID)) {
+                    contained_liquid = tag.getString(ItemNBT.CONTAINED_LIQUID);
+                }
+                if (tag.hasKey(ItemNBT.LIQUID_AMOUNT)) {
+                    liquid_amount = tag.getDouble(ItemNBT.LIQUID_AMOUNT);
+                }
+                if (tag.hasKey(ItemNBT.CONTAINED_GAS)) {
+                    contained_gas = tag.getString(ItemNBT.CONTAINED_GAS);
+                }
+                if (tag.hasKey(ItemNBT.GAS_AMOUNT)) {
+                    gas_amount = tag.getDouble(ItemNBT.GAS_AMOUNT);
+                }
+                if(tag.hasKey(ItemNBT.ITEM_UUID)) {
+                    uuid = tag.getString(ItemNBT.ITEM_UUID);
+                }
+                if(tag.hasKey(ItemNBT.INVENTORY_CONTENT)) {
+                    inventory_content = tag.getString(ItemNBT.INVENTORY_CONTENT);
+                }
+            } else {
+                durability = fuchsItem.getMaxDurability();
+            }
+        }
     }
 
     @Deprecated
@@ -50,6 +98,25 @@ public class FuchsItemData {
     }
 
 
+    public void addDamageLore() {
+        if(fuchsItem.getToolDamage() > 0) {
+            String chatcolorDamage = ChatColor.GOLD.toString();
+            if(fuchsItem.getToolDamage() > 4) {
+                chatcolorDamage = ChatColor.DARK_GRAY.toString();
+            } else if(fuchsItem.getToolDamage() > 5) {
+                chatcolorDamage = ChatColor.GRAY.toString();
+            } else if(fuchsItem.getToolDamage() > 6) {
+                chatcolorDamage = ChatColor.AQUA.toString();
+            } else if(fuchsItem.getToolDamage() > 7) {
+                chatcolorDamage = ChatColor.RED.toString();
+            }
+            lore.add(chatcolorDamage + "Schaden: " + fuchsItem.getToolDamage());
+        }
+    }
+
+    public void addDurabilityLore() {
+        lore.add(ChatColor.BLUE + "Haltbarkeit: " + durability + "/" + fuchsItem.getMaxDurability());
+    }
     //@Deprecated
     public void setItem(String displayName) {
         preTag = Utility.getItemTag(item);
@@ -57,6 +124,15 @@ public class FuchsItemData {
             if(!fuchsItem.getItemUse().getLoreText().equalsIgnoreCase("")) {
                 lore.add(fuchsItem.getItemUse().getLoreText());
             }
+
+            if(fuchsItem.getToolEfficiency() > 0) {
+                lore.add("Effizienz: " + fuchsItem.getToolEfficiency());
+            }
+
+            if(fuchsItem.getDamageProtection() > 0) {
+                lore.add("Schutz: " + fuchsItem.getDamageProtection());
+            }
+
             if (player != null) {
                 FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
                 if(fuchsItem.requiredIntelligence() > 1) {

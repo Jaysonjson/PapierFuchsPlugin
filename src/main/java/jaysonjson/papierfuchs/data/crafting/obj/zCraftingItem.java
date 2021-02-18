@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class zCraftingItem {
 
 	public String fuchsItem = "";
+	public String itemData = "";
 	public Material material = Material.AIR;
 	public Integer amount = 0;
 	public ArrayList<CraftingItemNBT> nbt = new ArrayList<>();

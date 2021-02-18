@@ -275,32 +275,37 @@ public class DataHandler {
         ItemStack itemStack = null;
         if(craftingItem.material != Material.AIR) {
             itemStack = new ItemStack(craftingItem.material);
-        } else {
+        } else if(!craftingItem.fuchsItem.equals("")) {
             if(Utility.itemIDExists(craftingItem.getItemID())) {
                 itemStack = Utility.getFuchsItemByID(craftingItem.getItemID()).createItem();
             } else {
                 System.out.println("[Fuchs {Crafting}] Item mit der ID " + craftingItem.getItemID() + " existiert nicht, überspringen...");
             }
+        } else if(!craftingItem.itemData.equals("")) {
+            itemStack = Utility.generateItemStack(craftingItem.itemData);
         }
         if(itemStack != null) {
             net.minecraft.server.v1_16_R3.ItemStack nmsStack = CraftItemStack.asNMSCopy(itemStack);
             NBTTagCompound tag = Utility.getItemTag(nmsStack);
-            for (CraftingItemNBT craftingItemNBT : craftingItem.nbt) {
-                switch (craftingItemNBT.type) {
-                    case STRING:
-                        tag.setString(craftingItemNBT.key, craftingItemNBT.string_value);
-                    case FLOAT:
-                        tag.setFloat(craftingItemNBT.key, craftingItemNBT.float_value);
-                    case BOOLEAN:
-                        tag.setBoolean(craftingItemNBT.key, craftingItemNBT.bool_value);
-                    case INTEGER:
-                        tag.setInt(craftingItemNBT.key, craftingItemNBT.int_value);
-                    case DOUBLE:
-                        tag.setDouble(craftingItemNBT.key, craftingItemNBT.double_value);
+            if (!craftingItem.itemData.equals("")) {
+                for (CraftingItemNBT craftingItemNBT : craftingItem.nbt) {
+                    switch (craftingItemNBT.type) {
+                        case STRING:
+                            tag.setString(craftingItemNBT.key, craftingItemNBT.string_value);
+                        case FLOAT:
+                            tag.setFloat(craftingItemNBT.key, craftingItemNBT.float_value);
+                        case BOOLEAN:
+                            tag.setBoolean(craftingItemNBT.key, craftingItemNBT.bool_value);
+                        case INTEGER:
+                            tag.setInt(craftingItemNBT.key, craftingItemNBT.int_value);
+                        case DOUBLE:
+                            tag.setDouble(craftingItemNBT.key, craftingItemNBT.double_value);
+                    }
                 }
             }
             nmsStack.setTag(tag);
             itemStack = CraftItemStack.asBukkitCopy(nmsStack);
+            itemStack.setAmount(craftingItem.amount);
             craftingItem.itemStack = itemStack;
         }
     }

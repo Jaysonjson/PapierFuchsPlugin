@@ -1,62 +1,53 @@
 package jaysonjson.papierfuchs.object.item.type.other;
 
-public class BackPackItemNBT {
-    /*
-	int inventorySize;
-    String content;
-    public BackPackItemNBT(String id, Material material, ItemUseType itemUseType, int inventorySize) {
+import jaysonjson.papierfuchs.data.DataHandler;
+import jaysonjson.papierfuchs.inventories.backpack.BackPackInventory;
+import jaysonjson.papierfuchs.inventories.backpack.BackPackNBTInventory;
+import jaysonjson.papierfuchs.object.item.FuchsItem;
+import jaysonjson.papierfuchs.object.item.FuchsItemData;
+import jaysonjson.papierfuchs.object.item.ItemNBT;
+import jaysonjson.papierfuchs.object.item.interfaces.IItemUseType;
+import net.minecraft.server.v1_16_R3.NBTTagCompound;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.UUID;
+
+public class BackPackItemNBT extends FuchsItem {
+
+    int inventorySize;
+    FuchsItemData fuchsItemData;
+    public BackPackItemNBT(String id, Material material, IItemUseType itemUseType, int inventorySize) {
         super(id, material, itemUseType);
         this.inventorySize = inventorySize;
     }
 
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
-        boolean exists = true;
-        if(stack == null) {
-            stack = new ItemStack(getMaterial());
-            exists = false;
-        }
-        zOItem oItem = new zOItem(this, player, stack, true);
-
-        if(exists) {
-            NBTTagCompound tag = getTag(Utility.getItemTag(Utility.createNMSCopy(stack)));
-            if(tag.hasKey(ItemNBT.INVENTORY_CONTENT)) {
-                content = tag.getString(ItemNBT.INVENTORY_CONTENT);
-            }
-        } else {
-            content = "";
-        }
-
-        oItem.lore.add(inventorySize + " Slots");
-        if(content != "") {
-        	oItem.lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + true + "«");
-        }
-        oItem.setItem(ChatColor.RESET + "Rucksack");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
-        return oItem.item;
+        fuchsItemData = new FuchsItemData(this, player, stack);
+        fuchsItemData.lore.add(inventorySize + " Slots");
+        fuchsItemData.setItem(ChatColor.RESET + "NBT Rucksack");
+        fuchsItemData.createNMSCopy();
+        fuchsItemData.nmsCopy.setTag(getTag(fuchsItemData.getTagCompound()));
+        fuchsItemData.item = CraftItemStack.asBukkitCopy(fuchsItemData.nmsCopy);
+        return fuchsItemData.item;
     }
 
     @Override
     public NBTTagCompound getTag(NBTTagCompound tag) {
         tag.setBoolean(ItemNBT.CAN_CRAFT_MINECRAFT, false);
         tag.setBoolean(ItemNBT.IS_BACKPACK, true);
-        if(!tag.hasKey(ItemNBT.INVENTORY_CONTENT)) {
-            tag.setString(ItemNBT.INVENTORY_CONTENT, content);
-        }
         return tag;
     }
 
-    @Override
-    public void ability(World world, Player player, ItemStack itemStack) {
-        BackPackNBTInventory inventory = new BackPackNBTInventory(player.getInventory().getHeldItemSlot(), inventorySize);
-        inventory.openInventory(player);
-    }
 
     @Override
-    public boolean isAbilityItem() {
-        return true;
+    public void onItemUse(PlayerInteractEvent event) {
+        BackPackNBTInventory inventory = new BackPackNBTInventory(event.getItem(), inventorySize);
+        inventory.openInventory(event.getPlayer());
     }
-    */
 }

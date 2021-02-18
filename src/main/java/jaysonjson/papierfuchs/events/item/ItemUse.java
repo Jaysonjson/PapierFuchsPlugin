@@ -5,8 +5,10 @@ import jaysonjson.papierfuchs.inventories.crafting.general.GeneralCraftingInvent
 import jaysonjson.papierfuchs.object.BlockMetaData;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -46,10 +48,12 @@ public class ItemUse implements Listener {
                     }
 
                     switch (event.getAction()) {
-                        case RIGHT_CLICK_BLOCK: fuchsItem.onItemRightClickBlock(); break;
-                        case LEFT_CLICK_BLOCK: fuchsItem.onItemLeftClickBlock(); break;
-                        case LEFT_CLICK_AIR: fuchsItem.onItemLeftClickAir(); break;
-                        case RIGHT_CLICK_AIR: fuchsItem.onItemRightClickAir(); break;
+                        case RIGHT_CLICK_BLOCK: fuchsItem.onItemRightClickBlock(event); break;
+                        case LEFT_CLICK_BLOCK: fuchsItem.onItemLeftClickBlock(event); break;
+                        case LEFT_CLICK_AIR: fuchsItem.onItemLeftClickAir(event); break;
+                        case RIGHT_CLICK_AIR: fuchsItem.onItemRightClickAir(event); break;
+					default:
+						break;
                     }
 
                     if (block != null) {
@@ -61,4 +65,12 @@ public class ItemUse implements Listener {
             }
         }
     }
+/*
+    private void shootGun(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        World world = event.getPlayer().getWorld();
+        Snowball snowball = world.spawn(player.getEyeLocation(), Snowball.class);
+
+    }
+    */
 }

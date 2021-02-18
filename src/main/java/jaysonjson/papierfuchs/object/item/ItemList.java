@@ -7,6 +7,9 @@ import jaysonjson.papierfuchs.object.item.type.crafting.*;
 import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperIngotItem;
 import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperPipeItem;
 import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperRodItem;
+import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperSwordItem;
+import jaysonjson.papierfuchs.object.item.type.crafting.vilum.VilumIngotItem;
+import jaysonjson.papierfuchs.object.item.type.crafting.vilum.VilumSwordItem;
 import jaysonjson.papierfuchs.object.item.type.currency.GoldBarItem;
 import jaysonjson.papierfuchs.object.item.type.currency.GoldNuggetItem;
 import jaysonjson.papierfuchs.object.item.type.currency.HackSilverItem;
@@ -39,13 +42,13 @@ public class ItemList {
     public static LegendaryChestBook LEGENDARY_CHEST_BOOK = new LegendaryChestBook("legendaryChestBook", Material.WRITTEN_BOOK, ItemUseType.OTHER);
     public static IDCardItem ID_CARD = new IDCardItem("idCard", Material.WRITTEN_BOOK, ItemUseType.OTHER);
 
-    public static BackPackItem BACKPACK_9 = new BackPackItem("backPackItem9", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 9);
+   /* public static BackPackItem BACKPACK_9 = new BackPackItem("backPackItem9", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 9);
     public static BackPackItem BACKPACK_18 = new BackPackItem("backPackItem18", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 18);
     public static BackPackItem BACKPACK_27 = new BackPackItem("backPackItem27", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 27);
     public static BackPackItem BACKPACK_36 = new BackPackItem("backPackItem36", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 36);
     public static BackPackItem BACKPACK_45 = new BackPackItem("backPackItem45", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 45);
     public static BackPackItem BACKPACK_54 = new BackPackItem("backPackItem54", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 54);
-
+*/
     public static FireEs01BlazeRodItem FIRE_ESSENCE_01 = new FireEs01BlazeRodItem("fireEs01BlazeRodItem", Material.BLAZE_POWDER, ItemUseType.ABILITY);
     public static WallBlazeRodItem WALL_BLAZE_ROD = new WallBlazeRodItem("wallBlazeRodItem", Material.BLAZE_POWDER, ItemUseType.ABILITY);
 
@@ -61,4 +64,15 @@ public class ItemList {
 
     public static CopperPipeItem COPPER_PIPE = new CopperPipeItem("copperPipeItem", Material.FEATHER, ItemUseType.CRAFTING);
     public static CopperRodItem COPPER_ROD = new CopperRodItem("copperRodItem", Material.FEATHER, ItemUseType.CRAFTING);
+    public static CopperSwordItem COPPER_SWORD = new CopperSwordItem("copperSwordItem", Material.FEATHER, ItemUseType.TOOL);
+
+    public static VilumSwordItem VILUM_SWORD = new VilumSwordItem("vilumSwordItem", Material.FEATHER, ItemUseType.TOOL);
+
+    public static BackPackItemNBT BACKPACK_9_NBT = new BackPackItemNBT("backPackItem9", Material.FEATHER, ItemUseType.ABILITY, 9);
+    public static BackPackItemNBT BACKPACK_18_NBT = new BackPackItemNBT("backPackItem18", Material.FEATHER, ItemUseType.ABILITY, 18);
+    public static BackPackItemNBT BACKPACK_27_NBT = new BackPackItemNBT("backPackItem27", Material.FEATHER, ItemUseType.ABILITY, 27);
+    public static BackPackItemNBT BACKPACK_36_NBT = new BackPackItemNBT("backPackItem36", Material.FEATHER, ItemUseType.ABILITY, 36);
+    public static BackPackItemNBT BACKPACK_45_NBT = new BackPackItemNBT("backPackItem45", Material.FEATHER, ItemUseType.ABILITY, 45);
+    public static BackPackItemNBT BACKPACK_54_NBT = new BackPackItemNBT("backPackItem54", Material.FEATHER, ItemUseType.ABILITY, 54);
+
 }

@@ -10,52 +10,33 @@ import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 
 public class LiquidContainerItem extends FuchsItem {
 
-    String liquid;
-    Double amount;
+
     FuchsLiquid abstractLiquid;
+    FuchsItemData fuchsItemData;
     public LiquidContainerItem(String id, Material material, IItemUseType itemUseType) {
         super(id, material, itemUseType);
     }
 
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
-        boolean exists = true;
-        if(stack == null) {
-            stack = new ItemStack(getMaterial());
-            exists = false;
-        }
-        FuchsItemData oItem = new FuchsItemData(this, player, stack);
-
-        if(exists) {
-            NBTTagCompound tag = getTag(Utility.getItemTag(Utility.createNMSCopy(stack)));
-            if(tag.hasKey(ItemNBT.CONTAINED_LIQUID)) {
-            	liquid = tag.getString(ItemNBT.CONTAINED_LIQUID);
-            }
-            if(tag.hasKey(ItemNBT.LIQUID_AMOUNT)) {
-            	amount = tag.getDouble(ItemNBT.LIQUID_AMOUNT);
-            }
-        } else {
-        	liquid = LiquidList.NONE.getID();
-        	amount = 0.0;
-        }
-        abstractLiquid = Utility.liquidExists(liquid) ? Utility.getLiquidByID(liquid) : LiquidList.NONE;
-        oItem.lore.add(abstractLiquid.getDisplayName());
-        
-        oItem.lore.add(amount + "ml");
-        oItem.lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + liquid + "«");
-        oItem.setItem(ChatColor.RESET + "Flüssigkeitsbehälter");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
-        return oItem.item;
+        fuchsItemData = new FuchsItemData(this, player, stack);
+        abstractLiquid = Utility.liquidExists(fuchsItemData.contained_liquid) ? Utility.getLiquidByID(fuchsItemData.contained_liquid) : LiquidList.NONE;
+        fuchsItemData.lore.add(abstractLiquid.getDisplayName());
+        fuchsItemData.lore.add(fuchsItemData.liquid_amount + "ml");
+        fuchsItemData.lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + fuchsItemData.contained_liquid + "«");
+        fuchsItemData.setItem(ChatColor.RESET + "Flüssigkeitsbehälter");
+        fuchsItemData.createNMSCopy();
+        fuchsItemData.nmsCopy.setTag(getTag(fuchsItemData.getTagCompound()));
+        fuchsItemData.item = CraftItemStack.asBukkitCopy(fuchsItemData.nmsCopy);
+        return fuchsItemData.item;
     }
 
     @Override
@@ -63,31 +44,22 @@ public class LiquidContainerItem extends FuchsItem {
         tag.setBoolean(ItemNBT.CAN_CRAFT_MINECRAFT, false);
         tag.setBoolean(ItemNBT.CAN_CRAFT, true);
         if(!tag.hasKey(ItemNBT.CONTAINED_LIQUID)) {
-            tag.setString(ItemNBT.CONTAINED_LIQUID, liquid);
+            tag.setString(ItemNBT.CONTAINED_LIQUID, fuchsItemData.contained_liquid);
         }
         if(!tag.hasKey(ItemNBT.LIQUID_AMOUNT)) {
-        	tag.setDouble(ItemNBT.LIQUID_AMOUNT, amount);
+        	tag.setDouble(ItemNBT.LIQUID_AMOUNT, fuchsItemData.liquid_amount);
         }
         return tag;
     }
 
-    
+
     @Override
-    public void ability(World world, Player player, ItemStack itemStack) {
-    	FuchsMCItem fuchsItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(itemStack), itemStack);
-    	String liId = fuchsItem.getStringFromTag(ItemNBT.CONTAINED_LIQUID);
-    	FuchsLiquid aLiquid = Utility.liquidExists(liId) ? Utility.getLiquidByID(liId) : LiquidList.NONE;
-    	aLiquid.drinkAction(world, player, itemStack);
-    	//FuchsItem fuchsItem = new FuchsItem(Utility.getFuchsItemFromNMS(itemStack), itemStack);
-        //fuchsItem.changeStringTag(ItemNBT.CONTAINED_LIQUID, zLiquid.BEER.getLiquid().getId());
-        //fuchsItem.changeDoubleTag(ItemNBT.LIQUID_AMOUNT, 500d);
-    	//world.dropItemNaturally(player.getLocation(), fuchsItem.getItemStack());
-        //player.setItemInHand(fuchsItem.getItemStack());
-    }
-    
-    @Override
-    public boolean isAbilityItem() {
-    	return true;
+    public void onItemRightClickAir(PlayerInteractEvent event) {
+        ItemStack itemStack = event.getItem();
+        FuchsMCItem fuchsItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(itemStack), itemStack);
+        String liId = fuchsItem.getStringFromTag(ItemNBT.CONTAINED_LIQUID);
+        FuchsLiquid aLiquid = Utility.liquidExists(liId) ? Utility.getLiquidByID(liId) : LiquidList.NONE;
+        aLiquid.drinkAction(event.getPlayer(), itemStack);
     }
 
     @Override

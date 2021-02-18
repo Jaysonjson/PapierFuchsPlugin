@@ -14,6 +14,7 @@ import jaysonjson.papierfuchs.data.server.data.FuchsServer;
 import jaysonjson.papierfuchs.object.gas.FuchsGas;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsMCItem;
+import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
 import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
@@ -22,9 +23,7 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -327,7 +326,8 @@ public class Utility {
                         amount += (tag.getDouble(ItemNBT.HACKSILVER_AMOUNT) * content.getAmount());
                     }
                     if(tag.hasKey(ItemNBT.IS_BACKPACK)) {
-                        ItemStack[] contents = generateInventoryContent(DataHandler.loadBackPack(UUID.fromString(tag.getString(ItemNBT.ITEM_UUID))).inventoryContent);
+                        //ItemStack[] contents = generateInventoryContent(DataHandler.loadBackPack(UUID.fromString(tag.getString(ItemNBT.ITEM_UUID))).inventoryContent);
+                        ItemStack[] contents = generateInventoryContent(tag.getString(ItemNBT.INVENTORY_CONTENT));
                         amount += countMoney(contents);
                     }
                 }
@@ -367,7 +367,8 @@ public class Utility {
                         amount += (tag.getDouble(ItemNBT.ZORYHASHARD_AMOUNT) * content.getAmount());
                     }
                     if(tag.hasKey(ItemNBT.IS_BACKPACK)) {
-                        ItemStack[] contents = generateInventoryContent(DataHandler.loadBackPack(UUID.fromString(tag.getString(ItemNBT.ITEM_UUID))).inventoryContent);
+                        //ItemStack[] contents = generateInventoryContent(DataHandler.loadBackPack(UUID.fromString(tag.getString(ItemNBT.ITEM_UUID))).inventoryContent);
+                        ItemStack[] contents = generateInventoryContent(tag.getString(ItemNBT.INVENTORY_CONTENT));
                         amount += countZoryhaShard(contents);
                     }
                 }
@@ -496,17 +497,21 @@ public class Utility {
     }
 
     public static void makeDrunk(Player player, FuchsPlayer fuchsPlayer) {
-        if(fuchsPlayer.getPlayerSpecial().alcohol > 0.5) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, (int) (fuchsPlayer.getPlayerSpecial().alcohol * 740), 0));
+        if(fuchsPlayer.getPlayerSpecial().getAlcohol() > 0.5) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, (int) (fuchsPlayer.getPlayerSpecial().getAlcohol() * 740), 0));
         }
-        if(fuchsPlayer.getPlayerSpecial().alcohol > 1) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, (int) (fuchsPlayer.getPlayerSpecial().alcohol * 100),0));
+        if(fuchsPlayer.getPlayerSpecial().getAlcohol() > 1) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, (int) (fuchsPlayer.getPlayerSpecial().getAlcohol() * 100),0));
         }
-        if(fuchsPlayer.getPlayerSpecial().alcohol > 2) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, (int) (fuchsPlayer.getPlayerSpecial().alcohol * 60),0));
+        if(fuchsPlayer.getPlayerSpecial().getAlcohol() > 2) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, (int) (fuchsPlayer.getPlayerSpecial().getAlcohol() * 60),0));
         }
-        if(fuchsPlayer.getPlayerSpecial().alcohol > 3) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, (int) (fuchsPlayer.getPlayerSpecial().alcohol * 700),2));
+        if(fuchsPlayer.getPlayerSpecial().getAlcohol() > 3) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, (int) (fuchsPlayer.getPlayerSpecial().getAlcohol() * 700),2));
+        }
+
+        if(fuchsPlayer.getPlayerSpecial().getAlcohol() >= fuchsPlayer.getPlayerSpecial().getMaxAlcohol()) {
+            player.setHealth(0);
         }
     }
 
@@ -571,6 +576,32 @@ public class Utility {
             }
         }
         return "";
+    }
+    
+    public static String createItemStackString(ItemStack itemStack) {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
+            dataOutput.writeObject(itemStack);
+            dataOutput.close();
+            return Base64Coder.encodeLines(outputStream.toByteArray());
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return "";
+    }
+
+    public static ItemStack generateItemStack(String itemData) {
+        try {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(itemData));
+            BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
+            ItemStack itemStack = (ItemStack) dataInput.readObject();
+            dataInput.close();
+            return itemStack;
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return new ItemStack(Material.AIR);
     }
 
     public static ItemStack[] generateInventoryContent(String inventoryContent) {
@@ -843,7 +874,7 @@ public class Utility {
 
     public static int countBounty(FuchsPlayer fuchsPlayer) {
         int bounty = 0;
-        for (Integer value : fuchsPlayer.getPlayerSpecial().bounties.values()) {
+        for (Integer value : fuchsPlayer.getPlayerSpecial().getBounties().values()) {
             bounty += value;
         }
         return bounty;
@@ -857,7 +888,7 @@ public class Utility {
                 ItemStack n_s = new ItemStack(itemStack);
                 n_c.setLore(lore);
                 n_s.setLore(lore);
-                if (n_c.isSimilar(n_s)) {
+                if (n_c.isSimilar(n_s) && itemStack.getAmount() <= content.getAmount()) {
                     return true;
                 }
             }
@@ -865,4 +896,46 @@ public class Utility {
         return false;
     }
 
+
+    public static boolean defaultAlcoholDrinkAction(World world, Player player, ItemStack itemStack, float alcoholMinus) {
+        FuchsMCItem fuchsItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(itemStack), itemStack);
+        if(fuchsItem.getTagFromOriginal().hasKey(ItemNBT.LIQUID_AMOUNT)) {
+            if(fuchsItem.getDoubleFromTag(ItemNBT.LIQUID_AMOUNT) > 0) {
+                FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
+                fuchsPlayer.getPlayerSpecial().increaseAlcohol(new Random().nextDouble() / alcoholMinus);
+                player.sendMessage("Alkohol: " + fuchsPlayer.getPlayerSpecial().getAlcohol());
+                fuchsItem.changeDoubleTag(ItemNBT.LIQUID_AMOUNT, fuchsItem.getDoubleFromTag(ItemNBT.LIQUID_AMOUNT) - 10);
+
+                if(fuchsItem.getDoubleFromTag(ItemNBT.LIQUID_AMOUNT) > 0) {
+                    itemStack = fuchsItem.getItemStack();
+                } else {
+                    itemStack = ItemList.GLASS.createItem(player);
+                }
+
+                player.getInventory().setItemInMainHand(itemStack);
+                Utility.makeDrunk(player, fuchsPlayer);
+                if(fuchsPlayer.getPlayerSpecial().getAlcohol() > 1.25) {
+                    player.getWorld().playEffect(player.getLocation().add(player.getLocation().getDirection().multiply(1.2)), Effect.VILLAGER_PLANT_GROW, 55, 1);
+                }
+                player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_DRINK, 1, 1);
+                DataHandler.savePlayer(fuchsPlayer);
+                player.updateInventory();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ItemStack damageFuchsItem(FuchsItem fuchsItem, ItemStack itemStack) {
+        FuchsMCItem fuchsMCItem = new FuchsMCItem(fuchsItem, itemStack);
+        if(fuchsMCItem.getTagFromOriginal().hasKey(ItemNBT.ITEM_DURABILITY)) {
+            fuchsMCItem.changeIntTag(ItemNBT.ITEM_DURABILITY, fuchsMCItem.getIntFromTag(ItemNBT.ITEM_DURABILITY) - 1);
+            ItemStack newItem = new ItemStack(Material.AIR);
+            if(fuchsMCItem.getIntFromTag(ItemNBT.ITEM_DURABILITY) > 0) {
+                newItem = fuchsMCItem.getItemStack();
+            }
+            return newItem;
+        }
+        return itemStack;
+    }
 }

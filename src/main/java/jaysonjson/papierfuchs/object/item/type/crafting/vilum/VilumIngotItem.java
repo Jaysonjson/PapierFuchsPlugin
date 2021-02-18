@@ -1,7 +1,6 @@
-package jaysonjson.papierfuchs.object.item.type.crafting;
+package jaysonjson.papierfuchs.object.item.type.crafting.vilum;
 
 
-import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
@@ -13,35 +12,15 @@ import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Random;
-
 public class VilumIngotItem extends FuchsItem {
 
-    private int amount;
     public VilumIngotItem(String id, Material material, IItemUseType itemUseType) {
         super(id, material, itemUseType);
     }
 
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
-        boolean exists = true;
-        if(stack == null) {
-            stack = new ItemStack(getMaterial());
-            exists = false;
-        }
         FuchsItemData oItem = new FuchsItemData(this, player, stack);
-
-        if(exists) {
-            NBTTagCompound tag = getTag(Utility.getItemTag(Utility.createNMSCopy(stack)));
-            if(tag.hasKey(ItemNBT.ITEM_AMOUNT)) {
-                amount = tag.getInt(ItemNBT.ITEM_AMOUNT);
-            }
-        } else {
-            amount = new Random().nextInt(400);
-            amount += new Random().nextInt(100);
-        }
-
-        oItem.lore.add(ChatColor.GRAY + "" + amount + "g");
         oItem.setItem(ChatColor.LIGHT_PURPLE + "Vilum");
         oItem.createNMSCopy();
         oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
@@ -53,9 +32,6 @@ public class VilumIngotItem extends FuchsItem {
     public NBTTagCompound getTag(NBTTagCompound tag) {
         tag.setBoolean(ItemNBT.CAN_CRAFT, true);
         tag.setBoolean(ItemNBT.CAN_CRAFT_MINECRAFT, false);
-        if(!tag.hasKey(ItemNBT.ITEM_AMOUNT)) {
-            tag.setInt(ItemNBT.ITEM_AMOUNT, amount);
-        }
         return tag;
     }
 

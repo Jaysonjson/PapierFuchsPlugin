@@ -4,7 +4,6 @@ import jaysonjson.papierfuchs.data.FuchsLocation;
 import jaysonjson.papierfuchs.data.server.obj.FuchsNPC;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class FuchsServer {
 

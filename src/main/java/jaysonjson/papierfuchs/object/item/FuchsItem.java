@@ -1,6 +1,9 @@
 package jaysonjson.papierfuchs.object.item;
 
 import jaysonjson.papierfuchs.object.item.interfaces.*;
+import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsGunMagazine;
+import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsItemAmmo;
+import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsItemGun;
 import jaysonjson.papierfuchs.registry.IFuchsRegistryObject;
 import jaysonjson.papierfuchs.registry.RegistryType;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
@@ -10,9 +13,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, IFuchsItem, IFuchsItemAlchemy, IFuchsItemTexture, IItemUseType, IFuchsItemUse, IFuchsItemEntityInteraction, IFuchsItemBlockInteraction {
+public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, IFuchsItem, IFuchsItemAlchemy,
+        IFuchsItemTexture, IItemUseType, IFuchsItemUse, IFuchsItemEntityInteraction,
+        IFuchsItemBlockInteraction, IFuchsItemGun, IFuchsItemTool {
 
     String id;
     Material material;
@@ -84,6 +90,7 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     }
 
     @Override
+    @Deprecated
     public void ability(World world, Player player, ItemStack itemStack) {
 
     }
@@ -97,6 +104,7 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     }
 
     @Override
+    @Deprecated
     public boolean isAbilityItem() {
         return false;
     }
@@ -130,22 +138,62 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     }
 
     @Override
-    public void onItemLeftClickAir() {
+    public void onItemLeftClickAir(PlayerInteractEvent event) {
+        onItemUse(event);
+    }
+
+    @Override
+    public void onItemRightClickAir(PlayerInteractEvent event) {
+        onItemUse(event);
+    }
+
+    @Override
+    public void onItemLeftClickBlock(PlayerInteractEvent event) {
+        onItemUse(event);
+    }
+
+    @Override
+    public void onItemRightClickBlock(PlayerInteractEvent event) {
+        onItemUse(event);
+    }
+
+    @Override
+    public void onItemUse(PlayerInteractEvent event) {
 
     }
 
     @Override
-    public void onItemRightClickAir() {
-
+    public Vector getVelocity() {
+        return null;
     }
 
     @Override
-    public void onItemLeftClickBlock() {
-
+    public IFuchsItemAmmo getAmmo() {
+        return null;
     }
 
     @Override
-    public void onItemRightClickBlock() {
+    public IFuchsGunMagazine getMagazine() {
+        return null;
+    }
 
+    @Override
+    public int getMaxDurability() {
+        return 0;
+    }
+
+    @Override
+    public int getToolDamage() {
+        return 0;
+    }
+
+    @Override
+    public int getToolEfficiency() {
+        return 0;
+    }
+
+    @Override
+    public int getDamageProtection() {
+        return 0;
     }
 }

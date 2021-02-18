@@ -21,11 +21,13 @@ import jaysonjson.papierfuchs.events.entity.player.*;
 import jaysonjson.papierfuchs.events.inventory.ItemClick;
 import jaysonjson.papierfuchs.events.item.*;
 import jaysonjson.papierfuchs.npc.NPC;
+import jaysonjson.papierfuchs.object.FuchsVanillaRecipes;
 import jaysonjson.papierfuchs.object.gas.GasList;
 import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
 import jaysonjson.papierfuchs.registry.FuchsRegistries;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,6 +36,7 @@ import java.util.ArrayList;
 public final class PapierFuchs extends JavaPlugin {
 
     public static PapierFuchs INSTANCE;
+
     public ArrayList<zArea> areas = new ArrayList<>();
     public static double version = 0.1;
     public PapierFuchs() {
@@ -48,6 +51,7 @@ public final class PapierFuchs extends JavaPlugin {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
         FuchsRegistries.register(ItemList.class);
         FuchsRegistries.register(GasList.class);
         FuchsRegistries.register(LiquidList.class);
@@ -102,6 +106,8 @@ public final class PapierFuchs extends JavaPlugin {
                 new SpigotCommand("general_crafting", new CraftingInventoryCommand()),
                 new SpigotCommand("armorstandmetadata", new ArmorStandMetadata())
         );
+
+        FuchsVanillaRecipes.addRecipes();
     }
 
     @Override

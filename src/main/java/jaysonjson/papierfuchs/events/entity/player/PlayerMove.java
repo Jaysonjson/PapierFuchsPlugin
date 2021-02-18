@@ -26,10 +26,10 @@ public class PlayerMove implements Listener {
         Player player = event.getPlayer();
         FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
         Random random = new Random();
-        if(fuchsPlayer.getPlayerSpecial().alcohol > 0) {
+        if(fuchsPlayer.getPlayerSpecial().getAlcohol() > 0) {
             Utility.makeDrunk(player, fuchsPlayer);
             if(random.nextInt(350) == 1) {
-                fuchsPlayer.getPlayerSpecial().alcohol -= random.nextDouble() / 10;
+                fuchsPlayer.getPlayerSpecial().decreaseAlcohol(random.nextDouble() / 10);
             }
         }
        /* for (zArea area : PapierFuchs.INSTANCE.areas) {

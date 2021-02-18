@@ -4,7 +4,6 @@ import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.drop.obj.ItemDropChance;
 import jaysonjson.papierfuchs.data.drop.obj.zMobDrop;
-import jaysonjson.papierfuchs.data.server.data.EntityMetadataSetter;
 import jaysonjson.papierfuchs.data.server.data.FuchsServer;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;

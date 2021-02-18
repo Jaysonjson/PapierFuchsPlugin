@@ -5,16 +5,10 @@ import jaysonjson.papierfuchs.object.item.interfaces.IFuchsItemTexture;
 import jaysonjson.papierfuchs.registry.IFuchsRegistryObject;
 import jaysonjson.papierfuchs.registry.RegistryType;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class FuchsLiquid implements IFuchsRegistryObject, IFuchsItemTexture, IFuchsLiquid, IFuchsItemName {
-
-    @Override
-    public String getID() {
-        return "";
-    }
 
     @Override
     public RegistryType getType() {
@@ -37,7 +31,7 @@ public abstract class FuchsLiquid implements IFuchsRegistryObject, IFuchsItemTex
     }
 
     @Override
-    public boolean drinkAction(World world, Player player, ItemStack itemStack) {
+    public boolean drinkAction(Player player, ItemStack itemStack) {
         return false;
     }
 

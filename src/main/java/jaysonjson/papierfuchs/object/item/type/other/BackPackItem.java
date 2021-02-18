@@ -13,6 +13,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
@@ -20,7 +21,7 @@ import java.util.UUID;
 public class BackPackItem extends FuchsItem {
 
     int inventorySize;
-    String uuid;
+    FuchsItemData fuchsItemData;
     public BackPackItem(String id, Material material, IItemUseType itemUseType, int inventorySize) {
         super(id, material, itemUseType);
         this.inventorySize = inventorySize;
@@ -28,29 +29,18 @@ public class BackPackItem extends FuchsItem {
 
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
-        boolean exists = true;
-        if(stack == null) {
-            stack = new ItemStack(getMaterial());
-            exists = false;
-        }
-        FuchsItemData oItem = new FuchsItemData(this, player, stack);
-
-        if(exists) {
-            NBTTagCompound tag = getTag(Utility.getItemTag(Utility.createNMSCopy(stack)));
-            if(tag.hasKey(ItemNBT.ITEM_UUID)) {
-                uuid = tag.getString(ItemNBT.ITEM_UUID);
-            }
-        } else {
-            uuid = generateUUID();
+        fuchsItemData = new FuchsItemData(this, player, stack);
+        if(fuchsItemData.uuid.equalsIgnoreCase("")) {
+            fuchsItemData.uuid = generateUUID();
         }
 
-        oItem.lore.add(inventorySize + " Slots");
-        oItem.lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + uuid + "«");
-        oItem.setItem(ChatColor.RESET + "Rucksack");
-        oItem.createNMSCopy();
-        oItem.nmsCopy.setTag(getTag(oItem.getTagCompound()));
-        oItem.item = CraftItemStack.asBukkitCopy(oItem.nmsCopy);
-        return oItem.item;
+        fuchsItemData.lore.add(inventorySize + " Slots");
+        fuchsItemData.lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + fuchsItemData.uuid + "«");
+        fuchsItemData.setItem(ChatColor.RESET + "Rucksack");
+        fuchsItemData.createNMSCopy();
+        fuchsItemData.nmsCopy.setTag(getTag(fuchsItemData.getTagCompound()));
+        fuchsItemData.item = CraftItemStack.asBukkitCopy(fuchsItemData.nmsCopy);
+        return fuchsItemData.item;
     }
 
     @Override
@@ -58,7 +48,7 @@ public class BackPackItem extends FuchsItem {
         tag.setBoolean(ItemNBT.CAN_CRAFT_MINECRAFT, false);
         tag.setBoolean(ItemNBT.IS_BACKPACK, true);
         if(!tag.hasKey(ItemNBT.ITEM_UUID)) {
-            tag.setString(ItemNBT.ITEM_UUID, uuid);
+            tag.setString(ItemNBT.ITEM_UUID, fuchsItemData.uuid);
         }
         return tag;
     }
@@ -72,9 +62,9 @@ public class BackPackItem extends FuchsItem {
     }
 
     @Override
-    public void ability(World world, Player player, ItemStack itemStack) {
-        BackPackInventory inventory = new BackPackInventory(itemStack, inventorySize);
-        inventory.openInventory(player);
+    public void onItemUse(PlayerInteractEvent event) {
+        BackPackInventory inventory = new BackPackInventory(event.getItem(), inventorySize);
+        inventory.openInventory(event.getPlayer());
     }
 
     @Override

@@ -20,9 +20,9 @@ public class BackPackNBTInventory implements Listener {
 
     @Nullable
     private Inventory inventory = null;
-    public int backPackItem;
+    public ItemStack backPackItem;
     int inventorySize;
-    public BackPackNBTInventory(int backPack, int inventorySize) {
+    public BackPackNBTInventory(ItemStack backPack, int inventorySize) {
         this.backPackItem = backPack;
         this.inventorySize = inventorySize;
         Bukkit.getPluginManager().registerEvents(this, PapierFuchs.INSTANCE);
@@ -46,8 +46,8 @@ public class BackPackNBTInventory implements Listener {
     }
     
     public void openInventory(Player player) {
-        inventory = Bukkit.createInventory(player, inventorySize, "Items");
-        String contents = Utility.getItemTag(Utility.createNMSCopy(inventory.getItem(backPackItem))).getString(ItemNBT.INVENTORY_CONTENT);
+        inventory = Bukkit.createInventory(player, inventorySize, "Rucksack");
+        String contents = Utility.getItemTag(Utility.createNMSCopy(backPackItem)).getString(ItemNBT.INVENTORY_CONTENT);
         inventory.setContents(Utility.generateInventoryContent(contents));
         player.openInventory(inventory);
     }
@@ -55,10 +55,9 @@ public class BackPackNBTInventory implements Listener {
     @EventHandler
     public void CloseInventory(InventoryCloseEvent event) {
         if(event.getInventory().equals(inventory)) {
-            ItemStack itemStack = inventory.getItem(backPackItem);
-            FuchsMCItem fuchsItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(itemStack), itemStack);
+            FuchsMCItem fuchsItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(backPackItem), backPackItem);
             fuchsItem.changeStringTag(ItemNBT.INVENTORY_CONTENT, Utility.createInventoryContent(event.getInventory().getContents()));
-            this.inventory.setItem(backPackItem, fuchsItem.getItemStack());
+            event.getPlayer().getInventory().setItemInMainHand(fuchsItem.getItemStack());
         }
     }
 }

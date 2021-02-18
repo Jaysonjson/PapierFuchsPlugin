@@ -15,8 +15,11 @@ public interface IFuchsItemUse {
     @Deprecated
     boolean isAbilityItem();
     int requiredIntelligence();
-    void onItemRightClickAir();
-    void onItemLeftClickAir();
-    void onItemRightClickBlock();
-    void onItemLeftClickBlock();
+    void onItemRightClickAir(PlayerInteractEvent event);
+    void onItemLeftClickAir(PlayerInteractEvent event);
+    void onItemRightClickBlock(PlayerInteractEvent event);
+    void onItemLeftClickBlock(PlayerInteractEvent event);
+    void onItemUse(PlayerInteractEvent event);
+
+
 }
