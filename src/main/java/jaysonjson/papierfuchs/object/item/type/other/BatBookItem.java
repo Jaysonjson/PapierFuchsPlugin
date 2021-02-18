@@ -6,7 +6,9 @@ import jaysonjson.papierfuchs.object.item.ItemNBT;
 import jaysonjson.papierfuchs.object.item.interfaces.IItemUseType;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -21,10 +23,10 @@ public class BatBookItem extends FuchsItem {
 
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
-        FuchsItemData oItem = new FuchsItemData(this, player);
-        oItem.addToLore("Killt Fledermäuse in einen bestimmten Radius");
-        oItem.setItem(ChatColor.GRAY + "Fledermaus Buch");
-        return oItem.item;
+        FuchsItemData fuchsItemData = new FuchsItemData(this, player);
+        fuchsItemData.addToLore("Killt Fledermäuse in einen bestimmten Radius");
+        fuchsItemData.setItem(ChatColor.GRAY + "Fledermaus Buch");
+        return fuchsItemData.item;
     }
 
     @Override
@@ -37,12 +39,22 @@ public class BatBookItem extends FuchsItem {
     @Override
     public void onItemUse(PlayerInteractEvent event) {
         int bats_killed = 0;
-        for (Entity nearbyEntity : event.getPlayer().getNearbyEntities(15, 15, 15)) {
+        Player player = event.getPlayer();
+        for (Entity nearbyEntity : player.getNearbyEntities(25, 15, 25)) {
             if(nearbyEntity.getType() == EntityType.BAT) {
                 nearbyEntity.remove();
                 bats_killed++;
             }
         }
-        event.getPlayer().sendMessage("Es wurden " + bats_killed + " Fledermäuse gekillt!");
+        player.getWorld().playEffect(player.getLocation(), Effect.ENDER_SIGNAL, 3, 1);
+        if(bats_killed == 0) {
+            player.sendMessage("Es wurden keine Fledermäuse gekillt!");
+        } else if(bats_killed == 1) {
+            player.sendMessage("Es wurde eine Fledermaus gekillt!");
+            player.playSound(player.getLocation(), Sound.ENTITY_BAT_DEATH, 1f, 1f);
+        } else if(bats_killed > 1) {
+            player.sendMessage("Es wurden " + bats_killed + " Fledermäuse gekillt!");
+            player.playSound(player.getLocation(), Sound.ENTITY_BAT_DEATH, 1f, 1f);
+        }
     }
 }

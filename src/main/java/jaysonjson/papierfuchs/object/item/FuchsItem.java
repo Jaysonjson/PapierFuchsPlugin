@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, IFuchsItem, IFuchsItemAlchemy,
         IFuchsItemTexture, IItemUseType, IFuchsItemUse, IFuchsItemEntityInteraction,
-        IFuchsItemBlockInteraction, IFuchsItemGun, IFuchsItemTool {
+        IFuchsItemBlockInteraction, IFuchsItemGun, IFuchsItemTool, IFuchsItemCurrency {
 
     String id;
     Material material;
@@ -139,28 +139,34 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
 
     @Override
     public void onItemLeftClickAir(PlayerInteractEvent event) {
-        onItemUse(event);
+        //onItemUse(event);
     }
 
     @Override
     public void onItemRightClickAir(PlayerInteractEvent event) {
-        onItemUse(event);
+        //onItemUse(event);
     }
 
     @Override
     public void onItemLeftClickBlock(PlayerInteractEvent event) {
-        onItemUse(event);
+        //onItemUse(event);
     }
 
     @Override
     public void onItemRightClickBlock(PlayerInteractEvent event) {
-        onItemUse(event);
+        //onItemUse(event);
     }
 
     @Override
     public void onItemUse(PlayerInteractEvent event) {
 
     }
+
+    @Override
+    public void onItemLeftClick(PlayerInteractEvent event) { }
+
+    @Override
+    public void onItemRightClick(PlayerInteractEvent event) { }
 
     @Override
     public Vector getVelocity() {
@@ -195,5 +201,15 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     @Override
     public int getDamageProtection() {
         return 0;
+    }
+
+    @Override
+    public double getCurrencyAmount() {
+        return 0;
+    }
+
+    @Override
+    public String getCurrencyType() {
+        return "";
     }
 }

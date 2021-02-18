@@ -6,6 +6,7 @@ import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.area.data.zArea;
 import jaysonjson.papierfuchs.data.area.obj.zLocation;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
+import jaysonjson.papierfuchs.object.item.CurrencyType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -20,15 +21,15 @@ import java.util.ArrayList;
 public class Scoreboard {
 
     public static void updateScoreboard(Player player) {
-        sendScoreboard(player, DataHandler.loadPlayer(player.getUniqueId()), Utility.countMoneyBackpack(player.getInventory()), Utility.countZoryhaShardBackpack(player.getInventory()), Utility.getNearestArea(player.getWorld().getEnvironment(), player.getLocation()), Utility.getNearestAreaDistance(player.getWorld().getEnvironment(), player.getLocation()));
+        sendScoreboard(player, DataHandler.loadPlayer(player.getUniqueId()), Utility.countCurrency(player, CurrencyType.HACKSILVER.getId(), true), Utility.countCurrency(player, CurrencyType.ZORYHA_SHARD.getId(), true), Utility.getNearestArea(player.getWorld().getEnvironment(), player.getLocation()), Utility.getNearestAreaDistance(player.getWorld().getEnvironment(), player.getLocation()));
     }
 
     public static void updateScoreboard(Player player, FuchsPlayer fuchsPlayer) {
-        sendScoreboard(player, fuchsPlayer, Utility.countMoneyBackpack(player.getInventory()), Utility.countZoryhaShardBackpack(player.getInventory()), Utility.getNearestArea(player.getWorld().getEnvironment(), player.getLocation()), Utility.getNearestAreaDistance(player.getWorld().getEnvironment(), player.getLocation()));
+        sendScoreboard(player, fuchsPlayer, Utility.countCurrency(player, CurrencyType.HACKSILVER.getId(), true), Utility.countCurrency(player, CurrencyType.ZORYHA_SHARD.getId(), true), Utility.getNearestArea(player.getWorld().getEnvironment(), player.getLocation()), Utility.getNearestAreaDistance(player.getWorld().getEnvironment(), player.getLocation()));
     }
 
     public static void updateScoreboard(Player player, FuchsPlayer fuchsPlayer, ArrayList<zArea> areas) {
-        sendScoreboard(player, fuchsPlayer, Utility.countMoneyBackpack(player.getInventory()), Utility.countZoryhaShardBackpack(player.getInventory()), areas, Utility.getNearestAreaDistance(player.getWorld().getEnvironment(), player.getLocation()));
+        sendScoreboard(player, fuchsPlayer, Utility.countCurrency(player, CurrencyType.HACKSILVER.getId(), true), Utility.countCurrency(player, CurrencyType.ZORYHA_SHARD.getId(), true), areas, Utility.getNearestAreaDistance(player.getWorld().getEnvironment(), player.getLocation()));
     }
     public static void sendScoreboard(Player player, FuchsPlayer fuchsPlayer, double money, double zoryhaShardValue, zArea areas, zLocation areaDistance) {
         ArrayList<zArea> areaList = new ArrayList<>();
@@ -55,13 +56,14 @@ public class Scoreboard {
         }
         Score hackSilver1Score = score.getScore("-//-");
         Score zoryhaShard1Score = score.getScore("-//-");
-        if(Utility.convertZoryhaShardToHacksilver(zoryhaShardValue) > 0) {
+       /* if(Utility.convertZoryhaShardToHacksilver(zoryhaShardValue) > 0) {
             hackSilver1Score = score.getScore(ChatColor.GRAY + "(" + ChatColor.RESET + (Utility.formatInteger((int) (money + Utility.convertZoryhaShardToHacksilver(zoryhaShardValue)))) + ChatColor.RESET + ChatColor.GRAY + ")");
-        }
+        }*/
         Score hackSilverScore = score.getScore(ChatColor.GRAY + "Hacksilber" + ChatColor.DARK_GRAY + ": " + ChatColor.GOLD + moneySTR + "Φ");
-        if(Utility.convertHacksilverToZoryhaShard(money) > 0) {
+        /*if(Utility.convertHacksilverToZoryhaShard(money) > 0) {
             zoryhaShard1Score = score.getScore(ChatColor.GRAY + "(" + ChatColor.RESET + (Utility.formatInteger((int) (zoryhaShardValue + Utility.convertHacksilverToZoryhaShard(money)))) + ChatColor.RESET + ChatColor.GRAY + ")");
         }
+        */
         Score zoryhaShardScore = score.getScore(ChatColor.AQUA + "Zoryha Bruckstücke" + ChatColor.DARK_GRAY + ": " + ChatColor.GOLD + zoryhaShardSTR + "¢");
         Score lineSpace1 = score.getScore("-0------=1=------0-");
         String areaColor = ChatColor.GOLD + "";

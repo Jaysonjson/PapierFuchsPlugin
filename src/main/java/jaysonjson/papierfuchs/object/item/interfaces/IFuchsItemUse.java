@@ -20,6 +20,7 @@ public interface IFuchsItemUse {
     void onItemRightClickBlock(PlayerInteractEvent event);
     void onItemLeftClickBlock(PlayerInteractEvent event);
     void onItemUse(PlayerInteractEvent event);
-
+    void onItemRightClick(PlayerInteractEvent event);
+    void onItemLeftClick(PlayerInteractEvent event);
 
 }

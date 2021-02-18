@@ -35,7 +35,8 @@ public class FuchsItemData {
     public double liquid_amount = 0;
     public String uuid = "";
     public String inventory_content = "";
-
+    public double currency_value = 0d;
+    public String currency_type = "";
 
     public FuchsItemData(FuchsItem fuchsItem, Player player) {
         this.item = new ItemStack(fuchsItem.getMaterial());
@@ -86,8 +87,16 @@ public class FuchsItemData {
                 if(tag.hasKey(ItemNBT.INVENTORY_CONTENT)) {
                     inventory_content = tag.getString(ItemNBT.INVENTORY_CONTENT);
                 }
+                if(tag.hasKey(ItemNBT.CURRENCY_TYPE)) {
+                    currency_type = tag.getString(ItemNBT.CURRENCY_TYPE);
+                }
+                if(tag.hasKey(ItemNBT.CURRENCY_AMOUNT)) {
+                    currency_value = tag.getDouble(ItemNBT.CURRENCY_AMOUNT);
+                }
             } else {
                 durability = fuchsItem.getMaxDurability();
+                currency_value = fuchsItem.getCurrencyAmount();
+                currency_type = fuchsItem.getCurrencyType();
             }
         }
     }

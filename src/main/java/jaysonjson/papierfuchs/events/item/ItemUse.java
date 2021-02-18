@@ -5,10 +5,8 @@ import jaysonjson.papierfuchs.inventories.crafting.general.GeneralCraftingInvent
 import jaysonjson.papierfuchs.object.BlockMetaData;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -40,18 +38,19 @@ public class ItemUse implements Listener {
             if (event.getItem().getType() != Material.AIR) {
                 FuchsItem fuchsItem = Utility.getFuchsItemFromNMS(itemStack);
                 if(fuchsItem != null) {
-                    if (Utility.isAbilityItemAll(event.getPlayer(), itemStack)) {
+                    /*if (Utility.isAbilityItemAll(event.getPlayer(), itemStack)) {
                         if (fuchsItem.isAbilityItem()) {
                             //FuchsItem.ability(event.getPlayer().getWorld(), event.getPlayer(), event.getItem());
                             fuchsItem.ability(event);
                         }
                     }
-
+                    */
+                    fuchsItem.onItemUse(event);
                     switch (event.getAction()) {
-                        case RIGHT_CLICK_BLOCK: fuchsItem.onItemRightClickBlock(event); break;
-                        case LEFT_CLICK_BLOCK: fuchsItem.onItemLeftClickBlock(event); break;
-                        case LEFT_CLICK_AIR: fuchsItem.onItemLeftClickAir(event); break;
-                        case RIGHT_CLICK_AIR: fuchsItem.onItemRightClickAir(event); break;
+                        case RIGHT_CLICK_BLOCK: fuchsItem.onItemRightClickBlock(event); fuchsItem.onItemRightClick(event); break;
+                        case LEFT_CLICK_BLOCK: fuchsItem.onItemLeftClickBlock(event); fuchsItem.onItemLeftClick(event); break;
+                        case LEFT_CLICK_AIR: fuchsItem.onItemLeftClickAir(event); fuchsItem.onItemLeftClick(event); break;
+                        case RIGHT_CLICK_AIR: fuchsItem.onItemRightClickAir(event); fuchsItem.onItemRightClick(event); break;
 					default:
 						break;
                     }

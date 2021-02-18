@@ -1,6 +1,5 @@
 package jaysonjson.papierfuchs.object.item.type.other;
 
-import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.inventories.backpack.BackPackInventory;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
@@ -10,8 +9,6 @@ import jaysonjson.papierfuchs.object.item.interfaces.IItemUseType;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;

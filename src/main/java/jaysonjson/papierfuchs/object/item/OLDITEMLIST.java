@@ -1,6 +1,6 @@
 package jaysonjson.papierfuchs.object.item;
 
-
+@Deprecated
 public class OLDITEMLIST {
     /*
 }

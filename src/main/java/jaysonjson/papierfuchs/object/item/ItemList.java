@@ -10,8 +10,6 @@ import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperRodItem;
 import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperSwordItem;
 import jaysonjson.papierfuchs.object.item.type.crafting.vilum.VilumIngotItem;
 import jaysonjson.papierfuchs.object.item.type.crafting.vilum.VilumSwordItem;
-import jaysonjson.papierfuchs.object.item.type.currency.GoldBarItem;
-import jaysonjson.papierfuchs.object.item.type.currency.GoldNuggetItem;
 import jaysonjson.papierfuchs.object.item.type.currency.HackSilverItem;
 import jaysonjson.papierfuchs.object.item.type.currency.ZoryhaShardItem;
 import jaysonjson.papierfuchs.object.item.type.magic.MagicPowderItem;
@@ -22,8 +20,8 @@ import org.bukkit.Material;
 
 public class ItemList {
 
-    public static GoldBarItem GOLD_BAR = new GoldBarItem("goldBarItem", Material.GOLD_INGOT, ItemUseType.CURRENCY);
-    public static GoldNuggetItem GOLD_NUGGET = new GoldNuggetItem("goldNuggetItem", Material.GOLD_NUGGET, ItemUseType.CURRENCY);
+    /*public static GoldBarItem GOLD_BAR = new GoldBarItem("goldBarItem", Material.GOLD_INGOT, ItemUseType.CURRENCY);
+    public static GoldNuggetItem GOLD_NUGGET = new GoldNuggetItem("goldNuggetItem", Material.GOLD_NUGGET, ItemUseType.CURRENCY);*/
     public static HackSilverItem HACKSILVER = new HackSilverItem("hackSilverItem", Material.IRON_NUGGET, ItemUseType.CURRENCY);
     public static SkillBookItem SKILL_BOOK = new SkillBookItem("skillBookItem", Material.WRITTEN_BOOK, ItemUseType.OTHER);
     public static ZoryhaShardItem ZORYHA_SHARD = new ZoryhaShardItem("zoryhaShardItem", Material.NETHER_STAR, ItemUseType.CURRENCY);

@@ -8,7 +8,6 @@ import jaysonjson.papierfuchs.object.item.interfaces.IItemUseType;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,7 +20,6 @@ public class CopperPipeItem extends FuchsItem {
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player);
-
         oItem.lore.add(ChatColor.GRAY + "Ein Rohr aus Kupfer");
         oItem.setItem(ChatColor.GOLD + "Kupfer Rohr");
         return oItem.item;

@@ -291,15 +291,18 @@ public class Utility {
         world.dropItemNaturally(location, item.createItem(player));
     }
 
-    public static double countMoney(Player player) {
+    @Deprecated
+    private static double countMoney(Player player) {
         return countMoney(player.getInventory());
     }
 
-    public static double countMoney(Inventory inventory) {
+    @Deprecated
+    private static double countMoney(Inventory inventory) {
         return countMoney(inventory.getContents());
     }
 
-    public static double countMoney(ItemStack[] contents) {
+    @Deprecated
+    private static double countMoney(ItemStack[] contents) {
         double amount = 0;
         for (ItemStack content : contents) {
             if(content != null) {
@@ -315,7 +318,8 @@ public class Utility {
         return amount;
     }
 
-    public static double countMoneyBackpack(Inventory inventory) {
+    @Deprecated
+    private static double countMoneyBackpack(Inventory inventory) {
         double amount = 0;
         for (ItemStack content : inventory.getContents()) {
             if(content != null) {
@@ -336,11 +340,13 @@ public class Utility {
         return amount;
     }
 
-    public static double countZoryhaShard(Inventory inventory) {
+    @Deprecated
+    private static double countZoryhaShard(Inventory inventory) {
         return countZoryhaShard(inventory.getContents());
     }
 
-    public static double countZoryhaShard(ItemStack[] contents) {
+    @Deprecated
+    private static double countZoryhaShard(ItemStack[] contents) {
         double amount = 0;
         for (ItemStack content : contents) {
             if(content != null) {
@@ -356,7 +362,8 @@ public class Utility {
         return amount;
     }
 
-    public static double countZoryhaShardBackpack(Inventory inventory) {
+    @Deprecated
+    private static double countZoryhaShardBackpack(Inventory inventory) {
         double amount = 0;
         for (ItemStack content : inventory.getContents()) {
             if(content != null) {
@@ -377,15 +384,49 @@ public class Utility {
         return amount;
     }
 
-    public static double countZoryhaShard(Player player) {
+
+    public static double countCurrency(Inventory inventory, String type, boolean backPack) {
+        return countCurrency(inventory.getContents(), type, backPack);
+    }
+
+    public static double countCurrency(Player player, String type, boolean backPack) {
+        return countCurrency(player.getInventory(), type, backPack);
+    }
+
+    public static double countCurrency(ItemStack[] contents, String type, boolean backPack) {
+        double amount = 0;
+        for (ItemStack content : contents) {
+            if(content != null) {
+                if(content.hasItemMeta()) {
+                    NBTTagCompound tag = getItemTag(content);
+                    if(tag.hasKey(ItemNBT.CURRENCY_TYPE) && tag.hasKey(ItemNBT.CURRENCY_AMOUNT)) {
+                        if(tag.getString(ItemNBT.CURRENCY_TYPE).equalsIgnoreCase(type)) {
+                            amount += (tag.getDouble(ItemNBT.CURRENCY_AMOUNT) * content.getAmount());
+                        }
+                    }
+
+                    if(backPack) {
+                        ItemStack[] backpackContents = generateInventoryContent(tag.getString(ItemNBT.INVENTORY_CONTENT));
+                        amount += countCurrency(backpackContents, type, true);
+                    }
+                }
+            }
+        }
+        return amount;
+    }
+
+    @Deprecated
+    private static double countZoryhaShard(Player player) {
         return countZoryhaShard(player.getInventory());
     }
 
-    public static double convertHacksilverToZoryhaShard(double hacksilverAmount) {
+    @Deprecated
+    private static double convertHacksilverToZoryhaShard(double hacksilverAmount) {
         return hacksilverAmount / Constant.HACKSILVER_TO_ZORYHASHARD_VALUE;
     }
 
-    public static double convertZoryhaShardToHacksilver(double zoryhaShardAmount) {
+    @Deprecated
+    private static double convertZoryhaShardToHacksilver(double zoryhaShardAmount) {
         return zoryhaShardAmount * Constant.HACKSILVER_TO_ZORYHASHARD_VALUE;
     }
 

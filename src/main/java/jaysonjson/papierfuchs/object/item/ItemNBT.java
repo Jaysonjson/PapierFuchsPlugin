@@ -18,9 +18,12 @@ public class ItemNBT {
     public static final String ITEM_VERSION = "itemVersion";
     public static final String LIQUID_AMOUNT = "abstractLiquidAmount";
     public static final String GAS_AMOUNT = "abstractGasAmount";
+    @Deprecated
     public static final String HACKSILVER_AMOUNT = "hacksilverValueAmount";
     public static final String MARKED_VALUE = "marketValue";
+    @Deprecated
     public static final String ZORYHASHARD_AMOUNT = "zoryhaShardValueAmount";
+    public static final String CURRENCY_AMOUNT = "currencyAmount";
 
     //STRING
     public static final String MAGIC_TYPE = "magicType";
@@ -32,5 +35,5 @@ public class ItemNBT {
     public static final String INVENTORY_CONTENT = "inventoryContent";
     public static final String ITEM_ID = "FuchsItemID";
     public static final String ITEM_UUID = "FuchsItemUUID";
-
+    public static final String CURRENCY_TYPE = "currencyType";
 }
