@@ -1,4 +1,4 @@
-package jaysonjson.papierfuchs.object.item.type.crafting.copper;
+package jaysonjson.papierfuchs.object.item.type.resource.copper.crafting;
 
 
 import jaysonjson.papierfuchs.object.item.FuchsItem;
@@ -11,17 +11,19 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class CopperPipeItem extends FuchsItem {
+public class CopperRodItem extends FuchsItem {
 
-    public CopperPipeItem(String id, Material material, IItemUseType itemUseType) {
+    public CopperRodItem(String id, Material material, IItemUseType itemUseType) {
         super(id, material, itemUseType);
     }
+
 
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player);
-        oItem.lore.add(ChatColor.GRAY + "Ein Rohr aus Kupfer");
-        oItem.setItem(ChatColor.GOLD + "Kupfer Rohr");
+
+        oItem.lore.add(ChatColor.GRAY + "Eine Stange aus Kupfer");
+        oItem.setItem(ChatColor.GOLD + "Kupfer Stange");
         return oItem.item;
     }
 
@@ -31,6 +33,5 @@ public class CopperPipeItem extends FuchsItem {
         tag.setBoolean(ItemNBT.CAN_CRAFT_MINECRAFT, false);
         return tag;
     }
-
 
 }

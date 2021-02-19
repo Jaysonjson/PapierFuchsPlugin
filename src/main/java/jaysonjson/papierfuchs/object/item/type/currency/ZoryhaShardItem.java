@@ -1,6 +1,5 @@
 package jaysonjson.papierfuchs.object.item.type.currency;
 
-import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.object.item.CurrencyType;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;

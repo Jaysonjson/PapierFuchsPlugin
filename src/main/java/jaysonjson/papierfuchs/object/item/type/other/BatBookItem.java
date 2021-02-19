@@ -33,6 +33,7 @@ public class BatBookItem extends FuchsItem {
     public NBTTagCompound getTag(NBTTagCompound tag) {
         tag.setBoolean(ItemNBT.CAN_CRAFT, true);
         tag.setBoolean(ItemNBT.CAN_CRAFT_MINECRAFT, false);
+        tag.setBoolean(ItemNBT.CAN_ENCHANT_MINECRAFT, false);
         return tag;
     }
 

@@ -26,6 +26,7 @@ public class FuchsItemData {
     public FuchsItem fuchsItem;
     public Player player = null;
     NBTTagCompound preTag;
+    private boolean creative_get = false;
 
     public int durability = 0;
     public boolean exists = false;
@@ -179,6 +180,7 @@ public class FuchsItemData {
                     lore.add("");
                 }
                 if (player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR) || preTag.hasKey(ItemNBT.CREATIVE_GET)) {
+                    creative_get = true;
                     if(!preTag.hasKey(ItemNBT.CREATIVE_GET)) {
                         preTag.setString(ItemNBT.CREATIVE_GET_USER, player.getDisplayName());
                     }
@@ -227,6 +229,7 @@ public class FuchsItemData {
         NBTTagCompound tag = nmsCopy.hasTag() ? nmsCopy.getTag() : new NBTTagCompound();
         tag.setString(ItemNBT.ITEM_ID, id);
         tag.setDouble(ItemNBT.ITEM_VERSION, fuchsItem.itemVersion());
+        tag.setBoolean(ItemNBT.CREATIVE_GET, creative_get);
         return tag;
     }
 

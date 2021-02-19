@@ -401,7 +401,7 @@ public class Utility {
                     NBTTagCompound tag = getItemTag(content);
                     if(tag.hasKey(ItemNBT.CURRENCY_TYPE) && tag.hasKey(ItemNBT.CURRENCY_AMOUNT)) {
                         if(tag.getString(ItemNBT.CURRENCY_TYPE).equalsIgnoreCase(type)) {
-                            amount += (tag.getDouble(ItemNBT.CURRENCY_AMOUNT) * content.getAmount());
+                            amount += countItemCurrency(content);
                         }
                     }
 
@@ -732,7 +732,34 @@ public class Utility {
         return amount;
     }
 
-    public static ItemStack[] removeMoney(ItemStack[] contents, double amount) {
+    public static double countItemCurrency(ItemStack itemStack) {
+        NBTTagCompound tag = getItemTag(itemStack);
+        if(tag.hasKey(ItemNBT.CURRENCY_AMOUNT)) {
+            return tag.getDouble(ItemNBT.CURRENCY_AMOUNT) * itemStack.getAmount();
+        }
+        return 0;
+    }
+
+
+    private static ItemStack[] removeCurrency(ItemStack[] contents, String currency_type, double amount) {
+        double fake_amount = amount;
+        for (ItemStack content : contents) {
+            if(content != null) {
+                if(content.hasItemMeta()) {
+                    NBTTagCompound tag = getItemTag(content);
+                    if(tag.hasKey(ItemNBT.CURRENCY_TYPE) && tag.hasKey(ItemNBT.CURRENCY_AMOUNT)) {
+                        if(countItemCurrency(content) >= amount) {
+
+                        }
+                    }
+                }
+            }
+        }
+        return contents;
+    }
+
+    @Deprecated
+    private static ItemStack[] removeMoney(ItemStack[] contents, double amount) {
         double fakeAmount = amount;
         int i = 0;
         for (ItemStack content : contents) {
@@ -762,7 +789,8 @@ public class Utility {
         }
         return contents;
     }
-    public static ItemStack[] removeMoneyBackpack(Inventory inventory, double amount) {
+    @Deprecated
+    private static ItemStack[] removeMoneyBackpack(Inventory inventory, double amount) {
         ItemStack[] contents = inventory.getContents();
         double fakeAmount = amount;
         int i = 0;

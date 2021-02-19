@@ -4,12 +4,12 @@ import jaysonjson.papierfuchs.object.item.type.ability.CraftingUpgradekitItem;
 import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.FireEs01BlazeRodItem;
 import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.WallBlazeRodItem;
 import jaysonjson.papierfuchs.object.item.type.crafting.*;
-import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperIngotItem;
-import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperPipeItem;
-import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperRodItem;
-import jaysonjson.papierfuchs.object.item.type.crafting.copper.CopperSwordItem;
-import jaysonjson.papierfuchs.object.item.type.crafting.vilum.VilumIngotItem;
-import jaysonjson.papierfuchs.object.item.type.crafting.vilum.VilumSwordItem;
+import jaysonjson.papierfuchs.object.item.type.resource.copper.material.CopperIngotItem;
+import jaysonjson.papierfuchs.object.item.type.resource.copper.crafting.CopperPipeItem;
+import jaysonjson.papierfuchs.object.item.type.resource.copper.crafting.CopperRodItem;
+import jaysonjson.papierfuchs.object.item.type.resource.copper.tool.CopperSwordItem;
+import jaysonjson.papierfuchs.object.item.type.resource.vilum.material.VilumIngotItem;
+import jaysonjson.papierfuchs.object.item.type.resource.vilum.tool.VilumSwordItem;
 import jaysonjson.papierfuchs.object.item.type.currency.HackSilverItem;
 import jaysonjson.papierfuchs.object.item.type.currency.ZoryhaShardItem;
 import jaysonjson.papierfuchs.object.item.type.magic.MagicPowderItem;
@@ -75,5 +75,5 @@ public class ItemList {
 
     public static TestSwordItem TEST_SWORD = new TestSwordItem("testSword", Material.FEATHER, ItemUseType.TOOL);
 
-    public static BatBookItem BAT_BOOK = new BatBookItem("batBook", Material.FEATHER, ItemUseType.ABILITY);
+    public static BatBookItem BAT_BOOK = new BatBookItem("batBook", Material.BOOK, ItemUseType.ABILITY);
 }

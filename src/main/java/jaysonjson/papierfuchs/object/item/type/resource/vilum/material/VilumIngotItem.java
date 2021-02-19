@@ -1,4 +1,5 @@
-package jaysonjson.papierfuchs.object.item.type.crafting.copper;
+package jaysonjson.papierfuchs.object.item.type.resource.vilum.material;
+
 
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;
@@ -10,18 +11,16 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class CopperSwordItem extends FuchsItem {
+public class VilumIngotItem extends FuchsItem {
 
-    public CopperSwordItem(String id, Material material, IItemUseType itemUseType) {
+    public VilumIngotItem(String id, Material material, IItemUseType itemUseType) {
         super(id, material, itemUseType);
     }
-
 
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData oItem = new FuchsItemData(this, player, stack);
-        oItem.lore.add(ChatColor.GRAY + "Ein Schwert aus Kupfer");
-        oItem.setItem(ChatColor.GOLD + "Kupfer Schwert");
+        oItem.setItem(ChatColor.LIGHT_PURPLE + "Vilum");
         return oItem.item;
     }
 
@@ -29,19 +28,21 @@ public class CopperSwordItem extends FuchsItem {
     public NBTTagCompound getTag(NBTTagCompound tag) {
         tag.setBoolean(ItemNBT.CAN_CRAFT, true);
         tag.setBoolean(ItemNBT.CAN_CRAFT_MINECRAFT, false);
-        if(!tag.hasKey(ItemNBT.ITEM_DURABILITY)) {
-            tag.setInt(ItemNBT.ITEM_DURABILITY, getMaxDurability());
-        }
         return tag;
     }
 
     @Override
-    public int getMaxDurability() {
-        return 1200;
+    public int getEarthValue() {
+        return 2;
     }
 
     @Override
-    public int getToolDamage() {
+    public int getWaterValue() {
         return 6;
+    }
+
+    @Override
+    public int getCustomModelData() {
+        return 20;
     }
 }

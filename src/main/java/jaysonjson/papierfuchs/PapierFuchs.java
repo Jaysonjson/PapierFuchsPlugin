@@ -83,7 +83,8 @@ public final class PapierFuchs extends JavaPlugin {
                 new Smelting(),
                 new PlayerSleep(),
                 new WorldLoad(),
-                new PlayerInteractEntity()
+                new PlayerInteractEntity(),
+                new EnchantItem()
         );
 
         registerCommands(

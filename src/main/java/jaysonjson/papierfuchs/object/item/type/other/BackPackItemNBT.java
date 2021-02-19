@@ -10,7 +10,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.UUID;
 
 public class BackPackItemNBT extends FuchsItem {
 
@@ -33,13 +36,16 @@ public class BackPackItemNBT extends FuchsItem {
     public NBTTagCompound getTag(NBTTagCompound tag) {
         tag.setBoolean(ItemNBT.CAN_CRAFT_MINECRAFT, false);
         tag.setBoolean(ItemNBT.IS_BACKPACK, true);
+        tag.setString("fakeUUID", UUID.randomUUID().toString());
         return tag;
     }
 
 
     @Override
     public void onItemUse(PlayerInteractEvent event) {
-        BackPackNBTInventory inventory = new BackPackNBTInventory(event.getItem(), inventorySize);
-        inventory.openInventory(event.getPlayer());
+        if(event.getHand().equals(EquipmentSlot.HAND)) {
+            BackPackNBTInventory inventory = new BackPackNBTInventory(event.getItem(), inventorySize);
+            inventory.openInventory(event.getPlayer());
+        }
     }
 }

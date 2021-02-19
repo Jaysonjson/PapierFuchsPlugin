@@ -20,9 +20,9 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
         IFuchsItemTexture, IItemUseType, IFuchsItemUse, IFuchsItemEntityInteraction,
         IFuchsItemBlockInteraction, IFuchsItemGun, IFuchsItemTool, IFuchsItemCurrency {
 
-    String id;
-    Material material;
-    IItemUseType itemUseType;
+    private final String id;
+    private final Material material;
+    private final IItemUseType itemUseType;
     public FuchsItem(String id, Material material, IItemUseType itemUseType) {
         this.id = id;
         this.material = material;

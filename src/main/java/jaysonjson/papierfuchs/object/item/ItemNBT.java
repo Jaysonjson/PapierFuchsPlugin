@@ -8,7 +8,7 @@ public class ItemNBT {
     public static final String CAN_MOVE = "canMove";
     public static final String CAN_CRAFT_MINECRAFT_OUTPUT = "canCraftMinecraftAsOutput";
     public static final String CREATIVE_GET = "creativeGet";
-
+    public static final String CAN_ENCHANT_MINECRAFT = "canEnchantMinecraft";
     //INT
     public static final String ITEM_DURABILITY = "itemDurability";
     public static final String ITEM_AMOUNT = "FuchsItemAmount";

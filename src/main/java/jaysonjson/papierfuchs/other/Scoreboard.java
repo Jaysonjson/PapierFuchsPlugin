@@ -67,8 +67,8 @@ public class Scoreboard {
         Score zoryhaShardScore = score.getScore(ChatColor.AQUA + "Zoryha Bruckstücke" + ChatColor.DARK_GRAY + ": " + ChatColor.GOLD + zoryhaShardSTR + "¢");
         Score lineSpace1 = score.getScore("-0------=1=------0-");
         String areaColor = ChatColor.GOLD + "";
-        Score nextAreaScore = score.getScore("Gebiet0");
-        Score areaScore = score.getScore("Gebiet1");
+        Score nextAreaScore = score.getScore(ChatColor.RED + "in der nähe");
+        Score areaScore = score.getScore(ChatColor.RED + "Keine Gebiete");
         if(areas.size() > 0) {
             zArea currentArea = areas.get(0);
             boolean inArea = false;
