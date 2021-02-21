@@ -56,7 +56,7 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
 
     @Override
     public NBTTagCompound getTag(NBTTagCompound tag) {
-        return null;
+        return new NBTTagCompound();
     }
 
     @Override
@@ -211,5 +211,10 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     @Override
     public String getCurrencyType() {
         return "";
+    }
+
+    @Override
+    public float getToolAttackSpeed() {
+        return 0;
     }
 }

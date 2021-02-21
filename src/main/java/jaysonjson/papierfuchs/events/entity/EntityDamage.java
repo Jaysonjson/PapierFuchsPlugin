@@ -6,6 +6,8 @@ import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.object.EntityMetaData;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
+import jaysonjson.papierfuchs.object.item.FuchsMCItem;
+import jaysonjson.papierfuchs.object.item.ItemNBT;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,8 +34,9 @@ public class EntityDamage implements Listener {
                 ItemStack itemStack = player.getInventory().getItemInMainHand();
                 if(Utility.isFuchsItem(itemStack)) {
                     FuchsItem fuchsItem = Utility.getFuchsItemFromNMS(itemStack);
-                    event.setDamage(event.getFinalDamage() + fuchsItem.getToolDamage());
-                    player.getInventory().setItemInMainHand(Utility.damageFuchsItem(player, fuchsItem, itemStack));
+                    FuchsMCItem fuchsMCItem = new FuchsMCItem(fuchsItem);
+                    event.setDamage(event.getFinalDamage() + fuchsMCItem.getDoubleFromTag(ItemNBT.ATTACK_DAMAGE));
+                    player.getInventory().setItemInMainHand(Utility.damageFuchsItem(player, fuchsMCItem));
                 }
             }
         }

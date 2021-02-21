@@ -10,6 +10,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+
+@Deprecated
 public class CopperSwordItem extends FuchsItem {
 
     public CopperSwordItem(String id, Material material, IItemUseType itemUseType) {
@@ -29,9 +31,6 @@ public class CopperSwordItem extends FuchsItem {
     public NBTTagCompound getTag(NBTTagCompound tag) {
         tag.setBoolean(ItemNBT.CAN_CRAFT, true);
         tag.setBoolean(ItemNBT.CAN_CRAFT_MINECRAFT, false);
-        if(!tag.hasKey(ItemNBT.ITEM_DURABILITY)) {
-            tag.setInt(ItemNBT.ITEM_DURABILITY, getMaxDurability());
-        }
         return tag;
     }
 

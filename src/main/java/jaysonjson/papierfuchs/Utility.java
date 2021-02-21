@@ -949,7 +949,7 @@ public class Utility {
         return bounty;
     }
 
-    public static boolean inventoryHasItem(Inventory inventory, ItemStack itemStack) {
+    public static boolean inventoryHasItem(Inventory inventory, ItemStack itemStack, boolean ignoreTag) {
         for (ItemStack content : inventory.getContents()) {
             if(content != null) {
                 List<String> lore = new ArrayList<>();
@@ -957,7 +957,22 @@ public class Utility {
                 ItemStack n_s = new ItemStack(itemStack);
                 n_c.setLore(lore);
                 n_s.setLore(lore);
-                if (n_c.isSimilar(n_s) && itemStack.getAmount() <= countItemInInventory(inventory, itemStack)) {
+                net.minecraft.server.v1_16_R3.ItemStack nms_c = createNMSCopy(n_c);
+                net.minecraft.server.v1_16_R3.ItemStack nms_s = createNMSCopy(n_s);
+                nms_c.removeTag(ItemNBT.CREATIVE_GET);
+                nms_c.removeTag(ItemNBT.CREATIVE_GET_USER);
+                nms_s.removeTag(ItemNBT.CREATIVE_GET_USER);
+                nms_s.removeTag(ItemNBT.CREATIVE_GET);
+                n_c = CraftItemStack.asBukkitCopy(nms_c);
+                n_s = CraftItemStack.asBukkitCopy(nms_s);
+                if(ignoreTag) {
+                    nms_c.setTag(new NBTTagCompound());
+                    nms_s.setTag(new NBTTagCompound());
+                    n_c = CraftItemStack.asBukkitCopy(nms_c);
+                    n_s = CraftItemStack.asBukkitCopy(nms_s);
+                }
+                System.out.println(itemStack.getAmount() <= countItemInInventory(inventory, itemStack, ignoreTag));
+                if (n_c.isSimilar(n_s) && itemStack.getAmount() <= countItemInInventory(inventory, itemStack, ignoreTag)) {
                     return true;
                 }
             }
@@ -965,7 +980,11 @@ public class Utility {
         return false;
     }
 
-    public static int countItemInInventory(Inventory inventory, ItemStack itemStack) {
+    public static boolean inventoryHasItem(Inventory inventory, ItemStack itemStack) {
+        return inventoryHasItem(inventory, itemStack, false);
+    }
+
+    public static int countItemInInventory(Inventory inventory, ItemStack itemStack, boolean ignoreTag) {
         int amount = 0;
         for (ItemStack content : inventory.getContents()) {
             if(content != null) {
@@ -974,6 +993,20 @@ public class Utility {
                 ItemStack n_s = new ItemStack(itemStack);
                 n_c.setLore(lore);
                 n_s.setLore(lore);
+                net.minecraft.server.v1_16_R3.ItemStack nms_c = createNMSCopy(n_c);
+                net.minecraft.server.v1_16_R3.ItemStack nms_s = createNMSCopy(n_s);
+                nms_c.removeTag(ItemNBT.CREATIVE_GET);
+                nms_c.removeTag(ItemNBT.CREATIVE_GET_USER);
+                nms_s.removeTag(ItemNBT.CREATIVE_GET_USER);
+                nms_s.removeTag(ItemNBT.CREATIVE_GET);
+                n_c = CraftItemStack.asBukkitCopy(nms_c);
+                n_s = CraftItemStack.asBukkitCopy(nms_s);
+                if(ignoreTag) {
+                    nms_c.setTag(new NBTTagCompound());
+                    nms_s.setTag(new NBTTagCompound());
+                    n_c = CraftItemStack.asBukkitCopy(nms_c);
+                    n_s = CraftItemStack.asBukkitCopy(nms_s);
+                }
                 if (n_c.isSimilar(n_s)) {
                     amount += content.getAmount();
                 }
@@ -982,7 +1015,11 @@ public class Utility {
         return amount;
     }
 
-    public static void removeItemsFromInventory(Inventory inventory, ItemStack itemStack, int amount) {
+    public static int countItemInInventory(Inventory inventory, ItemStack itemStack) {
+        return countItemInInventory(inventory, itemStack, false);
+    }
+
+    public static void removeItemsFromInventory(Inventory inventory, ItemStack itemStack, int amount, boolean ignoreTag) {
         for (ItemStack content : inventory.getContents()) {
             if(content != null) {
                 List<String> lore = new ArrayList<>();
@@ -990,9 +1027,25 @@ public class Utility {
                 ItemStack n_s = new ItemStack(itemStack);
                 n_c.setLore(lore);
                 n_s.setLore(lore);
+                net.minecraft.server.v1_16_R3.ItemStack nms_c = createNMSCopy(n_c);
+                net.minecraft.server.v1_16_R3.ItemStack nms_s = createNMSCopy(n_s);
+                nms_c.removeTag(ItemNBT.CREATIVE_GET);
+                nms_c.removeTag(ItemNBT.CREATIVE_GET_USER);
+                nms_s.removeTag(ItemNBT.CREATIVE_GET_USER);
+                nms_s.removeTag(ItemNBT.CREATIVE_GET);
+                n_c = CraftItemStack.asBukkitCopy(nms_c);
+                n_s = CraftItemStack.asBukkitCopy(nms_s);
+                if(ignoreTag) {
+                    nms_c.setTag(new NBTTagCompound());
+                    nms_s.setTag(new NBTTagCompound());
+                    n_c = CraftItemStack.asBukkitCopy(nms_c);
+                    n_s = CraftItemStack.asBukkitCopy(nms_s);
+                }
+                System.out.println(amount);
                 if (n_c.isSimilar(n_s)) {
                     if(content.getAmount() >= amount) {
                         content.setAmount(content.getAmount() - amount);
+                        break;
                     } else {
                         amount -= content.getAmount();
                         content.setAmount(0);
@@ -1031,8 +1084,7 @@ public class Utility {
         return false;
     }
 
-    public static ItemStack damageFuchsItem(Player player, FuchsItem fuchsItem, ItemStack itemStack) {
-        FuchsMCItem fuchsMCItem = new FuchsMCItem(fuchsItem, itemStack);
+    public static ItemStack damageFuchsItem(Player player, FuchsMCItem fuchsMCItem) {
         if(fuchsMCItem.getTagFromOriginal().hasKey(ItemNBT.ITEM_DURABILITY)) {
             fuchsMCItem.changeIntTag(ItemNBT.ITEM_DURABILITY, fuchsMCItem.getIntFromTag(ItemNBT.ITEM_DURABILITY) - 1);
             ItemStack newItem = fuchsMCItem.getItemStack();
@@ -1044,7 +1096,11 @@ public class Utility {
             }
             return newItem;
         }
-        return itemStack;
+        return fuchsMCItem.getItemStack();
+    }
+
+    public static ItemStack damageFuchsItem(Player player, FuchsItem fuchsItem, ItemStack itemStack) {
+        return damageFuchsItem(player, new FuchsMCItem(fuchsItem, itemStack));
     }
 
     public static ItemStack damageFuchsItem(FuchsItem fuchsItem, ItemStack itemStack) {

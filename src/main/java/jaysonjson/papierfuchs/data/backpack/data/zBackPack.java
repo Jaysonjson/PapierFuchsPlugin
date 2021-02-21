@@ -6,6 +6,7 @@ import jaysonjson.papierfuchs.data.IHasUUID;
 import org.bukkit.inventory.ItemStack;
 import java.util.UUID;
 
+@Deprecated
 public class zBackPack implements IHasUUID {
     public String inventoryContent = "";
     public UUID uuid = UUID.randomUUID();

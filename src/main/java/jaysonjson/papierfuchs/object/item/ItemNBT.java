@@ -24,6 +24,8 @@ public class ItemNBT {
     @Deprecated
     public static final String ZORYHASHARD_AMOUNT = "zoryhaShardValueAmount";
     public static final String CURRENCY_AMOUNT = "currencyAmount";
+    public static final String ATTACK_SPEED = "attackSpeed";
+    public static final String ATTACK_DAMAGE = "attackDamage";
 
     //STRING
     public static final String MAGIC_TYPE = "magicType";

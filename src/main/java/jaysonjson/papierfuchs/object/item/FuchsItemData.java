@@ -10,12 +10,17 @@ import jaysonjson.papierfuchs.skillclass.zClass;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.w3c.dom.Attr;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class FuchsItemData {
     public ItemStack item;
@@ -27,6 +32,7 @@ public class FuchsItemData {
     public Player player = null;
     NBTTagCompound preTag;
     private boolean creative_get = false;
+    private String creative_get_user = "";
 
     public int durability = 0;
     public boolean exists = false;
@@ -38,6 +44,9 @@ public class FuchsItemData {
     public String inventory_content = "";
     public double currency_value = 0d;
     public String currency_type = "";
+    public double attack_damage = 0;
+    public double attack_speed = 0;
+
 
     public FuchsItemData(FuchsItem fuchsItem, Player player) {
         this.item = new ItemStack(fuchsItem.getMaterial());
@@ -94,10 +103,24 @@ public class FuchsItemData {
                 if(tag.hasKey(ItemNBT.CURRENCY_AMOUNT)) {
                     currency_value = tag.getDouble(ItemNBT.CURRENCY_AMOUNT);
                 }
+                if(tag.hasKey(ItemNBT.CREATIVE_GET)) {
+                    creative_get = tag.getBoolean(ItemNBT.CREATIVE_GET);
+                }
+                if(tag.hasKey(ItemNBT.CREATIVE_GET_USER)) {
+                    creative_get_user = tag.getString(ItemNBT.CREATIVE_GET_USER);
+                }
+                if(tag.hasKey(ItemNBT.ATTACK_DAMAGE)) {
+                    attack_damage = tag.getDouble(ItemNBT.ATTACK_DAMAGE);
+                }
+                if(tag.hasKey(ItemNBT.ATTACK_SPEED)) {
+                    attack_speed = tag.getDouble(ItemNBT.ATTACK_SPEED);
+                }
             } else {
                 durability = fuchsItem.getMaxDurability();
                 currency_value = fuchsItem.getCurrencyAmount();
                 currency_type = fuchsItem.getCurrencyType();
+                attack_damage = fuchsItem.getToolDamage();
+                attack_speed = fuchsItem.getToolAttackSpeed();
             }
         }
     }
@@ -109,18 +132,24 @@ public class FuchsItemData {
 
 
     public void addDamageLore() {
-        if(fuchsItem.getToolDamage() > 0) {
+        if(attack_damage > 0) {
             String chatcolorDamage = ChatColor.GOLD.toString();
-            if(fuchsItem.getToolDamage() > 4) {
+            if(attack_damage > 4) {
                 chatcolorDamage = ChatColor.DARK_GRAY.toString();
-            } else if(fuchsItem.getToolDamage() > 5) {
+            } else if(attack_damage > 5) {
                 chatcolorDamage = ChatColor.GRAY.toString();
-            } else if(fuchsItem.getToolDamage() > 6) {
+            } else if(attack_damage > 6) {
                 chatcolorDamage = ChatColor.AQUA.toString();
-            } else if(fuchsItem.getToolDamage() > 7) {
+            } else if(attack_damage > 7) {
                 chatcolorDamage = ChatColor.RED.toString();
             }
-            lore.add(chatcolorDamage + "Schaden: " + fuchsItem.getToolDamage());
+            lore.add(chatcolorDamage + "Schaden: " + attack_damage);
+        }
+    }
+
+    public void addAttackSpeedLore() {
+        if(attack_speed != 0) {
+            lore.add("Geschwindigkeit: " + attack_speed);
         }
     }
 
@@ -129,9 +158,8 @@ public class FuchsItemData {
     }
     //@Deprecated
     public void setItem(String displayName) {
-        if(fuchsItem.getToolDamage() > 0) {
-            addDamageLore();
-        }
+        addDamageLore();
+        addAttackSpeedLore();
         if(fuchsItem.getMaxDurability() > 0) {
             addDurabilityLore();
         }
@@ -181,11 +209,12 @@ public class FuchsItemData {
                 }
                 if (player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR) || preTag.hasKey(ItemNBT.CREATIVE_GET)) {
                     creative_get = true;
+                    creative_get_user = player.getUniqueId().toString();
                     if(!preTag.hasKey(ItemNBT.CREATIVE_GET)) {
-                        preTag.setString(ItemNBT.CREATIVE_GET_USER, player.getDisplayName());
+                        preTag.setString(ItemNBT.CREATIVE_GET_USER, creative_get_user);
                     }
                     lore.add(ChatColor.LIGHT_PURPLE + "In Kreativ bekommen");
-                    lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + preTag.getString(ItemNBT.CREATIVE_GET_USER) + "«");
+                    lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + player.getServer().getOfflinePlayer(UUID.fromString(creative_get_user)).getPlayer().getDisplayName() + "«");
                 }
             } else {
                 if(fuchsItem.requiredIntelligence() > 0) {
@@ -204,6 +233,15 @@ public class FuchsItemData {
 
             itemMeta.setLore(lore);
             itemMeta.setDisplayName(displayName);
+            itemMeta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
+            itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            if(fuchsItem.getToolAttackSpeed() > 0) {
+                AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "attackspeed", attack_speed, AttributeModifier.Operation.ADD_NUMBER);
+                itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, modifier);
+            }
+          /*  AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "attackdmg", 155, AttributeModifier.Operation.ADD_NUMBER);
+            itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
+           */
             item.setItemMeta(itemMeta);
             //nmsCopy = createNMSCopy();
             createNMSCopy();
@@ -230,6 +268,16 @@ public class FuchsItemData {
         tag.setString(ItemNBT.ITEM_ID, id);
         tag.setDouble(ItemNBT.ITEM_VERSION, fuchsItem.itemVersion());
         tag.setBoolean(ItemNBT.CREATIVE_GET, creative_get);
+        tag.setString(ItemNBT.CREATIVE_GET_USER, creative_get_user);
+        if(fuchsItem.getMaxDurability() > 0) {
+            tag.setInt(ItemNBT.ITEM_DURABILITY, durability);
+        }
+        if(fuchsItem.getToolAttackSpeed() != 0) {
+            tag.setDouble(ItemNBT.ATTACK_SPEED, attack_speed);
+        }
+        if(fuchsItem.getToolDamage() > 0) {
+            tag.setDouble(ItemNBT.ATTACK_DAMAGE, attack_damage);
+        }
         return tag;
     }
 

@@ -5,4 +5,5 @@ public interface IFuchsItemTool {
     int getToolDamage();
     int getToolEfficiency();
     int getDamageProtection();
+    float getToolAttackSpeed();
 }

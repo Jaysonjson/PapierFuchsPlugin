@@ -78,7 +78,7 @@ public class GeneralCraftingInventory implements Listener {
                 if(input.getItem().getItemMeta().hasDisplayName()) {
                     itemName = ChatColor.stripColor(input.getItem().getItemMeta().getDisplayName());
                 }
-                if(Utility.inventoryHasItem(player.getInventory(), input.getItem())) {
+                if(Utility.inventoryHasItem(player.getInventory(), input.getItem(), false)) {
                     color = ChatColor.GREEN.toString();
                     input_amount++;
                 }
@@ -116,7 +116,7 @@ public class GeneralCraftingInventory implements Listener {
                         System.out.println("Click0");
                         if(can_craft.get(tag.getInt("id"))) {
                             for (zCraftingItem input : added_recipes.get(tag.getInt("id")).inputs) {
-                                Utility.removeItemsFromInventory(event.getWhoClicked().getInventory(), input.getItem(), input.amount);
+                                Utility.removeItemsFromInventory(event.getWhoClicked().getInventory(), input.getItem(), input.amount, false);
                                 System.out.println("Click1");
                             }
                             event.getView().setCursor(clickedItem);

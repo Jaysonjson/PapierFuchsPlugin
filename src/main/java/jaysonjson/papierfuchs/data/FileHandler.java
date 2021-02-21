@@ -17,6 +17,7 @@ public class FileHandler {
     @Directory
     public static String SERVER_DIR = ROOT;
     @Directory
+    @Deprecated
     public static String BACKPACK_DIR = PLAYER_DIR + "/backpacks/";
     @Directory
     public static String MOBDROPS_DIR = ROOT + "/drops/mobs/";
