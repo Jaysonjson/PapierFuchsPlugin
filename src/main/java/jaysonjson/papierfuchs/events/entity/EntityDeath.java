@@ -42,7 +42,7 @@ public class EntityDeath implements Listener {
                             player = event.getEntity().getKiller();
                             ItemStack itemStack = itemDropChance.getFuchsItem().createItem(player);
                             itemStack.setAmount(ThreadLocalRandom.current().nextInt(itemDropChance.min_amount, itemDropChance.max_amount + 1));
-                            player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
+                            player.getWorld().dropItemNaturally(event.getEntity().getLocation(), itemStack);
                             //Utility.spawnCustomItem(player, itemDropChance.getFuchsItem(), player.getWorld(), player.getLocation());
                         }
                     }

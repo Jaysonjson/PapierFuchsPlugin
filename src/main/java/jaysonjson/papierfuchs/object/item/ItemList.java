@@ -5,6 +5,7 @@ import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.FireEs01Blaz
 import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.WallBlazeRodItem;
 import jaysonjson.papierfuchs.object.item.type.crafting.*;
 import jaysonjson.papierfuchs.object.item.type.generic.ItemWithTexture;
+import jaysonjson.papierfuchs.object.item.type.generic.resource.OreItem;
 import jaysonjson.papierfuchs.object.item.type.generic.weapon.HammerItem;
 import jaysonjson.papierfuchs.object.item.type.generic.weapon.SwordItem;
 import jaysonjson.papierfuchs.object.item.type.resource.copper.material.CopperIngotItem;
@@ -17,6 +18,7 @@ import jaysonjson.papierfuchs.object.item.type.currency.ZoryhaShardItem;
 import jaysonjson.papierfuchs.object.item.type.magic.MagicPowderItem;
 import jaysonjson.papierfuchs.object.item.type.magic.MagicType;
 import jaysonjson.papierfuchs.object.item.type.other.*;
+import jaysonjson.papierfuchs.object.item.type.resource.vilum.tool.VilumSwordItem;
 import jaysonjson.papierfuchs.object.item.type.vanillaOverride.IronOreItem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -83,7 +85,8 @@ public class ItemList {
     public static HammerItem SILVER_HAMMER = new HammerItem("silver_hammer", "Silber", 7, 5, -0.27f, 27, Material.FEATHER, ItemUseType.WEAPON);
 
     public static SwordItem TIN_SWORD = new SwordItem("tin_sword", ChatColor.GRAY + "Zinn", 5, 221, 1.2f, 28, Material.FEATHER, ItemUseType.WEAPON);
-    public static SwordItem VILUM_SWORD = new SwordItem("vilum_sword", ChatColor.LIGHT_PURPLE + "Vilum", 17, 120, 1.2f, 25, Material.FEATHER, ItemUseType.WEAPON);
+    public static SwordItem VILUM_SWORD = new VilumSwordItem("vilum_sword", ChatColor.LIGHT_PURPLE + "Vilum", 17, 120, 1.2f, 25, Material.FEATHER, ItemUseType.WEAPON);
     public static SwordItem SILVER_SWORD = new SwordItem("silver_sword", ChatColor.DARK_GRAY + "Silver", 8, 1225, 1.2f, 25, Material.FEATHER, ItemUseType.WEAPON);
 
+    public static OreItem TIN_ORE = new OreItem("tin_ore", ChatColor.GRAY + "Zinn", -1, Material.FEATHER, ItemUseType.CRAFTING);
 }

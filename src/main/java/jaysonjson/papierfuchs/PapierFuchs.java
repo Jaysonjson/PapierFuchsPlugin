@@ -55,6 +55,7 @@ public final class PapierFuchs extends JavaPlugin {
         FuchsRegistries.register(GasList.class);
         FuchsRegistries.register(LiquidList.class);
         FuchsRegistries.sort();
+        //DataHandler.createBlockDrop();
         //DataHandler.createMobDrop();
         //DataHandler.createGeneralCraftingTest();
         References.reloadDrops();

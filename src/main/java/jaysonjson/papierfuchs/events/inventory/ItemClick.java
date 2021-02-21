@@ -1,7 +1,6 @@
 package jaysonjson.papierfuchs.events.inventory;
 
 import jaysonjson.papierfuchs.Utility;
-import jaysonjson.papierfuchs.inventories.crafting.general.GeneralCraftingInventory;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;

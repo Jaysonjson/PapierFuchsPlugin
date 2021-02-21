@@ -22,6 +22,8 @@ public class FileHandler {
     @Directory
     public static String MOBDROPS_DIR = ROOT + "/drops/mobs/";
     @Directory
+    public static String BLOCK_DROPS_DIR = ROOT + "/drops/blocks/";
+    @Directory
     public static String BREWERY_DIR = ROOT + "/crafting/brewery/";
     @Directory
     public static String CRAFTING_GENERAL_DIR = ROOT + "/crafting/general/";

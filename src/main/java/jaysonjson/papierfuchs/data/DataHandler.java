@@ -14,6 +14,7 @@ import jaysonjson.papierfuchs.data.crafting.obj.general.zCraftingGeneral;
 import jaysonjson.papierfuchs.data.crafting.obj.zCraftingItem;
 import jaysonjson.papierfuchs.data.discord.data.zDiscord;
 import jaysonjson.papierfuchs.data.drop.data.zDrops;
+import jaysonjson.papierfuchs.data.drop.obj.FuchsBlockDrop;
 import jaysonjson.papierfuchs.data.drop.obj.ItemDropChance;
 import jaysonjson.papierfuchs.data.drop.obj.zMobDrop;
 import jaysonjson.papierfuchs.data.guild.data.zGuild;
@@ -211,6 +212,7 @@ public class DataHandler {
 
     public static zDrops loadDrops() {
         File mobDrops = new File(FileHandler.MOBDROPS_DIR);
+        File block_drops = new File(FileHandler.BLOCK_DROPS_DIR);
         zDrops zDrops = new zDrops();
         for (File file : mobDrops.listFiles()) {
             if(file.getName().toLowerCase().contains("json")) {
@@ -227,12 +229,26 @@ public class DataHandler {
                     if(Utility.itemIDExists(item.item)) {
                         item.setFuchsItem(Utility.getFuchsItemByID(item.item));
                         mobDrop.itemDropChances.add(item);
-                        System.out.println("[Fuchs {MobDrops}] " + item.toString());
+                        System.out.println("[PapierFuchs {MobDrops}] " + item.toString());
                     } else {
                         System.out.println("[PapierFuchs {MobDrops}] Item mit der ID " + item.item + " existiert nicht, überspringen...");
                     }
                 }
                 zDrops.getMobDrops().add(mobDrop);
+            }
+        }
+        for (File file : block_drops.listFiles()) {
+            if (file.getName().toLowerCase().contains("json")) {
+                FuchsBlockDrop fuchsBlockDrop = gson.fromJson(readData(file), FuchsBlockDrop.class);
+                for (ItemDropChance item : fuchsBlockDrop.items) {
+                    if(Utility.itemIDExists(item.item)) {
+                        item.setFuchsItem(Utility.getFuchsItemByID(item.item));
+                        System.out.println("[PapierFuchs {BlockDrops}] " + item.toString());
+                    } else {
+                        System.out.println("[PapierFuchs {BlockDrops}] Item mit der ID " + item.item + " existiert nicht, überspringen...");
+                    }
+                }
+                zDrops.getBlockDrops().add(fuchsBlockDrop);
             }
         }
         return zDrops;
@@ -313,10 +329,25 @@ public class DataHandler {
     public static void createMobDrop() {
         zMobDrop mobDrop = new zMobDrop();
         mobDrop.type = EntityType.ZOMBIE;
-        mobDrop.items.add(new ItemDropChance("scrapItem", 2, 1, 1));
+        mobDrop.items.add(new ItemDropChance("scrap", 2, 1, 1));
         String json = gsonBuilder.toJson(mobDrop);
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.MOBDROPS_DIR + "test.json"));
+            FileOutputStream fileOutputStream = new FileOutputStream(FileHandler.MOBDROPS_DIR + "test.json");
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.append(json);
+            outputStreamWriter.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void createBlockDrop() {
+        FuchsBlockDrop blockDrop = new FuchsBlockDrop();
+        blockDrop.material = Material.STONE;
+        blockDrop.items.add(new ItemDropChance(ItemList.TIN_INGOT.getID(), 2, 1, 1));
+        String json = gsonBuilder.toJson(blockDrop);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(FileHandler.BLOCK_DROPS_DIR + "stone.json");
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
             outputStreamWriter.append(json);
             outputStreamWriter.close();

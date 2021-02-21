@@ -1,13 +1,21 @@
 package jaysonjson.papierfuchs.data.drop.obj;
 
+import jaysonjson.papierfuchs.data.crafting.obj.CraftingItemNBT;
+import org.bukkit.Material;
+
 import jaysonjson.papierfuchs.object.item.FuchsItem;
+
+import java.util.ArrayList;
 
 public class ItemDropChance {
     public String item;
+    public Material vanilla_item;
     public int chance;
     public int max_amount;
     public int min_amount;
     public transient FuchsItem fuchsItem;
+    public ArrayList<CraftingItemNBT> nbt = new ArrayList<>();
+
 
     public ItemDropChance(String item, int chance, int min_amount, int max_amount) {
         this.item = item;
@@ -30,6 +38,10 @@ public class ItemDropChance {
 
     public FuchsItem getFuchsItem() {
         return fuchsItem;
+    }
+
+    public Material getVanillaItem() {
+        return vanilla_item;
     }
 
     public int getMaxAmount() {

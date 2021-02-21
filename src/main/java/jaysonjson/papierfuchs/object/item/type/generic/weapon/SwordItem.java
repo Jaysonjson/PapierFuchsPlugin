@@ -61,4 +61,9 @@ public class SwordItem extends FuchsItem {
     public float getToolAttackSpeed() {
         return attackSpeed;
     }
+
+    @Override
+    public boolean isSword() {
+        return true;
+    }
 }

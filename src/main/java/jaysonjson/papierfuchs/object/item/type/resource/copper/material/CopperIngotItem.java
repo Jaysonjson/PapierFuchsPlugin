@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import java.util.Random;
 
+@Deprecated
 public class CopperIngotItem extends FuchsItem {
 
     private int amount;

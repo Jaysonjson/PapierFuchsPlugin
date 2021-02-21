@@ -8,7 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
+import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapelessRecipe;
 
 import java.util.ArrayList;
@@ -47,6 +49,9 @@ public class FuchsVanillaRecipes {
         vilum_ingot.addIngredient(new ItemStack(Material.ENDER_PEARL));
         vilum_ingot.addIngredient(new ItemStack(Material.BLAZE_POWDER));
         Bukkit.addRecipe(vilum_ingot);
+
+        FurnaceRecipe test_furnace = new FurnaceRecipe(createRecipeKey("test_furnace"), ItemList.TIN_INGOT.createItem(), new RecipeChoice.ExactChoice(ItemList.TIN_ORE.createItem()),5, 5);
+        Bukkit.addRecipe(test_furnace);
     }
 
     private static NamespacedKey createRecipeKey(String key) {

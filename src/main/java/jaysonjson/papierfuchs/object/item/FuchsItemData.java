@@ -46,7 +46,11 @@ public class FuchsItemData {
     public String currency_type = "";
     public double attack_damage = 0;
     public double attack_speed = 0;
-
+    public double water_magic_amount = 0;
+    public double fire_magic_amount = 0;
+    public double earth_magic_amount = 0;
+    public double light_magic_amount = 0;
+    public double air_magic_amount = 0;
 
     public FuchsItemData(FuchsItem fuchsItem, Player player) {
         this.item = new ItemStack(fuchsItem.getMaterial());
@@ -118,6 +122,21 @@ public class FuchsItemData {
                 if(tag.hasKey(ItemNBT.ITEM_VERSION)) {
                     item_version = tag.getDouble(ItemNBT.ITEM_VERSION);
                 }
+                if(tag.hasKey(ItemNBT.LIGHT_MAGIC_AMOUNT)) {
+                    light_magic_amount = tag.getDouble(ItemNBT.LIGHT_MAGIC_AMOUNT);
+                }
+                if(tag.hasKey(ItemNBT.AIR_MAGIC_AMOUNT)) {
+                    air_magic_amount = tag.getDouble(ItemNBT.AIR_MAGIC_AMOUNT);
+                }
+                if(tag.hasKey(ItemNBT.EARTH_MAGIC_AMOUNT)) {
+                    earth_magic_amount = tag.getDouble(ItemNBT.EARTH_MAGIC_AMOUNT);
+                }
+                if(tag.hasKey(ItemNBT.WATER_MAGIC_AMOUNT)) {
+                    water_magic_amount = tag.getDouble(ItemNBT.WATER_MAGIC_AMOUNT);
+                }
+                if(tag.hasKey(ItemNBT.FIRE_MAGIC_AMOUNT)) {
+                    fire_magic_amount = tag.getDouble(ItemNBT.FIRE_MAGIC_AMOUNT);
+                }
             } else {
                 durability = fuchsItem.getMaxDurability();
                 currency_value = fuchsItem.getCurrencyAmount();
@@ -160,10 +179,29 @@ public class FuchsItemData {
     public void addDurabilityLore() {
         lore.add(ChatColor.BLUE + "Haltbarkeit: " + durability + "/" + fuchsItem.getMaxDurability());
     }
+
+    public void addMagicLore() {
+        if(fire_magic_amount > 0) {
+            lore.add(ChatColor.RED + "Feuer: " + Utility.formatDouble(fire_magic_amount));
+        }
+        if(air_magic_amount > 0) {
+            lore.add(ChatColor.WHITE + "Luft: " + Utility.formatDouble(air_magic_amount));
+        }
+        if(water_magic_amount > 0) {
+            lore.add(ChatColor.AQUA + "Wasser: " + Utility.formatDouble(water_magic_amount));
+        }
+        if(earth_magic_amount > 0) {
+            lore.add(ChatColor.GRAY + "Erde: " + Utility.formatDouble(earth_magic_amount));
+        }
+        if(light_magic_amount > 0) {
+            lore.add(ChatColor.GOLD + "Licht: " + Utility.formatDouble(light_magic_amount));
+        }
+    }
     //@Deprecated
     public void setItem(String displayName) {
         addDamageLore();
         addAttackSpeedLore();
+        addMagicLore();
         if(fuchsItem.getMaxDurability() > 0) {
             addDurabilityLore();
         }

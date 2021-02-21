@@ -24,4 +24,16 @@ public interface IFuchsItem {
     Material getMaterial();
     NBTTagCompound getTag(NBTTagCompound tag);
 
+    default boolean isOre() {
+        return false;
+    }
+    default boolean isIngot() {
+        return false;
+    }
+    default boolean isSword() {
+        return false;
+    }
+    default boolean isMagicPowder() {
+        return false;
+    }
 }

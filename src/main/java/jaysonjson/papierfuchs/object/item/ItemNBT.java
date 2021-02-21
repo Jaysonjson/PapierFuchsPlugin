@@ -26,6 +26,12 @@ public class ItemNBT {
     public static final String CURRENCY_AMOUNT = "currencyAmount";
     public static final String ATTACK_SPEED = "attackSpeed";
     public static final String ATTACK_DAMAGE = "attackDamage";
+    public static final String WATER_MAGIC_AMOUNT = "waterMagicAmount";
+    public static final String FIRE_MAGIC_AMOUNT = "fireMagicAmount";
+    public static final String EARTH_MAGIC_AMOUNT = "earthMagicAmount";
+    public static final String AIR_MAGIC_AMOUNT = "airMagicAmount";
+    public static final String LIGHT_MAGIC_AMOUNT = "lightMagicAmount";
+
 
     //STRING
     public static final String MAGIC_TYPE = "magicType";
