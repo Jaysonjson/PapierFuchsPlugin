@@ -34,9 +34,11 @@ public class EntityDamage implements Listener {
                 ItemStack itemStack = player.getInventory().getItemInMainHand();
                 if(Utility.isFuchsItem(itemStack)) {
                     FuchsItem fuchsItem = Utility.getFuchsItemFromNMS(itemStack);
-                    FuchsMCItem fuchsMCItem = new FuchsMCItem(fuchsItem);
-                    event.setDamage(event.getFinalDamage() + fuchsMCItem.getDoubleFromTag(ItemNBT.ATTACK_DAMAGE));
-                    player.getInventory().setItemInMainHand(Utility.damageFuchsItem(player, fuchsMCItem));
+                    FuchsMCItem fuchsMCItem = new FuchsMCItem(fuchsItem, itemStack);
+                    if(fuchsMCItem.getTagFromOriginal().hasKey(ItemNBT.ATTACK_DAMAGE)) {
+                        event.setDamage(event.getFinalDamage() + fuchsMCItem.getDoubleFromTag(ItemNBT.ATTACK_DAMAGE));
+                        player.getInventory().setItemInMainHand(Utility.damageFuchsItem(player, fuchsMCItem));
+                    }
                 }
             }
         }

@@ -4,15 +4,14 @@ import jaysonjson.papierfuchs.object.item.type.ability.CraftingUpgradekitItem;
 import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.FireEs01BlazeRodItem;
 import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.WallBlazeRodItem;
 import jaysonjson.papierfuchs.object.item.type.crafting.*;
+import jaysonjson.papierfuchs.object.item.type.generic.ItemWithTexture;
+import jaysonjson.papierfuchs.object.item.type.generic.weapon.HammerItem;
+import jaysonjson.papierfuchs.object.item.type.generic.weapon.SwordItem;
 import jaysonjson.papierfuchs.object.item.type.resource.copper.material.CopperIngotItem;
 import jaysonjson.papierfuchs.object.item.type.resource.copper.crafting.CopperPipeItem;
 import jaysonjson.papierfuchs.object.item.type.resource.copper.crafting.CopperRodItem;
-import jaysonjson.papierfuchs.object.item.type.resource.copper.tool.CopperSwordItem;
-import jaysonjson.papierfuchs.object.item.type.resource.silver.tool.SilverSwordItem;
 import jaysonjson.papierfuchs.object.item.type.resource.tin.material.TinIngotItem;
-import jaysonjson.papierfuchs.object.item.type.resource.tin.tool.TinSwordItem;
 import jaysonjson.papierfuchs.object.item.type.resource.vilum.material.VilumIngotItem;
-import jaysonjson.papierfuchs.object.item.type.resource.vilum.tool.VilumSwordItem;
 import jaysonjson.papierfuchs.object.item.type.currency.HackSilverItem;
 import jaysonjson.papierfuchs.object.item.type.currency.ZoryhaShardItem;
 import jaysonjson.papierfuchs.object.item.type.magic.MagicPowderItem;
@@ -75,16 +74,16 @@ public class ItemList {
     public static BackPackItemNBT BACKPACK_45_NBT = new BackPackItemNBT("backpack_45", Material.FEATHER, ItemUseType.ABILITY, 45);
     public static BackPackItemNBT BACKPACK_54_NBT = new BackPackItemNBT("backpack_54", Material.FEATHER, ItemUseType.ABILITY, 54);
 
-    public static TestSwordItem TEST_SWORD = new TestSwordItem("test_sword", Material.FEATHER, ItemUseType.TOOL);
+    public static TestSwordItem TEST_SWORD = new TestSwordItem("test_sword", Material.FEATHER, ItemUseType.WEAPON);
 
     public static BatBookItem BAT_BOOK = new BatBookItem("bat_book", Material.BOOK, ItemUseType.ABILITY);
 
     public static TinIngotItem TIN_INGOT = new TinIngotItem("tin_ingot", Material.FEATHER, ItemUseType.CRAFTING);
 
-    public static HammerItem SILVER_HAMMER = new HammerItem("silver_hammer", "Silber", 7, 5, -0.27f, 27, Material.FEATHER, ItemUseType.TOOL);
+    public static HammerItem SILVER_HAMMER = new HammerItem("silver_hammer", "Silber", 7, 5, -0.27f, 27, Material.FEATHER, ItemUseType.WEAPON);
 
-    public static SwordItem TIN_SWORD = new SwordItem("tin_sword", ChatColor.GRAY + "Zinn", 5, 221, 1.2f, 25, Material.FEATHER, ItemUseType.TOOL);
-    public static SwordItem VILUM_SWORD = new SwordItem("vilum_sword", ChatColor.LIGHT_PURPLE + "Vilum", 17, 120, 1.2f, 25, Material.FEATHER, ItemUseType.TOOL);
-    public static SwordItem SILVER_SWORD = new SwordItem("silver_sword", ChatColor.DARK_GRAY + "Silver", 8, 1225, 1.2f, 25, Material.FEATHER, ItemUseType.TOOL);
+    public static SwordItem TIN_SWORD = new SwordItem("tin_sword", ChatColor.GRAY + "Zinn", 5, 221, 1.2f, 28, Material.FEATHER, ItemUseType.WEAPON);
+    public static SwordItem VILUM_SWORD = new SwordItem("vilum_sword", ChatColor.LIGHT_PURPLE + "Vilum", 17, 120, 1.2f, 25, Material.FEATHER, ItemUseType.WEAPON);
+    public static SwordItem SILVER_SWORD = new SwordItem("silver_sword", ChatColor.DARK_GRAY + "Silver", 8, 1225, 1.2f, 25, Material.FEATHER, ItemUseType.WEAPON);
 
 }

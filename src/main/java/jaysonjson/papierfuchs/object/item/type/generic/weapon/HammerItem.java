@@ -1,4 +1,4 @@
-package jaysonjson.papierfuchs.object.item.type.other;
+package jaysonjson.papierfuchs.object.item.type.generic.weapon;
 
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;

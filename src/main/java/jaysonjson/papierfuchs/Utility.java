@@ -505,6 +505,14 @@ public class Utility {
         return string;
     }
 
+    public static String formatDouble(Double integer) {
+        String string = String.format("%.2f", integer);
+        if(integer > 1000) string = String.format("%.2fk", integer / 1000.0);
+        if(integer > 1000000) string = String.format("%.2fM", integer / 1000000.0);
+        if(integer > 1000000000) string = String.format("%.2fG", integer / 1000000000.0);
+        return string;
+    }
+
     public static String formatTime(Integer integer) {
         String string = integer + "s";
         if(integer > 60) string = String.format("%.1fm", (integer / 60.0) % 60);
@@ -971,7 +979,6 @@ public class Utility {
                     n_c = CraftItemStack.asBukkitCopy(nms_c);
                     n_s = CraftItemStack.asBukkitCopy(nms_s);
                 }
-                System.out.println(itemStack.getAmount() <= countItemInInventory(inventory, itemStack, ignoreTag));
                 if (n_c.isSimilar(n_s) && itemStack.getAmount() <= countItemInInventory(inventory, itemStack, ignoreTag)) {
                     return true;
                 }
@@ -1041,7 +1048,6 @@ public class Utility {
                     n_c = CraftItemStack.asBukkitCopy(nms_c);
                     n_s = CraftItemStack.asBukkitCopy(nms_s);
                 }
-                System.out.println(amount);
                 if (n_c.isSimilar(n_s)) {
                     if(content.getAmount() >= amount) {
                         content.setAmount(content.getAmount() - amount);
@@ -1105,5 +1111,10 @@ public class Utility {
 
     public static ItemStack damageFuchsItem(FuchsItem fuchsItem, ItemStack itemStack) {
         return damageFuchsItem(null, fuchsItem, itemStack);
+    }
+
+    public static void addBlockMetadata(FuchsServer fuchsServer, FuchsLocation fuchsLocation, Block block, String metadata, String value) {
+        fuchsServer.BLOCK_METADATA.add(new BlockMetadataSetter(fuchsLocation, block.getType(), metadata, value));
+        block.setMetadata(metadata, new FixedMetadataValue(PapierFuchs.INSTANCE, value));
     }
 }

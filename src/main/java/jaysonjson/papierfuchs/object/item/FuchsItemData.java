@@ -17,7 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.w3c.dom.Attr;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -33,6 +32,7 @@ public class FuchsItemData {
     NBTTagCompound preTag;
     private boolean creative_get = false;
     private String creative_get_user = "";
+    private double item_version = 0;
 
     public int durability = 0;
     public boolean exists = false;
@@ -115,12 +115,16 @@ public class FuchsItemData {
                 if(tag.hasKey(ItemNBT.ATTACK_SPEED)) {
                     attack_speed = tag.getDouble(ItemNBT.ATTACK_SPEED);
                 }
+                if(tag.hasKey(ItemNBT.ITEM_VERSION)) {
+                    item_version = tag.getDouble(ItemNBT.ITEM_VERSION);
+                }
             } else {
                 durability = fuchsItem.getMaxDurability();
                 currency_value = fuchsItem.getCurrencyAmount();
                 currency_type = fuchsItem.getCurrencyType();
                 attack_damage = fuchsItem.getToolDamage();
                 attack_speed = fuchsItem.getToolAttackSpeed();
+                item_version = fuchsItem.itemVersion();
             }
         }
     }
@@ -149,7 +153,7 @@ public class FuchsItemData {
 
     public void addAttackSpeedLore() {
         if(attack_speed != 0) {
-            lore.add("Geschwindigkeit: " + attack_speed);
+            lore.add("Geschwindigkeit: " + Utility.formatDouble(attack_speed));
         }
     }
 
@@ -221,11 +225,7 @@ public class FuchsItemData {
                     lore.add(ChatColor.GRAY + "Benötigt Intelligenz " + fuchsItem.requiredIntelligence());
                 }
             }
-            String itemVersion = fuchsItem.itemVersion() + "";
-            if(preTag.hasKey(ItemNBT.ITEM_VERSION))  {
-                itemVersion = preTag.getString(ItemNBT.ITEM_VERSION);
-            }
-            lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + id + " [" + itemVersion + "]");
+            lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + id + " [" + item_version + "]");
 
             if (fuchsItem.hasCustomModelData()) {
                 itemMeta.setCustomModelData(fuchsItem.getCustomModelData());
@@ -266,7 +266,7 @@ public class FuchsItemData {
     public NBTTagCompound getTagCompound() {
         NBTTagCompound tag = nmsCopy.hasTag() ? nmsCopy.getTag() : new NBTTagCompound();
         tag.setString(ItemNBT.ITEM_ID, id);
-        tag.setDouble(ItemNBT.ITEM_VERSION, fuchsItem.itemVersion());
+        tag.setDouble(ItemNBT.ITEM_VERSION, item_version);
         tag.setBoolean(ItemNBT.CREATIVE_GET, creative_get);
         tag.setString(ItemNBT.CREATIVE_GET_USER, creative_get_user);
         if(fuchsItem.getMaxDurability() > 0) {

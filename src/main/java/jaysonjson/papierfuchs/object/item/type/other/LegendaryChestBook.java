@@ -4,6 +4,7 @@ import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.FuchsLocation;
 import jaysonjson.papierfuchs.data.server.data.FuchsServer;
+import jaysonjson.papierfuchs.object.BlockMetaData;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
@@ -11,6 +12,7 @@ import jaysonjson.papierfuchs.object.item.interfaces.IItemUseType;
 import net.minecraft.server.v1_16_R3.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -46,10 +48,11 @@ public class LegendaryChestBook extends FuchsItem {
     }
 
     @Override
-    public void ability(PlayerInteractEvent event) {
+    public void onBlockInteract(PlayerInteractEvent event) {
         if(event.getClickedBlock() != null) {
-            if (event.getClickedBlock().getState() instanceof Chest) {
-                Chest chest = (Chest) event.getClickedBlock().getState();
+            Block block = event.getClickedBlock();
+            if (block.getState() instanceof Chest) {
+                Chest chest = (Chest) block.getState();
                 chest.open();
                 FuchsServer fuchsServer = DataHandler.loadServer();
                 FuchsLocation fuchsLocation =  new FuchsLocation(chest.getX(), chest.getY(), chest.getZ());
@@ -57,15 +60,15 @@ public class LegendaryChestBook extends FuchsItem {
                     fuchsServer.OPEN_CHESTS.add(fuchsLocation);
                     DataHandler.saveServer(fuchsServer);
                 }
+                if(!block.hasMetadata(BlockMetaData.CONTAINED_ITEM)) {
+                    Utility.addBlockMetadata(fuchsServer, fuchsLocation, block, BlockMetaData.CONTAINED_ITEM, Utility.createItemStackString(event.getItem()));
+                    event.getItem().setAmount(event.getItem().getAmount() - 1);
+                    DataHandler.saveServer(fuchsServer);
+                }
             } else if (event.getClickedBlock().getType() == Material.GOLD_BLOCK) {
                 Utility.openOpenedChests(event.getClickedBlock().getWorld());
             }
         }
-    }
-
-    @Override
-    public boolean isAbilityItem() {
-        return true;
     }
 
     @Override
