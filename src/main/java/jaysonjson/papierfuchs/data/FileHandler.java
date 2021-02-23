@@ -27,6 +27,8 @@ public class FileHandler {
     public static String BREWERY_DIR = ROOT + "/crafting/brewery/";
     @Directory
     public static String CRAFTING_GENERAL_DIR = ROOT + "/crafting/general/";
+    @Directory
+    public static String LANG_DIR = ROOT + "/language/";
     
     public static void createDirectories() throws IllegalAccessException {
         for (Field field : FileHandler.class.getFields()) {

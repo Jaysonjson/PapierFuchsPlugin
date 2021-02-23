@@ -5,6 +5,7 @@ import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.object.gas.GasList;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
+import jaysonjson.papierfuchs.registry.FuchsRegistries;
 import jaysonjson.papierfuchs.skillclass.alchemist.zAlchemistClass;
 import jaysonjson.papierfuchs.skillclass.zClass;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
@@ -51,6 +52,7 @@ public class FuchsItemData {
     public double earth_magic_amount = 0;
     public double light_magic_amount = 0;
     public double air_magic_amount = 0;
+    public String rarity = "";
 
     public FuchsItemData(FuchsItem fuchsItem, Player player) {
         this.item = new ItemStack(fuchsItem.getMaterial());
@@ -76,8 +78,16 @@ public class FuchsItemData {
         getTagDatas();
     }
 
+    @Deprecated
     public void getTagDatas() {
         if(fuchsItem != null) {
+            durability = fuchsItem.getMaxDurability();
+            currency_value = fuchsItem.getCurrencyAmount();
+            currency_type = fuchsItem.getCurrencyType();
+            attack_damage = fuchsItem.getToolDamage();
+            attack_speed = fuchsItem.getToolAttackSpeed();
+            item_version = fuchsItem.itemVersion();
+            rarity = fuchsItem.getDefaultRarity().getID();
             if (exists) {
                 NBTTagCompound tag = fuchsItem.getTag(Utility.getItemTag(Utility.createNMSCopy(item)));
                 if (tag.hasKey(ItemNBT.ITEM_DURABILITY)) {
@@ -137,13 +147,9 @@ public class FuchsItemData {
                 if(tag.hasKey(ItemNBT.FIRE_MAGIC_AMOUNT)) {
                     fire_magic_amount = tag.getDouble(ItemNBT.FIRE_MAGIC_AMOUNT);
                 }
-            } else {
-                durability = fuchsItem.getMaxDurability();
-                currency_value = fuchsItem.getCurrencyAmount();
-                currency_type = fuchsItem.getCurrencyType();
-                attack_damage = fuchsItem.getToolDamage();
-                attack_speed = fuchsItem.getToolAttackSpeed();
-                item_version = fuchsItem.itemVersion();
+                if(tag.hasKey(ItemNBT.ITEM_RARITY)) {
+                    rarity = tag.getString(ItemNBT.ITEM_RARITY);
+                }
             }
         }
     }
@@ -197,8 +203,26 @@ public class FuchsItemData {
             lore.add(ChatColor.GOLD + "Licht: " + Utility.formatDouble(light_magic_amount));
         }
     }
+
+    public void addRarityLore() {
+        if(Utility.rarityExists(rarity)) {
+            lore.add(Utility.getRarityByID(rarity).getLoreText());
+        }
+    }
+
+    public void addEffectLores() {
+        NBTTagCompound tag = fuchsItem.getTag(Utility.getItemTag(Utility.createNMSCopy(item)));
+        for (String s : FuchsRegistries.effects.keySet()) {
+            if(tag.hasKey(ItemNBT.HAS_EFFECT_ID + s)) {
+                lore.add(FuchsRegistries.effects.get(s).getDisplayName());
+            }
+        }
+    }
+
     //@Deprecated
     public void setItem(String displayName) {
+        addRarityLore();
+        addEffectLores();
         addDamageLore();
         addAttackSpeedLore();
         addMagicLore();
@@ -287,7 +311,7 @@ public class FuchsItemData {
             item = CraftItemStack.asBukkitCopy(nmsCopy);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Fehler beim Item: " + fuchsItem.getID());
+            System.out.println("[PapierFuchs] Fehler beim Item: " + fuchsItem.getID());
         }
     }
 
@@ -307,6 +331,7 @@ public class FuchsItemData {
         tag.setDouble(ItemNBT.ITEM_VERSION, item_version);
         tag.setBoolean(ItemNBT.CREATIVE_GET, creative_get);
         tag.setString(ItemNBT.CREATIVE_GET_USER, creative_get_user);
+        tag.setString(ItemNBT.ITEM_RARITY, rarity);
         if(fuchsItem.getMaxDurability() > 0) {
             tag.setInt(ItemNBT.ITEM_DURABILITY, durability);
         }

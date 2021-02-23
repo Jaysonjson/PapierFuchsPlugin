@@ -1,11 +1,11 @@
 package jaysonjson.papierfuchs.object.liquid;
 
-import jaysonjson.papierfuchs.object.liquid.obj.*;
-import jaysonjson.papierfuchs.object.liquid.obj.alcohol.BeerLiquid;
-import jaysonjson.papierfuchs.object.liquid.obj.alcohol.WhiskyLiquid;
-import jaysonjson.papierfuchs.object.liquid.obj.metal.MoltenCopperLiquid;
-import jaysonjson.papierfuchs.object.liquid.obj.metal.MoltenGoldLiquid;
-import jaysonjson.papierfuchs.object.liquid.obj.metal.MoltenIronLiquid;
+import jaysonjson.papierfuchs.object.liquid.objects.*;
+import jaysonjson.papierfuchs.object.liquid.objects.alcohol.BeerLiquid;
+import jaysonjson.papierfuchs.object.liquid.objects.alcohol.WhiskyLiquid;
+import jaysonjson.papierfuchs.object.liquid.objects.metal.MoltenCopperLiquid;
+import jaysonjson.papierfuchs.object.liquid.objects.metal.MoltenGoldLiquid;
+import jaysonjson.papierfuchs.object.liquid.objects.metal.MoltenIronLiquid;
 
 public class LiquidList {
     public static MoltenCopperLiquid MOLTEN_COPPER = new MoltenCopperLiquid();

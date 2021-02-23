@@ -4,6 +4,8 @@ import jaysonjson.papierfuchs.object.item.interfaces.*;
 import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsGunMagazine;
 import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsItemAmmo;
 import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsItemGun;
+import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
+import jaysonjson.papierfuchs.object.rarity.RarityList;
 import jaysonjson.papierfuchs.registry.IFuchsRegistryObject;
 import jaysonjson.papierfuchs.registry.RegistryType;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
@@ -216,5 +218,10 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     @Override
     public float getToolAttackSpeed() {
         return 0;
+    }
+
+    @Override
+    public FuchsRarity getDefaultRarity() {
+        return RarityList.COMMON;
     }
 }

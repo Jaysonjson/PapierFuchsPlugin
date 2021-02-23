@@ -3,6 +3,7 @@ package jaysonjson.papierfuchs.data.player;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.IHasUUID;
 import jaysonjson.papierfuchs.data.player.data.*;
+import jaysonjson.papierfuchs.object.Languages;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -22,6 +23,17 @@ public class FuchsPlayer implements IHasUUID {
     private FuchsPlayerClass playerClass = new FuchsPlayerClass();
 
     private FuchsPlayerSpecial playerSpecial = new FuchsPlayerSpecial();
+
+    private Languages language = Languages.NOT_SET;
+
+
+    public Languages getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Languages language) {
+        this.language = language;
+    }
 
     public FuchsPlayerClass getPlayerClass() {
         return playerClass;

@@ -1,9 +1,9 @@
 package jaysonjson.papierfuchs.object.gas;
 
-import jaysonjson.papierfuchs.object.gas.obj.AirGas;
-import jaysonjson.papierfuchs.object.gas.obj.HeliumGas;
-import jaysonjson.papierfuchs.object.gas.obj.NoneGas;
-import jaysonjson.papierfuchs.object.gas.obj.OxygenGas;
+import jaysonjson.papierfuchs.object.gas.objects.AirGas;
+import jaysonjson.papierfuchs.object.gas.objects.HeliumGas;
+import jaysonjson.papierfuchs.object.gas.objects.NoneGas;
+import jaysonjson.papierfuchs.object.gas.objects.OxygenGas;
 
 public class GasList {
     public static AirGas AIR = new AirGas();

@@ -22,9 +22,11 @@ import jaysonjson.papierfuchs.events.inventory.ItemClick;
 import jaysonjson.papierfuchs.events.item.*;
 import jaysonjson.papierfuchs.npc.NPC;
 import jaysonjson.papierfuchs.object.FuchsVanillaRecipes;
+import jaysonjson.papierfuchs.object.effect.EffectList;
 import jaysonjson.papierfuchs.object.gas.GasList;
 import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
+import jaysonjson.papierfuchs.object.rarity.RarityList;
 import jaysonjson.papierfuchs.registry.FuchsRegistries;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -50,7 +52,10 @@ public final class PapierFuchs extends JavaPlugin {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-
+        //DataHandler.createGermanLangTest();
+        DataHandler.loadLanguages();
+        FuchsRegistries.register(RarityList.class);
+        FuchsRegistries.register(EffectList.class);
         FuchsRegistries.register(ItemList.class);
         FuchsRegistries.register(GasList.class);
         FuchsRegistries.register(LiquidList.class);
@@ -62,7 +67,7 @@ public final class PapierFuchs extends JavaPlugin {
         References.reloadCraftings();
         Utility.reloadAreas();
         NPC.loadNPCS();
-        DataHandler.createBreweryCrafting();
+        //DataHandler.createBreweryCrafting();
         registerEvents(
                 new PlayerJoin(),
                 new PlayerDeath(),

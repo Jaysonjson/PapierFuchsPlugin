@@ -2,6 +2,7 @@ package jaysonjson.papierfuchs.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import jaysonjson.papierfuchs.Language;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.area.data.zArea;
 import jaysonjson.papierfuchs.data.backpack.data.zBackPack;
@@ -20,9 +21,11 @@ import jaysonjson.papierfuchs.data.drop.obj.zMobDrop;
 import jaysonjson.papierfuchs.data.guild.data.zGuild;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.data.server.data.FuchsServer;
+import jaysonjson.papierfuchs.object.Languages;
 import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
@@ -125,7 +128,7 @@ public class DataHandler {
             server = new FuchsServer();
             saveServer(server);
         } else {
-            server = gson.fromJson(readData(file), FuchsServer.class);
+            server = gson.fromJson(readDataISO(file), FuchsServer.class);
         }
         return server;
     }
@@ -405,10 +408,49 @@ public class DataHandler {
         }
     }
 
+    public static void loadLanguages() {
+        File langs = new File(FileHandler.LANG_DIR);
+        for (File file : langs.listFiles()) {
+            if (file.getName().toLowerCase().contains("json")) {
+                Language language = gson.fromJson(readDataISO(file), Language.class);
+                Languages.valueOf(language.language).setLanguage(language);
+                Languages.NOT_SET.setLanguage(language);
+            }
+        }
+    }
+
+    public static void createGermanLangTest() {
+        Language language = new Language();
+        language.language = Languages.GERMAN.name();
+        language.CONTENT.put("zoryha_tear", ChatColor.AQUA.toString() + "Zoryha's Träne");
+        language.CONTENT.put("test", "Test");
+        String json = gsonBuilder.toJson(language);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(FileHandler.LANG_DIR + "german.json");
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            outputStreamWriter.append(json);
+            outputStreamWriter.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private static String readData(File file) {
         StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(file.getPath()), StandardCharsets.UTF_8)) {
+            stream.forEach(s -> contentBuilder.append(s).append("\n"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return contentBuilder.toString();
+    }
+
+    private static String readDataISO(File file) {
+        StringBuilder contentBuilder = new StringBuilder();
+
+        try (Stream<String> stream = Files.lines(Paths.get(file.getPath()), StandardCharsets.ISO_8859_1)) {
             stream.forEach(s -> contentBuilder.append(s).append("\n"));
         } catch (IOException e) {
             e.printStackTrace();

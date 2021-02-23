@@ -1,7 +1,7 @@
 package jaysonjson.papierfuchs.skillclass;
 
 import jaysonjson.papierfuchs.object.item.ItemUseType;
-import jaysonjson.papierfuchs.object.item.type.generic.ItemWithTexture;
+import jaysonjson.papierfuchs.object.item.objects.generic.ItemWithTexture;
 import jaysonjson.papierfuchs.skillclass.alchemist.zAlchemistClass;
 import jaysonjson.papierfuchs.skillclass.fighter.zFighterClass;
 import org.bukkit.ChatColor;

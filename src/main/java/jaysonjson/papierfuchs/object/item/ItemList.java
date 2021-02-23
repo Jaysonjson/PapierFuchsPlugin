@@ -1,25 +1,27 @@
 package jaysonjson.papierfuchs.object.item;
 
-import jaysonjson.papierfuchs.object.item.type.ability.CraftingUpgradekitItem;
-import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.FireEs01BlazeRodItem;
-import jaysonjson.papierfuchs.object.item.type.ability.essence.fire.WallBlazeRodItem;
-import jaysonjson.papierfuchs.object.item.type.crafting.*;
-import jaysonjson.papierfuchs.object.item.type.generic.ItemWithTexture;
-import jaysonjson.papierfuchs.object.item.type.generic.resource.OreItem;
-import jaysonjson.papierfuchs.object.item.type.generic.weapon.HammerItem;
-import jaysonjson.papierfuchs.object.item.type.generic.weapon.SwordItem;
-import jaysonjson.papierfuchs.object.item.type.resource.copper.material.CopperIngotItem;
-import jaysonjson.papierfuchs.object.item.type.resource.copper.crafting.CopperPipeItem;
-import jaysonjson.papierfuchs.object.item.type.resource.copper.crafting.CopperRodItem;
-import jaysonjson.papierfuchs.object.item.type.resource.tin.material.TinIngotItem;
-import jaysonjson.papierfuchs.object.item.type.resource.vilum.material.VilumIngotItem;
-import jaysonjson.papierfuchs.object.item.type.currency.HackSilverItem;
-import jaysonjson.papierfuchs.object.item.type.currency.ZoryhaShardItem;
-import jaysonjson.papierfuchs.object.item.type.magic.MagicPowderItem;
-import jaysonjson.papierfuchs.object.item.type.magic.MagicType;
-import jaysonjson.papierfuchs.object.item.type.other.*;
-import jaysonjson.papierfuchs.object.item.type.resource.vilum.tool.VilumSwordItem;
-import jaysonjson.papierfuchs.object.item.type.vanillaOverride.IronOreItem;
+import jaysonjson.papierfuchs.object.item.objects.ability.CraftingUpgradekitItem;
+import jaysonjson.papierfuchs.object.item.objects.ability.essence.fire.FireEs01BlazeRodItem;
+import jaysonjson.papierfuchs.object.item.objects.ability.essence.fire.WallBlazeRodItem;
+import jaysonjson.papierfuchs.object.item.objects.crafting.*;
+import jaysonjson.papierfuchs.object.item.objects.generic.ItemWithTexture;
+import jaysonjson.papierfuchs.object.item.objects.generic.resource.OreItem;
+import jaysonjson.papierfuchs.object.item.objects.generic.weapon.HammerItem;
+import jaysonjson.papierfuchs.object.item.objects.generic.weapon.SwordItem;
+import jaysonjson.papierfuchs.object.item.objects.resource.ZoryhaFighterSword;
+import jaysonjson.papierfuchs.object.item.objects.resource.ZoryhaTear;
+import jaysonjson.papierfuchs.object.item.objects.resource.copper.material.CopperIngotItem;
+import jaysonjson.papierfuchs.object.item.objects.resource.copper.crafting.CopperPipeItem;
+import jaysonjson.papierfuchs.object.item.objects.resource.copper.crafting.CopperRodItem;
+import jaysonjson.papierfuchs.object.item.objects.resource.tin.material.TinIngotItem;
+import jaysonjson.papierfuchs.object.item.objects.resource.vilum.material.VilumIngotItem;
+import jaysonjson.papierfuchs.object.item.objects.currency.HackSilverItem;
+import jaysonjson.papierfuchs.object.item.objects.currency.ZoryhaShardItem;
+import jaysonjson.papierfuchs.object.item.objects.magic.MagicPowderItem;
+import jaysonjson.papierfuchs.object.item.objects.magic.MagicType;
+import jaysonjson.papierfuchs.object.item.objects.other.*;
+import jaysonjson.papierfuchs.object.item.objects.resource.vilum.tool.VilumSwordItem;
+import jaysonjson.papierfuchs.object.item.objects.vanillaOverride.IronOreItem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
@@ -89,4 +91,9 @@ public class ItemList {
     public static SwordItem SILVER_SWORD = new SwordItem("silver_sword", ChatColor.DARK_GRAY + "Silver", 8, 1225, 1.2f, 25, Material.FEATHER, ItemUseType.WEAPON);
 
     public static OreItem TIN_ORE = new OreItem("tin_ore", ChatColor.GRAY + "Zinn", -1, Material.FEATHER, ItemUseType.CRAFTING);
+    public static ZoryhaFighterSword ZORYHA_FIGHTER_SWORD = new ZoryhaFighterSword("zoryha_fighter_sword", Material.FEATHER, ItemUseType.WEAPON);
+    public static ZoryhaTear ZORYHA_TEAR = new ZoryhaTear("zoryha_tear", Material.FEATHER, ItemUseType.CRAFTING);
+
+    public static ItemWithTexture UK_FLAG = new ItemWithTexture("uk_flag", Material.FEATHER, ItemUseType.OTHER, "English", 32, true);
+    public static ItemWithTexture GERMAN_FLAG = new ItemWithTexture("german_flag", Material.FEATHER, ItemUseType.OTHER, "Deutsch", 31, true);
 }

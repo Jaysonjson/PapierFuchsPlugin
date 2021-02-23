@@ -3,11 +3,9 @@ package jaysonjson.papierfuchs.events.entity.player;
 import jaysonjson.papierfuchs.PapierFuchs;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
-import jaysonjson.papierfuchs.inventories.classes.StarterClassInventory;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.npc.NPC;
 import jaysonjson.papierfuchs.other.Scoreboard;
-import jaysonjson.papierfuchs.skillclass.zClass;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,10 +20,10 @@ public class PlayerJoin implements Listener {
         Utility.refreshHearts(event.getPlayer(), fuchsPlayer);
         Scoreboard.updateScoreboard(player, fuchsPlayer);
         NPC.sendSinglePacket(player);
-        if(fuchsPlayer.getPlayerClass().current.equals(zClass.NONE)) {
+       /* if(fuchsPlayer.getPlayerClass().current.equals(zClass.NONE)) {
             StarterClassInventory classInventory = new StarterClassInventory();
             classInventory.openInventory(event.getPlayer());
-        }
+        }*/
         Utility.updateInventory(player);
         if(!PapierFuchs.INSTANCE.firstJoin) {
             PapierFuchs.INSTANCE.firstJoin = true;
@@ -33,6 +31,13 @@ public class PlayerJoin implements Listener {
             Utility.setEntityMetadatas(player.getWorld());
             Utility.setBlockMetadatas(player.getWorld());
         }
+
+       /* if(fuchsPlayer.getLanguage().equals(Languages.NOT_SET)) {
+            LanguageInventory languageInventory = new LanguageInventory();
+            languageInventory.openInventory(player);
+        } */
+
+
         //AreaInventory areaInventory = new AreaInventory();
         //areaInventory.openInventory(player, Utility.getNearestArea(World.Environment.NORMAL, player.getLocation()).name);
         //GuildChunkInventory inventory = new GuildChunkInventory();

@@ -9,6 +9,7 @@ public class ItemNBT {
     public static final String CAN_CRAFT_MINECRAFT_OUTPUT = "canCraftMinecraftAsOutput";
     public static final String CREATIVE_GET = "creativeGet";
     public static final String CAN_ENCHANT_MINECRAFT = "canEnchantMinecraft";
+    public static final String HAS_EFFECT_ID = "hasEffect_";
     //INT
     public static final String ITEM_DURABILITY = "itemDurability";
     public static final String ITEM_AMOUNT = "FuchsItemAmount";
@@ -44,4 +45,5 @@ public class ItemNBT {
     public static final String ITEM_ID = "FuchsItemID";
     public static final String ITEM_UUID = "FuchsItemUUID";
     public static final String CURRENCY_TYPE = "currencyType";
+    public static final String ITEM_RARITY = "itemRarity";
 }

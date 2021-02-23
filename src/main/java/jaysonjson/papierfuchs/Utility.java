@@ -11,6 +11,7 @@ import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.data.server.data.BlockMetadataSetter;
 import jaysonjson.papierfuchs.data.server.data.EntityMetadataSetter;
 import jaysonjson.papierfuchs.data.server.data.FuchsServer;
+import jaysonjson.papierfuchs.object.effect.FuchsEffect;
 import jaysonjson.papierfuchs.object.gas.FuchsGas;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsMCItem;
@@ -18,6 +19,7 @@ import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
 import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
+import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
 import jaysonjson.papierfuchs.registry.FuchsRegistries;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
@@ -852,6 +854,30 @@ public class Utility {
         return FuchsRegistries.liquids.containsKey(id);
     }
 
+    public static boolean effectExists(String id) {
+        return FuchsRegistries.effects.containsKey(id);
+    }
+
+    @Nullable
+    public static FuchsEffect getEffectByID(String id) {
+        if(effectExists(id)) {
+            return FuchsRegistries.effects.get(id);
+        }
+        return null;
+    }
+
+    public static boolean rarityExists(String id) {
+        return FuchsRegistries.rarities.containsKey(id);
+    }
+
+    @Nullable
+    public static FuchsRarity getRarityByID(String id) {
+        if(rarityExists(id)) {
+            return FuchsRegistries.rarities.get(id);
+        }
+        return null;
+    }
+
     @Nullable
     public static FuchsGas getGasByID(String id) {
         if(gasExists(id)) {
@@ -884,14 +910,17 @@ public class Utility {
                 if (!itemStack.isSimilar(new ItemStack(Material.AIR))) {
                     if(isAbstractVanillaItem(itemStack)) {
                         inventory.setItem(i, getAbstractVanillaOverride(itemStack).createItem(player, itemStack));
+                        System.out.println("VanillaItem geupdated (Slot: " + i + ")");
                         updated = true;
                     } else if(isFuchsItem(itemStack)) {
                         inventory.setItem(i, getFuchsItemFromNMS(itemStack).createItem(player, itemStack));
+                        System.out.println("Item geupdated (Slot: " + i + ")");
                         updated = true;
                     }
                 }
             }
         }
+        player.updateInventory();
         if(updated) {
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder("Dein Inventar wurde aktualisiert!").color(ChatColor.DARK_PURPLE).create());
         }
@@ -1116,5 +1145,13 @@ public class Utility {
     public static void addBlockMetadata(FuchsServer fuchsServer, FuchsLocation fuchsLocation, Block block, String metadata, String value) {
         fuchsServer.BLOCK_METADATA.add(new BlockMetadataSetter(fuchsLocation, block.getType(), metadata, value));
         block.setMetadata(metadata, new FixedMetadataValue(PapierFuchs.INSTANCE, value));
+    }
+
+    public static void addEffectToItem(NBTTagCompound tagCompound, FuchsEffect effect) {
+        addEffectToItem(tagCompound, effect.getID());
+    }
+
+    public static void addEffectToItem(NBTTagCompound tagCompound, String effect) {
+        tagCompound.setBoolean(ItemNBT.HAS_EFFECT_ID + effect, true);
     }
 }

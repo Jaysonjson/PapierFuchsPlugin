@@ -22,6 +22,7 @@ public class ItemPickup implements Listener {
                 ItemStack item = Utility.getFuchsItemFromNMS(itemStack).createItem(player, itemStack);
                 item.setAmount(itemStack.getAmount());
                 event.getItem().setItemStack(item);
+                player.updateInventory();
             }
             if(!tag.hasKey(ItemNBT.ITEM_ID)) {
                 if (Utility.isAbstractVanillaItem(itemStack)) {
@@ -29,6 +30,7 @@ public class ItemPickup implements Listener {
                     ItemStack item = Utility.getAbstractVanillaOverride(itemStack).createItem(player);
                     item.setAmount(itemStack.getAmount());
                     event.getItem().setItemStack(item);
+                    player.updateInventory();
                 }
             }
         }
