@@ -1,6 +1,7 @@
 package jaysonjson.papierfuchs.registry;
 
 import jaysonjson.papierfuchs.object.effect.FuchsEffect;
+import jaysonjson.papierfuchs.object.entity.FuchsEntity;
 import jaysonjson.papierfuchs.object.gas.FuchsGas;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
@@ -18,6 +19,7 @@ public class FuchsRegistries {
     public static Map<String, FuchsGas> gasses = new HashMap<>();
     public static Map<String, FuchsEffect> effects = new HashMap<>();
     public static Map<String, FuchsRarity> rarities = new HashMap<>();
+    public static Map<String, FuchsEntity> entities = new HashMap<>();
 
     public static void registerItems(FuchsItem... fuchsItem) {
         for (FuchsItem item : fuchsItem) {
@@ -53,7 +55,7 @@ public class FuchsRegistries {
     }
 
     public static void registerEffects(FuchsEffect... fuchsEffects) {
-    	for(FuchsEffect effect : fuchsEffects) {
+    	for (FuchsEffect effect : fuchsEffects) {
     		if(!effects.containsKey(effect.getID())) {
     		    effects.put(effect.getID(), effect);
                 System.out.println("[PapierFuchs] \033[32mEffekt mit der ID " + effect.getID() + " registriert!\033[0m");
@@ -72,6 +74,17 @@ public class FuchsRegistries {
                 System.out.println("[PapierFuchs] \033[31mRarität mit der ID " + rarity.getID() + " existiert bereits!\033[0m");
             }
         }
+    }
+    
+    public static void registerEntities(FuchsEntity... fuchsEntities) {
+    	for (FuchsEntity fuchsEntity : fuchsEntities) {
+    		if(!entities.containsKey(fuchsEntity.getID())) {
+    			entities.put(fuchsEntity.getID(), fuchsEntity);
+    			System.out.println("[PapierFuchs] \033[32mEntity mit der ID " + fuchsEntity.getID() + " registriert!\033[0m");
+            } else {
+                System.out.println("[PapierFuchs] \033[31mEntity mit der ID " + fuchsEntity.getID() + " existiert bereits!\033[0m");
+            }
+    	}
     }
     
     public static void register(Class<?> listClass) {

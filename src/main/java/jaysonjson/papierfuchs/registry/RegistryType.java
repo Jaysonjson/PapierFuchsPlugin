@@ -1,5 +1,5 @@
 package jaysonjson.papierfuchs.registry;
 
 public enum RegistryType {
-    ITEM, LIQUID, GAS, EFFECT, RARITY;
+    ITEM, LIQUID, GAS, EFFECT, RARITY, ENTITY;
 }

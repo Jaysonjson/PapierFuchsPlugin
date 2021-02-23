@@ -5,7 +5,11 @@ import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.npc.NPC;
+import jaysonjson.papierfuchs.object.entity.EntityList;
+import jaysonjson.papierfuchs.object.entity.FuchsEntityCreature;
 import jaysonjson.papierfuchs.other.Scoreboard;
+import net.minecraft.server.v1_16_R3.WorldServer;
+import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,8 +35,10 @@ public class PlayerJoin implements Listener {
             Utility.setEntityMetadatas(player.getWorld());
             Utility.setBlockMetadatas(player.getWorld());
         }
+        //((WorldServer) player.getWorld()).addEntity(EntityList.TEST.createEntity(player));
 
-       /* if(fuchsPlayer.getLanguage().equals(Languages.NOT_SET)) {
+
+        /* if(fuchsPlayer.getLanguage().equals(Languages.NOT_SET)) {
             LanguageInventory languageInventory = new LanguageInventory();
             languageInventory.openInventory(player);
         } */

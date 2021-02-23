@@ -23,6 +23,7 @@ import jaysonjson.papierfuchs.events.item.*;
 import jaysonjson.papierfuchs.npc.NPC;
 import jaysonjson.papierfuchs.object.FuchsVanillaRecipes;
 import jaysonjson.papierfuchs.object.effect.EffectList;
+import jaysonjson.papierfuchs.object.entity.EntityList;
 import jaysonjson.papierfuchs.object.gas.GasList;
 import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
@@ -56,6 +57,7 @@ public final class PapierFuchs extends JavaPlugin {
         DataHandler.loadLanguages();
         FuchsRegistries.register(RarityList.class);
         FuchsRegistries.register(EffectList.class);
+        FuchsRegistries.register(EntityList.class);
         FuchsRegistries.register(ItemList.class);
         FuchsRegistries.register(GasList.class);
         FuchsRegistries.register(LiquidList.class);
