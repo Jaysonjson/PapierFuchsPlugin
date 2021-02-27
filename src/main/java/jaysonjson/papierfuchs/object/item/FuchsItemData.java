@@ -5,6 +5,7 @@ import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.object.gas.GasList;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
+import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
 import jaysonjson.papierfuchs.registry.FuchsRegistries;
 import jaysonjson.papierfuchs.skillclass.alchemist.zAlchemistClass;
 import jaysonjson.papierfuchs.skillclass.zClass;
@@ -182,8 +183,12 @@ public class FuchsItemData {
         }
     }
 
-    public void addDurabilityLore() {
-        lore.add(ChatColor.BLUE + "Haltbarkeit: " + durability + "/" + fuchsItem.getMaxDurability());
+    public void addDurabilityLore(FuchsPlayer fuchsPlayer) {
+        if(fuchsPlayer != null) {
+            lore.add(Utility.getStringFromLanguage(fuchsPlayer, "durability", ChatColor.BLUE + "Haltbarkeit")  + ": " + durability + "/" + fuchsItem.getMaxDurability());
+        } else {
+            lore.add(ChatColor.BLUE + "Haltbarkeit: " + durability + "/" + fuchsItem.getMaxDurability());
+        }
     }
 
     public void addMagicLore() {
@@ -204,9 +209,14 @@ public class FuchsItemData {
         }
     }
 
-    public void addRarityLore() {
+    public void addRarityLore(FuchsPlayer player) {
         if(Utility.rarityExists(rarity)) {
-            lore.add(Utility.getRarityByID(rarity).getLoreText());
+            FuchsRarity fuchsRarity = Utility.getRarityByID(rarity);
+            if(player != null) {
+                lore.add(Utility.getStringFromLanguage(References.data.getPlayer(player.getUUID()), fuchsRarity.getLoreTextFromLanguage(), fuchsRarity.getLoreText()));
+            } else {
+                lore.add(fuchsRarity.getLoreText());
+            }
         }
     }
 
@@ -221,19 +231,20 @@ public class FuchsItemData {
 
     //@Deprecated
     public void setItem(String displayName) {
-        addRarityLore();
+        FuchsPlayer fuchsPlayer = null;
+        if (player != null) {
+            fuchsPlayer = References.data.getPlayer(player.getUniqueId());
+        }
+        addRarityLore(fuchsPlayer);
         addEffectLores();
         addDamageLore();
         addAttackSpeedLore();
         addMagicLore();
         if(fuchsItem.getMaxDurability() > 0) {
-            addDurabilityLore();
+            addDurabilityLore(fuchsPlayer);
         }
         preTag = Utility.getItemTag(item);
         try {
-            if(!fuchsItem.getItemUse().getLoreText().equalsIgnoreCase("")) {
-                lore.add(fuchsItem.getItemUse().getLoreText());
-            }
 
             if(fuchsItem.getToolEfficiency() > 0) {
                 lore.add("Effizienz: " + fuchsItem.getToolEfficiency());
@@ -243,8 +254,10 @@ public class FuchsItemData {
                 lore.add("Schutz: " + fuchsItem.getDamageProtection());
             }
 
-            if (player != null) {
-                FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
+            if (fuchsPlayer != null) {
+                if(!fuchsItem.getItemUse().getLoreText().equalsIgnoreCase("")) {
+                    lore.add(Utility.getStringFromLanguage(fuchsPlayer, fuchsItem.getItemUse().getLoreTextFromLanguage(), fuchsItem.getItemUse().getLoreText()));
+                }
                 if(fuchsItem.requiredIntelligence() > 1) {
                     if(fuchsPlayer.getStats().getIntelligence() >= fuchsItem.requiredIntelligence()) {
                         lore.add(ChatColor.GREEN + "Benötigt Intelligenz " + fuchsItem.requiredIntelligence());
@@ -279,10 +292,11 @@ public class FuchsItemData {
                     if(!preTag.hasKey(ItemNBT.CREATIVE_GET)) {
                         preTag.setString(ItemNBT.CREATIVE_GET_USER, creative_get_user);
                     }
-                    lore.add(ChatColor.LIGHT_PURPLE + "In Kreativ bekommen");
+                    lore.add(Utility.getStringFromLanguage(fuchsPlayer, "creative_gain", ChatColor.LIGHT_PURPLE + "In Kreativ bekommen"));
                     lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + player.getServer().getOfflinePlayer(UUID.fromString(creative_get_user)).getPlayer().getDisplayName() + "«");
                 }
             } else {
+                lore.add(fuchsItem.getItemUse().getLoreText());
                 if(fuchsItem.requiredIntelligence() > 0) {
                     lore.add(ChatColor.GRAY + "Benötigt Intelligenz " + fuchsItem.requiredIntelligence());
                 }
@@ -294,9 +308,8 @@ public class FuchsItemData {
             }
 
             itemMeta.setLore(lore);
-            if(player != null && fuchsItem.hasLanguageString()) {
-                FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
-                itemMeta.setDisplayName(Utility.getStringFromLanguage(fuchsPlayer, fuchsItem.getLanguageString()));
+            if(fuchsPlayer != null && fuchsItem.hasLanguageString()) {
+                itemMeta.setDisplayName(Utility.getStringFromLanguage(fuchsPlayer, fuchsItem.getLanguageString(), fuchsItem.getDefaultDisplayName()));
             } else {
                 itemMeta.setDisplayName(displayName);
             }

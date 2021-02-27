@@ -20,6 +20,11 @@ public enum ItemRarity implements IItemRarity {
     }
 
     @Override
+    public String getLoreTextFromLanguage() {
+        return lore;
+    }
+
+    @Override
     public String getID() {
         return id;
     }

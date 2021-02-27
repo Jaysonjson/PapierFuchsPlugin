@@ -14,4 +14,9 @@ public class RareRarity extends FuchsRarity {
         return ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD.toString() + "Selten";
     }
 
+    @Override
+    public String getLoreTextFromLanguage() {
+        return "rarity_rare";
+    }
+
 }

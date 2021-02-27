@@ -96,4 +96,6 @@ public class ItemList {
 
     public static ItemWithTexture UK_FLAG = new ItemWithTexture("uk_flag", Material.FEATHER, ItemUseType.OTHER, "English", 32, true);
     public static ItemWithTexture GERMAN_FLAG = new ItemWithTexture("german_flag", Material.FEATHER, ItemUseType.OTHER, "Deutsch", 31, true);
+
+    public static TestPlaceItem TEST_PLACE = new TestPlaceItem("test_place", Material.DIAMOND, ItemUseType.OTHER);
 }

@@ -1,12 +1,12 @@
-package jaysonjson.papierfuchs.object.rarity;
+package jaysonjson.papierfuchs.object.inventory;
 
 import jaysonjson.papierfuchs.registry.IFuchsRegistryObject;
 import jaysonjson.papierfuchs.registry.RegistryType;
 
-public abstract class FuchsRarity implements IFuchsRegistryObject, IFuchsRarity {
+public abstract class FuchsInventory implements IFuchsRegistryObject {
 
     String id;
-    public FuchsRarity(String id) {
+    public FuchsInventory(String id) {
         this.id = id;
     }
 
@@ -17,11 +17,7 @@ public abstract class FuchsRarity implements IFuchsRegistryObject, IFuchsRarity 
 
     @Override
     public RegistryType getType() {
-        return RegistryType.RARITY;
+        return RegistryType.INVENTORY;
     }
 
-    @Override
-    public String getLoreTextFromLanguage() {
-        return "";
-    }
 }

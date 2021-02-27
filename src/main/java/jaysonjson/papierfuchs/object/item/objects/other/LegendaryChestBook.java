@@ -61,7 +61,9 @@ public class LegendaryChestBook extends FuchsItem {
                     DataHandler.saveServer(fuchsServer);
                 }
                 if(!block.hasMetadata(BlockMetaData.CONTAINED_ITEM)) {
-                    Utility.addBlockMetadata(fuchsServer, fuchsLocation, block, BlockMetaData.CONTAINED_ITEM, Utility.createItemStackString(event.getItem()));
+                    ItemStack itemStack = event.getItem().clone();
+                    itemStack.setAmount(1);
+                    Utility.addBlockMetadata(fuchsServer, fuchsLocation, block, BlockMetaData.CONTAINED_ITEM, Utility.createItemStackString(itemStack));
                     event.getItem().setAmount(event.getItem().getAmount() - 1);
                     DataHandler.saveServer(fuchsServer);
                 }

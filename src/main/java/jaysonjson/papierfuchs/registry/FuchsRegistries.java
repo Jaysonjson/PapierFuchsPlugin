@@ -4,9 +4,11 @@ import jaysonjson.papierfuchs.FuchsAnsi;
 import jaysonjson.papierfuchs.object.effect.FuchsEffect;
 import jaysonjson.papierfuchs.object.entity.FuchsEntity;
 import jaysonjson.papierfuchs.object.gas.FuchsGas;
+import jaysonjson.papierfuchs.object.inventory.FuchsInventory;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
+import jaysonjson.papierfuchs.object.skillclass.FuchsSkillclass;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -21,6 +23,8 @@ public class FuchsRegistries {
     public static Map<String, FuchsEffect> effects = new HashMap<>();
     public static Map<String, FuchsRarity> rarities = new HashMap<>();
     public static Map<String, FuchsEntity> entities = new HashMap<>();
+    public static Map<String, FuchsSkillclass> skill_classes = new HashMap<>();
+    public static Map<String, FuchsInventory> inventories = new HashMap<>();
 
     public static void registerItems(FuchsItem... fuchsItem) {
         for (FuchsItem item : fuchsItem) {
@@ -87,6 +91,28 @@ public class FuchsRegistries {
             }
     	}
     }
+
+    public static void registerSkillclasses(FuchsSkillclass... fuchsSkillclasses) {
+        for (FuchsSkillclass fuchsSkillclass : fuchsSkillclasses) {
+            if(!skill_classes.containsKey(fuchsSkillclass.getID())) {
+                skill_classes.put(fuchsSkillclass.getID(), fuchsSkillclass);
+                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "Skill-Class mit der ID " + fuchsSkillclass.getID() + " registriert!\033[0m");
+            } else {
+                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.RED + "Skill-Class mit der ID " + fuchsSkillclass.getID() + " existiert bereits!\033[0m");
+            }
+        }
+    }
+
+    public static void registerInventories(FuchsInventory... fuchsInventories) {
+        for (FuchsInventory fuchsInventory : fuchsInventories) {
+            if(!inventories.containsKey(fuchsInventory.getID())) {
+                inventories.put(fuchsInventory.getID(), fuchsInventory);
+                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "Inventar mit der ID " + fuchsInventory.getID() + " registriert!\033[0m");
+            } else {
+                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.RED + "Inventar mit der ID " + fuchsInventory.getID() + " existiert bereits!\033[0m");
+            }
+        }
+    }
     
     public static void register(Class<?> listClass) {
         Field[] fields = listClass.getDeclaredFields();
@@ -107,6 +133,15 @@ public class FuchsRegistries {
                 }
                 if(obj instanceof FuchsEffect) {
                     registerEffects((FuchsEffect) obj);
+                }
+                if(obj instanceof FuchsEntity) {
+                    registerEntities((FuchsEntity) obj);
+                }
+                if(obj instanceof FuchsSkillclass) {
+                    registerSkillclasses((FuchsSkillclass) obj);
+                }
+                if(obj instanceof FuchsInventory) {
+                    registerInventories((FuchsInventory) obj);
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

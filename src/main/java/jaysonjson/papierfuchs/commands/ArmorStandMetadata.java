@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.util.EulerAngle;
 
 public class ArmorStandMetadata implements CommandExecutor {
 
@@ -25,6 +26,9 @@ public class ArmorStandMetadata implements CommandExecutor {
                 ArmorStand armorStand = player.getWorld().spawn(location, ArmorStand.class);
                 armorStand.setCustomName("Crafting");
                 armorStand.setInvisible(true);
+                armorStand.setArms(true);
+                armorStand.setRightArmPose(new EulerAngle(0f, 0f, 360f));
+                armorStand.setLeftArmPose(new EulerAngle(0f, 0f, 360f));
                 armorStand.setCustomNameVisible(true);
                 FuchsServer fuchsServer = DataHandler.loadServer();
                 armorStand.setMetadata(EntityMetaData.ARMORSTAND_GENERAL_CRAFTING, new FixedMetadataValue(PapierFuchs.INSTANCE, "s"));

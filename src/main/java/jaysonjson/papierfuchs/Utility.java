@@ -1142,9 +1142,14 @@ public class Utility {
         return damageFuchsItem(null, fuchsItem, itemStack);
     }
 
-    public static void addBlockMetadata(FuchsServer fuchsServer, FuchsLocation fuchsLocation, Block block, String metadata, String value) {
+    public static void addBlockMetadata(FuchsServer fuchsServer, FuchsLocation fuchsLocation, Block block, String metadata, Object value) {
         fuchsServer.BLOCK_METADATA.add(new BlockMetadataSetter(fuchsLocation, block.getType(), metadata, value));
         block.setMetadata(metadata, new FixedMetadataValue(PapierFuchs.INSTANCE, value));
+    }
+
+    public static void addEntityMetadata(FuchsServer fuchsServer, Entity entity, String metadata, Object value) {
+        fuchsServer.ENTITY_METADATA.add(new EntityMetadataSetter(entity.getUniqueId(), metadata, value));
+        entity.setMetadata(metadata, new FixedMetadataValue(PapierFuchs.INSTANCE, value));
     }
 
     public static void addEffectToTag(NBTTagCompound tagCompound, FuchsEffect effect) {
@@ -1163,10 +1168,14 @@ public class Utility {
         log(LogType.OTHER, log);
     }
 
-    public static String getStringFromLanguage(FuchsPlayer fuchsPlayer, String id) {
+    public static String getStringFromLanguage(FuchsPlayer fuchsPlayer, String id, String fallback) {
         if(fuchsPlayer.getLanguage().getContent().CONTENT.containsKey(id)) {
             return fuchsPlayer.getLanguage().getContent().CONTENT.get(id);
         }
-        return "Fehler";
+        return fallback;
+    }
+    
+    public static String getStringFromLanguage(FuchsPlayer fuchsPlayer, String id) {
+    	return getStringFromLanguage(fuchsPlayer, id, "Fehler");
     }
 }

@@ -12,4 +12,9 @@ public class CommonRarity extends FuchsRarity {
     public String getLoreText() {
         return ChatColor.GRAY.toString() + ChatColor.BOLD.toString() + "Verbreitet";
     }
+
+    @Override
+    public String getLoreTextFromLanguage() {
+        return "rarity_common";
+    }
 }

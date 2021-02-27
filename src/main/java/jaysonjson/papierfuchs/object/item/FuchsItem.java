@@ -19,7 +19,7 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, IFuchsItem, IFuchsItemAlchemy,
-        IFuchsItemTexture, IItemUseType, IFuchsItemUse, IFuchsItemEntityInteraction,
+        IFuchsItemTexture, IFuchsItemUse, IFuchsItemEntityInteraction,
         IFuchsItemBlockInteraction, IFuchsItemGun, IFuchsItemTool, IFuchsItemCurrency {
 
     private final String id;
@@ -84,11 +84,6 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     @Override
     public int getCustomModelData() {
         return 0;
-    }
-
-    @Override
-    public String getLoreText() {
-        return null;
     }
 
     @Override

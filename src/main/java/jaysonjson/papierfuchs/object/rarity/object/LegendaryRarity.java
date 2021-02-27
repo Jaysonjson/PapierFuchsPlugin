@@ -12,4 +12,9 @@ public class LegendaryRarity extends FuchsRarity {
     public String getLoreText() {
         return ChatColor.GOLD.toString() + ChatColor.BOLD.toString() + "Legendär";
     }
+
+    @Override
+    public String getLoreTextFromLanguage() {
+        return "rarity_legendary";
+    }
 }
