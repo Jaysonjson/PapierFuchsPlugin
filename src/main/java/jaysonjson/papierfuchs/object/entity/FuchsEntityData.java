@@ -31,7 +31,7 @@ public class FuchsEntityData {
     }
 
     public void create() {
-        FuchsEntityCreature fuchsEntityCreature = new FuchsEntityCreature(fuchsEntity.getEntityType(), world.getHandle());
+        fuchsEntityCreature = new FuchsEntityCreature(fuchsEntity.getEntityType(), world.getHandle());
     }
 
     public FuchsEntityCreature getCreature() {

@@ -1,8 +1,8 @@
 package jaysonjson.papierfuchs.other;
 
 import jaysonjson.papierfuchs.PapierFuchs;
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
-import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.area.data.zArea;
 import jaysonjson.papierfuchs.data.area.obj.zLocation;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class Scoreboard {
 
     public static void updateScoreboard(Player player) {
-        sendScoreboard(player, DataHandler.loadPlayer(player.getUniqueId()), Utility.countCurrency(player, CurrencyType.HACKSILVER.getId(), true), Utility.countCurrency(player, CurrencyType.ZORYHA_SHARD.getId(), true), Utility.getNearestArea(player.getWorld().getEnvironment(), player.getLocation()), Utility.getNearestAreaDistance(player.getWorld().getEnvironment(), player.getLocation()));
+        sendScoreboard(player, References.data.getPlayer(player.getUniqueId()), Utility.countCurrency(player, CurrencyType.HACKSILVER.getId(), true), Utility.countCurrency(player, CurrencyType.ZORYHA_SHARD.getId(), true), Utility.getNearestArea(player.getWorld().getEnvironment(), player.getLocation()), Utility.getNearestAreaDistance(player.getWorld().getEnvironment(), player.getLocation()));
     }
 
     public static void updateScoreboard(Player player, FuchsPlayer fuchsPlayer) {

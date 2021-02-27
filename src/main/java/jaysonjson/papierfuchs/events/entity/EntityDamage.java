@@ -1,8 +1,8 @@
 package jaysonjson.papierfuchs.events.entity;
 
 import jaysonjson.papierfuchs.Constant;
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
-import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.object.EntityMetaData;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
@@ -28,7 +28,7 @@ public class EntityDamage implements Listener {
         }
         if(event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
-            FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
+            FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
             event.setDamage(event.getDamage() + (fuchsPlayer.getStats().getStrength() * Constant.DAMAGE_MODIFIER));
             if(event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
                 ItemStack itemStack = player.getInventory().getItemInMainHand();

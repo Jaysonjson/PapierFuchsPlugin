@@ -62,7 +62,7 @@ public class Utility {
     }
 
     public static void refreshHearts(Player player) {
-        FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
+        FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
         refreshHearts(player, fuchsPlayer);
     }
 
@@ -1094,7 +1094,7 @@ public class Utility {
         FuchsMCItem fuchsItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(itemStack), itemStack);
         if(fuchsItem.getTagFromOriginal().hasKey(ItemNBT.LIQUID_AMOUNT)) {
             if(fuchsItem.getDoubleFromTag(ItemNBT.LIQUID_AMOUNT) > 0) {
-                FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
+                FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
                 fuchsPlayer.getPlayerSpecial().increaseAlcohol(new Random().nextDouble() / alcoholMinus);
                 player.sendMessage("Alkohol: " + fuchsPlayer.getPlayerSpecial().getAlcohol());
                 fuchsItem.changeDoubleTag(ItemNBT.LIQUID_AMOUNT, fuchsItem.getDoubleFromTag(ItemNBT.LIQUID_AMOUNT) - 10);
@@ -1111,7 +1111,7 @@ public class Utility {
                     player.getWorld().playEffect(player.getLocation().add(player.getLocation().getDirection().multiply(1.2)), Effect.VILLAGER_PLANT_GROW, 55, 1);
                 }
                 player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_DRINK, 1, 1);
-                DataHandler.savePlayer(fuchsPlayer);
+                //DataHandler.savePlayer(fuchsPlayer);
                 player.updateInventory();
                 return true;
             }
@@ -1147,11 +1147,26 @@ public class Utility {
         block.setMetadata(metadata, new FixedMetadataValue(PapierFuchs.INSTANCE, value));
     }
 
-    public static void addEffectToItem(NBTTagCompound tagCompound, FuchsEffect effect) {
-        addEffectToItem(tagCompound, effect.getID());
+    public static void addEffectToTag(NBTTagCompound tagCompound, FuchsEffect effect) {
+        addEffectToTag(tagCompound, effect.getID());
     }
 
-    public static void addEffectToItem(NBTTagCompound tagCompound, String effect) {
+    public static void addEffectToTag(NBTTagCompound tagCompound, String effect) {
         tagCompound.setBoolean(ItemNBT.HAS_EFFECT_ID + effect, true);
+    }
+
+    public static void log(LogType logType, String log) {
+        System.out.println("[PapierFuchs {" + logType.toString() + "}] " + log);
+    }
+
+    public static void log(String log) {
+        log(LogType.OTHER, log);
+    }
+
+    public static String getStringFromLanguage(FuchsPlayer fuchsPlayer, String id) {
+        if(fuchsPlayer.getLanguage().getContent().CONTENT.containsKey(id)) {
+            return fuchsPlayer.getLanguage().getContent().CONTENT.get(id);
+        }
+        return "Fehler";
     }
 }

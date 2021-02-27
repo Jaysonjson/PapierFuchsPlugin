@@ -32,7 +32,13 @@ public interface IFuchsItem {
     }
 
     FuchsRarity getDefaultRarity();
-
+    String getDefaultDisplayName();
+    String getLanguageString();
+    
+    default boolean hasLanguageString() {
+    	return getLanguageString() != "";
+    }
+    
     default boolean isIngot() {
         return false;
     }

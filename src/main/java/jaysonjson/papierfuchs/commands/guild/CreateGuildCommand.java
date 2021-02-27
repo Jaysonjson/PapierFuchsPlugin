@@ -1,5 +1,6 @@
 package jaysonjson.papierfuchs.commands.guild;
 
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.guild.data.zGuild;
@@ -20,7 +21,7 @@ public class CreateGuildCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if(commandSender instanceof Player) {
             Player player = (Player) commandSender;
-            FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
+            FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
             if(args.length >= 1) {
                 if(args[0].equalsIgnoreCase("create")) {
                     if(fuchsPlayer.isInGuild()) {
@@ -36,7 +37,7 @@ public class CreateGuildCommand implements CommandExecutor {
                             zGuild.getMembers().put(player.getUniqueId(), zGuildRank.OWNER);
                             fuchsPlayer.setGuildUuid(zGuild.getUUID());
                             DataHandler.saveGuild(zGuild);
-                            DataHandler.savePlayer(fuchsPlayer);
+                            //DataHandler.savePlayer(fuchsPlayer);
                             player.sendMessage("Guilde " + zGuild.getName() + " (" + zGuild.getUUID() + ") erstellt!");
                            // player.getInventory().setContents(Utility.removeMoneyBackpack(player.getInventory(), 50000));
                             player.updateInventory();

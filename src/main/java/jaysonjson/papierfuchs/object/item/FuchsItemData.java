@@ -1,7 +1,7 @@
 package jaysonjson.papierfuchs.object.item;
 
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
-import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.object.gas.GasList;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
@@ -244,7 +244,7 @@ public class FuchsItemData {
             }
 
             if (player != null) {
-                FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
+                FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
                 if(fuchsItem.requiredIntelligence() > 1) {
                     if(fuchsPlayer.getStats().getIntelligence() >= fuchsItem.requiredIntelligence()) {
                         lore.add(ChatColor.GREEN + "Benötigt Intelligenz " + fuchsItem.requiredIntelligence());
@@ -294,7 +294,12 @@ public class FuchsItemData {
             }
 
             itemMeta.setLore(lore);
-            itemMeta.setDisplayName(displayName);
+            if(player != null && fuchsItem.hasLanguageString()) {
+                FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
+                itemMeta.setDisplayName(Utility.getStringFromLanguage(fuchsPlayer, fuchsItem.getLanguageString()));
+            } else {
+                itemMeta.setDisplayName(displayName);
+            }
             itemMeta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
             itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
             if(fuchsItem.getToolAttackSpeed() > 0) {
@@ -313,6 +318,10 @@ public class FuchsItemData {
             e.printStackTrace();
             System.out.println("[PapierFuchs] Fehler beim Item: " + fuchsItem.getID());
         }
+    }
+
+    public void setItem() {
+        setItem(fuchsItem.getDefaultDisplayName());
     }
 
     private net.minecraft.server.v1_16_R3.ItemStack createNMSCopy() {

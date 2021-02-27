@@ -1,7 +1,7 @@
 package jaysonjson.papierfuchs.events.entity.player;
 
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
-import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.area.data.zArea;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.other.Scoreboard;
@@ -24,7 +24,7 @@ public class PlayerMove implements Listener {
     @EventHandler
     public void playerMoveEvent(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
+        FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
         Random random = new Random();
         if(fuchsPlayer.getPlayerSpecial().getAlcohol() > 0) {
             Utility.makeDrunk(player, fuchsPlayer);

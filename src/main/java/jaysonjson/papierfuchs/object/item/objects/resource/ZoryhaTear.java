@@ -1,7 +1,5 @@
 package jaysonjson.papierfuchs.object.item.objects.resource;
 
-import jaysonjson.papierfuchs.data.DataHandler;
-import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
@@ -21,12 +19,7 @@ public class ZoryhaTear extends FuchsItem {
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
         FuchsItemData fuchsItemData = new FuchsItemData(this, player, stack);
-        if(player != null) {
-            FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
-            fuchsItemData.setItem(fuchsPlayer.getLanguage().getContent().CONTENT.get("zoryha_tear"));
-        } else {
-            fuchsItemData.setItem(ChatColor.AQUA + "Zoryha's Träne");
-        }
+        fuchsItemData.setItem();
         return fuchsItemData.item;
     }
 
@@ -39,5 +32,15 @@ public class ZoryhaTear extends FuchsItem {
     @Override
     public int getCustomModelData() {
         return 30;
+    }
+
+    @Override
+    public String getLanguageString() {
+        return "zoryha_tear";
+    }
+
+    @Override
+    public String getDefaultDisplayName() {
+        return ChatColor.AQUA + "Zoryha's Träne";
     }
 }

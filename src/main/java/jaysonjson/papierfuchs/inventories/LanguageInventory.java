@@ -1,8 +1,8 @@
 package jaysonjson.papierfuchs.inventories;
 
 import jaysonjson.papierfuchs.PapierFuchs;
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
-import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.object.Languages;
 import jaysonjson.papierfuchs.object.item.ItemList;
@@ -30,7 +30,7 @@ public class LanguageInventory implements Listener {
     public void openInventory(Player player) {
         this.player = player;
         inventory = Bukkit.createInventory(player, 54, "Sprache");
-        fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
+        fuchsPlayer = References.data.getPlayer(player.getUniqueId());
         setContents();
         player.openInventory(inventory);
     }
@@ -59,7 +59,7 @@ public class LanguageInventory implements Listener {
                     fuchsPlayer.setLanguage(Languages.ENGLISH);
                     Utility.updateInventory(player);
                 }
-                DataHandler.savePlayer(fuchsPlayer);
+                //DataHandler.savePlayer(fuchsPlayer);
                 player.updateInventory();
                 event.getWhoClicked().closeInventory();
             }

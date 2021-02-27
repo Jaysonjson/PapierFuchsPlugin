@@ -1,6 +1,6 @@
 package jaysonjson.papierfuchs.object.item.objects.other;
 
-import jaysonjson.papierfuchs.data.DataHandler;
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;
@@ -38,7 +38,7 @@ public class AlcoholTestItem extends FuchsItem {
     public void onEntityInteract(PlayerInteractEntityEvent event) {
         if(event.getRightClicked() instanceof Player) {
             Player clickedPlayer = (Player) event.getRightClicked();
-            FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(clickedPlayer.getUniqueId());
+            FuchsPlayer fuchsPlayer = References.data.getPlayer(clickedPlayer.getUniqueId());
             event.getPlayer().sendMessage(fuchsPlayer.getPlayerSpecial().getAlcohol() + "");
         }
     }

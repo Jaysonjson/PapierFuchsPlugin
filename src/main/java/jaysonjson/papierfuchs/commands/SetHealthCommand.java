@@ -1,7 +1,7 @@
 package jaysonjson.papierfuchs.commands;
 
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
-import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -35,9 +35,9 @@ public class SetHealthCommand implements CommandExecutor {
                     }
                 }
                 UUID uuid = player.getUniqueId();
-                FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(uuid);
+                FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
                 fuchsPlayer.getHealth().health = health;
-                DataHandler.savePlayer(fuchsPlayer);
+                //DataHandler.savePlayer(fuchsPlayer);
                 Utility.refreshHearts(player, fuchsPlayer);
                 commandSender.sendMessage("Das Leben von " + player.getDisplayName() + " wurde auf " + fuchsPlayer.getHealth().health + " geändert!");
                 return true;

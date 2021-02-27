@@ -224,4 +224,15 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     public FuchsRarity getDefaultRarity() {
         return RarityList.COMMON;
     }
+
+    @Override
+    public String getLanguageString() {
+        return "";
+    }
+
+    @Deprecated
+    @Override
+    public String getDefaultDisplayName() {
+        return "FuchsItem";
+    }
 }

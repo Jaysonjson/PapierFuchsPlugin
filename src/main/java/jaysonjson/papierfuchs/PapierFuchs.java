@@ -53,6 +53,7 @@ public final class PapierFuchs extends JavaPlugin {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+        References.loadServerData();
         //DataHandler.createGermanLangTest();
         DataHandler.loadLanguages();
         FuchsRegistries.register(RarityList.class);
@@ -92,7 +93,8 @@ public final class PapierFuchs extends JavaPlugin {
                 new PlayerSleep(),
                 new WorldLoad(),
                 new PlayerInteractEntity(),
-                new EnchantItem()
+                new EnchantItem(),
+                new PlayerLeave()
         );
 
         registerCommands(
@@ -116,10 +118,16 @@ public final class PapierFuchs extends JavaPlugin {
         );
 
         FuchsVanillaRecipes.addRecipes();
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+            References.data.savePlayers();
+            References.data.saveServer();
+        }, 0L, 20L * 300);
+
     }
 
     @Override
     public void onDisable() {
+        References.data.savePlayers();
     }
 
     public static void registerEvents(Listener... listener) {

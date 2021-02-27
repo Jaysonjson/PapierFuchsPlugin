@@ -1,15 +1,11 @@
 package jaysonjson.papierfuchs.events.entity.player;
 
 import jaysonjson.papierfuchs.PapierFuchs;
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
-import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.npc.NPC;
-import jaysonjson.papierfuchs.object.entity.EntityList;
-import jaysonjson.papierfuchs.object.entity.FuchsEntityCreature;
 import jaysonjson.papierfuchs.other.Scoreboard;
-import net.minecraft.server.v1_16_R3.WorldServer;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,7 +16,8 @@ public class PlayerJoin implements Listener {
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
+        References.data.loadPlayer(player.getUniqueId());
+        FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
         Utility.refreshHearts(event.getPlayer(), fuchsPlayer);
         Scoreboard.updateScoreboard(player, fuchsPlayer);
         NPC.sendSinglePacket(player);

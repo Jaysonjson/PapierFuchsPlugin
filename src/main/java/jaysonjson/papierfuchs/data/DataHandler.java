@@ -2,6 +2,7 @@ package jaysonjson.papierfuchs.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import jaysonjson.papierfuchs.FuchsAnsi;
 import jaysonjson.papierfuchs.Language;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.area.data.zArea;
@@ -232,9 +233,9 @@ public class DataHandler {
                     if(Utility.itemIDExists(item.item)) {
                         item.setFuchsItem(Utility.getFuchsItemByID(item.item));
                         mobDrop.itemDropChances.add(item);
-                        System.out.println("[PapierFuchs {MobDrops}] " + item.toString());
+                        System.out.println("[PapierFuchs {MobDrops}] " + FuchsAnsi.GREEN + "Item " + item.toString() + " hinzugefügt!" + FuchsAnsi.RESET);
                     } else {
-                        System.out.println("[PapierFuchs {MobDrops}] Item mit der ID " + item.item + " existiert nicht, überspringen...");
+                        System.out.println("[PapierFuchs {MobDrops}] " + FuchsAnsi.RED + " Item mit der ID " + item.item + " existiert nicht, überspringen..." + FuchsAnsi.RESET);
                     }
                 }
                 zDrops.getMobDrops().add(mobDrop);
@@ -246,9 +247,9 @@ public class DataHandler {
                 for (ItemDropChance item : fuchsBlockDrop.items) {
                     if(Utility.itemIDExists(item.item)) {
                         item.setFuchsItem(Utility.getFuchsItemByID(item.item));
-                        System.out.println("[PapierFuchs {BlockDrops}] " + item.toString());
+                        System.out.println("[PapierFuchs {BlockDrops}] " + FuchsAnsi.GREEN + " Item " + item.toString() + " hinzugefügt!" + FuchsAnsi.RESET);
                     } else {
-                        System.out.println("[PapierFuchs {BlockDrops}] Item mit der ID " + item.item + " existiert nicht, überspringen...");
+                        System.out.println("[PapierFuchs {BlockDrops}] " + FuchsAnsi.RED + " Item mit der ID " + item.item + " existiert nicht, überspringen..." + FuchsAnsi.RESET);
                     }
                 }
                 zDrops.getBlockDrops().add(fuchsBlockDrop);

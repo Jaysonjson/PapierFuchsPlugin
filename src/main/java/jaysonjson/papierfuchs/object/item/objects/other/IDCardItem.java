@@ -1,6 +1,6 @@
 package jaysonjson.papierfuchs.object.item.objects.other;
 
-import jaysonjson.papierfuchs.data.DataHandler;
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;
@@ -38,7 +38,7 @@ public class IDCardItem extends FuchsItem {
     }
 
     public BookMeta createBookTag(Player player, ItemStack itemStack) {
-        FuchsPlayer fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
+        FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
         BookMeta bookMeta = (BookMeta) itemStack.getItemMeta();
         bookMeta.setTitle("Ausweis");
         bookMeta.setAuthor("Oberbürgermeister von Fuchsia");

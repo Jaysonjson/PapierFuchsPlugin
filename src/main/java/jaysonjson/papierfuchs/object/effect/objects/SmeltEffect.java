@@ -14,4 +14,5 @@ public class SmeltEffect extends FuchsEffect {
     public String getDisplayName() {
         return ChatColor.DARK_RED + "Schmelzen";
     }
+
 }

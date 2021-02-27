@@ -1,8 +1,8 @@
 package jaysonjson.papierfuchs.inventories.classes;
 
 import jaysonjson.papierfuchs.PapierFuchs;
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
-import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.skillclass.zClass;
 import org.bukkit.Bukkit;
@@ -28,7 +28,7 @@ public class StarterClassInventory implements Listener {
 
     public void openInventory(Player player) {
         inventory = Bukkit.createInventory(player, 54, "Starterklasse");
-        fuchsPlayer = DataHandler.loadPlayer(player.getUniqueId());
+        fuchsPlayer = References.data.getPlayer(player.getUniqueId());
         setContents();
         player.openInventory(inventory);
     }
@@ -54,7 +54,7 @@ public class StarterClassInventory implements Listener {
             } else if(clickedItemMeta.getDisplayName().equalsIgnoreCase("Farmer")) {
                 fuchsPlayer.getPlayerClass().current = zClass.FARMER;
             }
-            DataHandler.savePlayer(fuchsPlayer);
+            //DataHandler.savePlayer(fuchsPlayer);
             event.getWhoClicked().closeInventory();
         }
     }

@@ -1,6 +1,6 @@
 package jaysonjson.papierfuchs.object.item.objects.other;
 
-import jaysonjson.papierfuchs.data.DataHandler;
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;
@@ -39,7 +39,7 @@ public class SkillBookItem extends FuchsItem {
     }
 
     public BookMeta createBookTag(Player player, ItemStack itemStack) {
-        FuchsPlayer zPlayer = DataHandler.loadPlayer(player.getUniqueId());
+        FuchsPlayer zPlayer = References.data.getPlayer(player.getUniqueId());
         BookMeta bookMeta = (BookMeta) itemStack.getItemMeta();
         bookMeta.setTitle("Skill Buch");
         bookMeta.setAuthor("Oberbürgermeister");
