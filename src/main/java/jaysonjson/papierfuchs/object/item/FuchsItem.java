@@ -230,4 +230,9 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     public String getDefaultDisplayName() {
         return "FuchsItem";
     }
+
+    @Override
+    public boolean stackAble() {
+        return true;
+    }
 }

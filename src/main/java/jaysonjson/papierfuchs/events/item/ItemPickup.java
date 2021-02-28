@@ -1,6 +1,7 @@
 package jaysonjson.papierfuchs.events.item;
 
 import jaysonjson.papierfuchs.Utility;
+import jaysonjson.papierfuchs.object.effect.EffectList;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.entity.Player;
@@ -31,6 +32,11 @@ public class ItemPickup implements Listener {
                     item.setAmount(itemStack.getAmount());
                     event.getItem().setItemStack(item);
                     player.updateInventory();
+                }
+            }
+            if(Utility.tagHasEffect(tag, EffectList.BLOOD_BOUND)) {
+                if(!EffectList.BLOOD_BOUND.getUser(tag).equals(player.getUniqueId().toString())) {
+                    event.setCancelled(true);
                 }
             }
         }

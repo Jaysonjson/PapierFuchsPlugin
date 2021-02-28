@@ -34,7 +34,7 @@ public interface IFuchsItem {
     FuchsRarity getDefaultRarity();
     String getDefaultDisplayName();
     String getLanguageString();
-    
+    boolean stackAble();
     default boolean hasLanguageString() {
     	return getLanguageString() != "";
     }

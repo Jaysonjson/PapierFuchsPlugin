@@ -3,6 +3,8 @@ package jaysonjson.papierfuchs.object.item;
 import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
+import jaysonjson.papierfuchs.object.effect.EffectList;
+import jaysonjson.papierfuchs.object.effect.FuchsEffect;
 import jaysonjson.papierfuchs.object.gas.GasList;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
 import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
@@ -10,6 +12,7 @@ import jaysonjson.papierfuchs.registry.FuchsRegistries;
 import jaysonjson.papierfuchs.skillclass.alchemist.zAlchemistClass;
 import jaysonjson.papierfuchs.skillclass.zClass;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.attribute.Attribute;
@@ -21,6 +24,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class FuchsItemData {
@@ -35,6 +39,10 @@ public class FuchsItemData {
     private boolean creative_get = false;
     private String creative_get_user = "";
     private double item_version = 0;
+
+
+    public HashMap<String, String> nbt_strings = new HashMap<>();
+    public HashMap<String, Double> nbt_doubles = new HashMap<>();
 
     public int durability = 0;
     public boolean exists = false;
@@ -55,6 +63,7 @@ public class FuchsItemData {
     public double air_magic_amount = 0;
     public String rarity = "";
 
+    @Deprecated
     public FuchsItemData(FuchsItem fuchsItem, Player player) {
         this.item = new ItemStack(fuchsItem.getMaterial());
         this.itemMeta = this.item.getItemMeta();
@@ -224,7 +233,14 @@ public class FuchsItemData {
         NBTTagCompound tag = fuchsItem.getTag(Utility.getItemTag(Utility.createNMSCopy(item)));
         for (String s : FuchsRegistries.effects.keySet()) {
             if(tag.hasKey(ItemNBT.HAS_EFFECT_ID + s)) {
-                lore.add(FuchsRegistries.effects.get(s).getDisplayName());
+                FuchsEffect effect = FuchsRegistries.effects.get(s);
+                if(effect == EffectList.BLOOD_BOUND) {
+                    if(!EffectList.BLOOD_BOUND.getUser(tag).equals("")) {
+                        lore.add(effect.getDisplayName() + " (" + Bukkit.getOfflinePlayer(UUID.fromString(EffectList.BLOOD_BOUND.getUser(tag))).getName() + ")");
+                    }
+                } else {
+                    lore.add(effect.getDisplayName());
+                }
             }
         }
     }
@@ -362,6 +378,9 @@ public class FuchsItemData {
         }
         if(fuchsItem.getToolDamage() > 0) {
             tag.setDouble(ItemNBT.ATTACK_DAMAGE, attack_damage);
+        }
+        if(!fuchsItem.stackAble()) {
+            tag.setString(ItemNBT.ITEM_UUID, UUID.randomUUID().toString());
         }
         return tag;
     }

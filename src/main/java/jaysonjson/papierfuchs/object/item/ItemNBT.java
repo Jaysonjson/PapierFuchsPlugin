@@ -46,4 +46,5 @@ public class ItemNBT {
     public static final String ITEM_UUID = "FuchsItemUUID";
     public static final String CURRENCY_TYPE = "currencyType";
     public static final String ITEM_RARITY = "itemRarity";
+    public static final String BLOOD_BOUND_USER = "bloodBoundEffectUser";
 }

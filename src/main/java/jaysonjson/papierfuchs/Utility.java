@@ -11,6 +11,7 @@ import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.data.server.data.BlockMetadataSetter;
 import jaysonjson.papierfuchs.data.server.data.EntityMetadataSetter;
 import jaysonjson.papierfuchs.data.server.data.FuchsServer;
+import jaysonjson.papierfuchs.object.effect.EffectList;
 import jaysonjson.papierfuchs.object.effect.FuchsEffect;
 import jaysonjson.papierfuchs.object.gas.FuchsGas;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
@@ -493,6 +494,7 @@ public class Utility {
         return FuchsRegistries.items.containsKey(id);
     }
 
+    @Deprecated
     public static void deleteArea(String name) {
         if(areaExists(name)) {
             new File(FileHandler.AREA_DIR + name.toLowerCase() + ".json").delete();
@@ -1153,11 +1155,26 @@ public class Utility {
     }
 
     public static void addEffectToTag(NBTTagCompound tagCompound, FuchsEffect effect) {
-        addEffectToTag(tagCompound, effect.getID());
+        addEffectToTag(tagCompound, effect.getID(), null);
     }
 
-    public static void addEffectToTag(NBTTagCompound tagCompound, String effect) {
+    public static void addEffectToTag(NBTTagCompound tagCompound, FuchsEffect effect, Player player) {
+        addEffectToTag(tagCompound, effect.getID(), player);
+    }
+
+    public static void addEffectToTag(NBTTagCompound tagCompound, String effect, Player player) {
         tagCompound.setBoolean(ItemNBT.HAS_EFFECT_ID + effect, true);
+        if(player != null) {
+            EffectList.BLOOD_BOUND.setUser(tagCompound, player);
+        }
+    }
+
+    public static boolean tagHasEffect(NBTTagCompound tagCompound, String effect) {
+        return tagCompound.hasKey(ItemNBT.HAS_EFFECT_ID + effect);
+    }
+
+    public static boolean tagHasEffect(NBTTagCompound tagCompound, FuchsEffect effect) {
+        return tagHasEffect(tagCompound, effect.getID());
     }
 
     public static void log(LogType logType, String log) {
