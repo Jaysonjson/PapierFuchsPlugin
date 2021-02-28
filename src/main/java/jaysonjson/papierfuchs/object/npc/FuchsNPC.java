@@ -1,12 +1,12 @@
-package jaysonjson.papierfuchs.object.inventory;
+package jaysonjson.papierfuchs.object.npc;
 
 import jaysonjson.papierfuchs.registry.IFuchsRegistryObject;
 import jaysonjson.papierfuchs.registry.RegistryType;
 
-public abstract class FuchsInventory implements IFuchsRegistryObject, IFuchsInventory {
+public  abstract class FuchsNPC implements IFuchsRegistryObject {
 
     String id;
-    public FuchsInventory(String id) {
+    public FuchsNPC(String id) {
         this.id = id;
     }
 
@@ -17,7 +17,6 @@ public abstract class FuchsInventory implements IFuchsRegistryObject, IFuchsInve
 
     @Override
     public RegistryType getType() {
-        return RegistryType.INVENTORY;
+        return RegistryType.NPC;
     }
-
 }

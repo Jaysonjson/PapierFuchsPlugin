@@ -29,6 +29,7 @@ import jaysonjson.papierfuchs.object.gas.GasList;
 import jaysonjson.papierfuchs.object.inventory.InventoryList;
 import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
+import jaysonjson.papierfuchs.object.npc.NPCList;
 import jaysonjson.papierfuchs.object.rarity.RarityList;
 import jaysonjson.papierfuchs.object.skillclass.SkillClassList;
 import jaysonjson.papierfuchs.registry.FuchsRegistries;
@@ -67,6 +68,7 @@ public final class PapierFuchs extends JavaPlugin {
         FuchsRegistries.register(GasList.class);
         FuchsRegistries.register(LiquidList.class);
         FuchsRegistries.register(InventoryList.class);
+        FuchsRegistries.register(NPCList.class);
         FuchsRegistries.sort();
         References.reloadDrops();
         References.reloadCraftings();

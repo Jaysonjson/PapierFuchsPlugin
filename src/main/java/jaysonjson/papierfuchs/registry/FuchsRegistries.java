@@ -7,6 +7,7 @@ import jaysonjson.papierfuchs.object.gas.FuchsGas;
 import jaysonjson.papierfuchs.object.inventory.FuchsInventory;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
+import jaysonjson.papierfuchs.object.npc.FuchsNPC;
 import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
 import jaysonjson.papierfuchs.object.skillclass.FuchsSkillclass;
 
@@ -25,6 +26,7 @@ public class FuchsRegistries {
     public static Map<String, FuchsEntity> entities = new HashMap<>();
     public static Map<String, FuchsSkillclass> skill_classes = new HashMap<>();
     public static Map<String, FuchsInventory> inventories = new HashMap<>();
+    public static Map<String, FuchsNPC> npcs = new HashMap<>();
 
     public static void registerItems(FuchsItem... fuchsItem) {
         for (FuchsItem item : fuchsItem) {
@@ -113,6 +115,17 @@ public class FuchsRegistries {
             }
         }
     }
+
+    public static void registerNPCs(FuchsNPC... fuchsNPCS) {
+        for (FuchsNPC fuchsNPC : fuchsNPCS) {
+            if(!npcs.containsKey(fuchsNPC.getID())) {
+                npcs.put(fuchsNPC.getID(), fuchsNPC);
+                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "NPC mit der ID " + fuchsNPC.getID() + " registriert!\033[0m");
+            } else {
+                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.RED + "NPC mit der ID " + fuchsNPC.getID() + " existiert bereits!\033[0m");
+            }
+        }
+    }
     
     public static void register(Class<?> listClass) {
         Field[] fields = listClass.getDeclaredFields();
@@ -142,6 +155,9 @@ public class FuchsRegistries {
                 }
                 if(obj instanceof FuchsInventory) {
                     registerInventories((FuchsInventory) obj);
+                }
+                if(obj instanceof FuchsNPC) {
+                    registerNPCs((FuchsNPC) obj);
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
