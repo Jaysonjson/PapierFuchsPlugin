@@ -9,17 +9,36 @@ import org.jetbrains.annotations.NotNull;
 
 public interface IFuchsItem {
 
+
+    /**
+     * Erstellt ein ItemStack aus den Werten eines FuchsItems
+     * @param player Spieler
+     * @param stack Origineller ItemStack, welcher überschrieben werden soll
+     * @return Neues Itemstack
+     */
     ItemStack createItem(Player player, ItemStack stack);
+    /**
+     * Erstellt ein ItemStack aus den Werten eines FuchsItems
+     * @return Neues Itemstack
+     */
     default ItemStack createItem() {
         return createItem(null, null);
     }
-
+    /**
+     * Erstellt ein ItemStack aus den Werten eines FuchsItems
+     * @param player Spieler
+     * @return Neues Itemstack
+     */
     default ItemStack createItem(Player player) {
         return createItem(player, null);
     }
-
-    default ItemStack createItem(ItemStack itemStack) {
-        return createItem(null, itemStack);
+    /**
+     * Erstellt ein ItemStack aus den Werten eines FuchsItems
+     * @param stack Origineller ItemStack, welcher überschrieben werden soll
+     * @return Neues Itemstack
+     */
+    default ItemStack createItem(ItemStack stack) {
+        return createItem(null, stack);
     }
 
     IItemUseType getItemUse();
@@ -33,8 +52,14 @@ public interface IFuchsItem {
 
     FuchsRarity getDefaultRarity();
     String getDefaultDisplayName();
+    String getDisplayName();
+    void setDisplayName(String displayName);
     String getLanguageString();
     boolean stackAble();
+    IFuchsItem createCopy();
+    default boolean hasCopy() {
+        return createCopy() != null;
+    }
     default boolean hasLanguageString() {
     	return getLanguageString() != "";
     }

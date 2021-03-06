@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+@Deprecated
 public class BeerLiquid extends FuchsLiquid {
 
 	@Override
@@ -29,7 +30,7 @@ public class BeerLiquid extends FuchsLiquid {
 	}
 
 	@Override
-	public boolean drinkAction(Player player, ItemStack itemStack) {
-		return Utility.defaultAlcoholDrinkAction(player.getWorld(), player, itemStack, 15);
+	public void drinkAction(Player player, ItemStack itemStack) {
+		Utility.defaultAlcoholDrinkAction(player.getWorld(), player, itemStack, 15);
 	}
 }

@@ -8,25 +8,26 @@ import jaysonjson.papierfuchs.object.item.ItemNBT;
 import jaysonjson.papierfuchs.object.item.interfaces.IItemUseType;
 import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
+import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import net.minecraft.server.v1_16_R3.NBTTagCompound;
 
-public class LiquidContainerItem extends FuchsItem {
+public class CokeBottle extends FuchsItem {
 
+    FuchsLiquid fuchsLiquid = LiquidList.COKE;
     FuchsItemData fuchsItemData;
-    public LiquidContainerItem(String id, Material material, IItemUseType itemUseType) {
+    public CokeBottle(String id, Material material, IItemUseType itemUseType) {
         super(id, material, itemUseType);
     }
 
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
         fuchsItemData = new FuchsItemData(this, player, stack);
-        fuchsItemData.addLiquidLores();
-        fuchsItemData.setItem(ChatColor.RESET + "Flüssigkeitsbehälter");
+        fuchsItemData.addLiquidLores(fuchsLiquid);
+        fuchsItemData.setItem(ChatColor.RESET + "Cola");
         return fuchsItemData.item;
     }
 
@@ -34,9 +35,9 @@ public class LiquidContainerItem extends FuchsItem {
     public NBTTagCompound getTag(NBTTagCompound tag) {
         tag.setBoolean(ItemNBT.CAN_CRAFT_MINECRAFT, false);
         tag.setBoolean(ItemNBT.CAN_CRAFT, true);
+        tag.setString(ItemNBT.CONTAINED_LIQUID, fuchsLiquid.getID());
         return tag;
     }
-
 
     @Override
     public void onItemRightClickAir(PlayerInteractEvent event) {
@@ -50,12 +51,13 @@ public class LiquidContainerItem extends FuchsItem {
     @Override
     public int getCustomModelData() {
         if(isEmpty()) {
-            return fuchsItemData.fuchsLiquid.getEmptyModelData();
+            return fuchsLiquid.getEmptyModelData();
         }
-        return fuchsItemData.fuchsLiquid.getCustomModelData();
+        return fuchsLiquid.getCustomModelData();
     }
 
     public boolean isEmpty() {
         return fuchsItemData.liquid_amount <= 0;
     }
+
 }

@@ -30,7 +30,7 @@ public class LegendaryChestBook extends FuchsItem {
 
     @Override
     public ItemStack createItem(Player player, ItemStack stack) {
-        FuchsItemData oItem = new FuchsItemData(this, player);
+        FuchsItemData oItem = new FuchsItemData(this, player, stack);
         oItem.setItem(ChatColor.GOLD + "Das Buch der legendären Kiste");
         oItem.item.setItemMeta(createBookTag(oItem.item));
         return oItem.item;

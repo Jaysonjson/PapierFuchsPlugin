@@ -6,6 +6,8 @@ import jaysonjson.papierfuchs.object.gas.GasList;
 import jaysonjson.papierfuchs.object.item.FuchsMCItem;
 import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
+import jaysonjson.papierfuchs.object.item.ItemUseType;
+import jaysonjson.papierfuchs.object.item.objects.other.EffectBookItem;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
 import jaysonjson.papierfuchs.other.InventoryPage;
 import jaysonjson.papierfuchs.other.InventoryPageContainer;
@@ -40,10 +42,8 @@ public class ItemInventory implements Listener {
         int page_check = stacks.size();
         for (ItemStack item : stacks) {
             page_index++;
-            if (page_index <= 46) {
-                page_content.add(item);
-            }
-            if (page_index >= 45 || page_index.equals(stacks.size()) || page_index.equals(page_check)) {
+            page_content.add(item);
+            if (page_index >= 45 || page_index.equals(stacks.size() + 1) || page_index.equals(page_check + 1)) {
                 page++;
                 page_check -= 46;
                 InventoryPage<ArrayList<ItemStack>> pageInv = new InventoryPage<>(page_content, page);
@@ -76,6 +76,11 @@ public class ItemInventory implements Listener {
                 fuchsMCItem.changeDoubleTag(ItemNBT.GAS_AMOUNT, 500d);
                 itemStacks.add(fuchsMCItem.getItemStack());
             }
+        });
+        FuchsRegistries.effects.values().forEach(effect -> {
+            EffectBookItem effectBookItem = (EffectBookItem) ItemList.EFFECT_BOOK.createCopy();
+            effectBookItem.setDisplayName(effect.getDisplayName());
+            itemStacks.add(effectBookItem.createItem(player));
         });
         return itemStacks;
     }

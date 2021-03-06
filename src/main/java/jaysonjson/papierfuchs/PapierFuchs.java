@@ -8,7 +8,8 @@ import jaysonjson.papierfuchs.commands.item.ItemCommand;
 import jaysonjson.papierfuchs.commands.item.ItemIDCommand;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.FileHandler;
-import jaysonjson.papierfuchs.data.FuchsLocationRecord;
+import jaysonjson.papierfuchs.data.FuchsLoc;
+import jaysonjson.papierfuchs.data.FuchsLocation;
 import jaysonjson.papierfuchs.data.area.data.zArea;
 import jaysonjson.papierfuchs.events.ChatEvent;
 import jaysonjson.papierfuchs.events.Smelting;
@@ -34,6 +35,7 @@ import jaysonjson.papierfuchs.object.rarity.RarityList;
 import jaysonjson.papierfuchs.object.skillclass.SkillClassList;
 import jaysonjson.papierfuchs.registry.FuchsRegistries;
 import org.bukkit.Bukkit;
+import org.bukkit.WorldCreator;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -70,6 +72,7 @@ public final class PapierFuchs extends JavaPlugin {
         FuchsRegistries.register(InventoryList.class);
         FuchsRegistries.register(NPCList.class);
         FuchsRegistries.sort();
+        FuchsRegistries.CREATE();
         References.reloadDrops();
         References.reloadCraftings();
         Utility.reloadAreas();

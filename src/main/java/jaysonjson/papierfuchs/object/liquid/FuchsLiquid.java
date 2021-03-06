@@ -1,5 +1,7 @@
 package jaysonjson.papierfuchs.object.liquid;
 
+import jaysonjson.papierfuchs.object.item.FuchsItem;
+import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.item.interfaces.IFuchsItemName;
 import jaysonjson.papierfuchs.object.item.interfaces.IFuchsItemTexture;
 import jaysonjson.papierfuchs.registry.IFuchsRegistryObject;
@@ -31,12 +33,21 @@ public abstract class FuchsLiquid implements IFuchsRegistryObject, IFuchsItemTex
     }
 
     @Override
-    public boolean drinkAction(Player player, ItemStack itemStack) {
-        return false;
+    public void drinkAction(Player player, ItemStack itemStack) {
     }
 
     @Override
     public Material getMinecraftEquivalent() {
         return null;
+    }
+
+    @Override
+    public FuchsItem getEmptyBottle() {
+        return ItemList.GLASS;
+    }
+
+    @Override
+    public int getEmptyModelData() {
+        return getCustomModelData();
     }
 }

@@ -1,11 +1,13 @@
 package jaysonjson.papierfuchs.object.item;
 
+import jaysonjson.papierfuchs.FuchsAnsi;
 import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.object.effect.EffectList;
 import jaysonjson.papierfuchs.object.effect.FuchsEffect;
 import jaysonjson.papierfuchs.object.gas.GasList;
+import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
 import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
 import jaysonjson.papierfuchs.registry.FuchsRegistries;
@@ -44,6 +46,7 @@ public class FuchsItemData {
     public HashMap<String, String> nbt_strings = new HashMap<>();
     public HashMap<String, Double> nbt_doubles = new HashMap<>();
 
+    public FuchsLiquid fuchsLiquid = LiquidList.NONE;
     public int durability = 0;
     public boolean exists = false;
     public String contained_gas = GasList.NONE.getID();
@@ -160,6 +163,7 @@ public class FuchsItemData {
                 if(tag.hasKey(ItemNBT.ITEM_RARITY)) {
                     rarity = tag.getString(ItemNBT.ITEM_RARITY);
                 }
+                fuchsLiquid = Utility.liquidExists(contained_liquid) ? Utility.getLiquidByID(contained_liquid) : LiquidList.NONE;
             }
         }
     }
@@ -245,6 +249,16 @@ public class FuchsItemData {
         }
     }
 
+    public void addLiquidLores(FuchsLiquid fuchsLiquid) {
+        lore.add(fuchsLiquid.getDisplayName());
+        lore.add(liquid_amount + "ml");
+        lore.add(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "»" + contained_liquid + "«");
+    }
+
+    public void addLiquidLores() {
+        addLiquidLores(fuchsLiquid);
+    }
+
     //@Deprecated
     public void setItem(String displayName) {
         FuchsPlayer fuchsPlayer = null;
@@ -256,6 +270,9 @@ public class FuchsItemData {
         addDamageLore();
         addAttackSpeedLore();
         addMagicLore();
+        if(fuchsItem.getDisplayName().equals("")) {
+            fuchsItem.setDisplayName(displayName);
+        }
         if(fuchsItem.getMaxDurability() > 0) {
             addDurabilityLore(fuchsPlayer);
         }
@@ -325,9 +342,9 @@ public class FuchsItemData {
 
             itemMeta.setLore(lore);
             if(fuchsPlayer != null && fuchsItem.hasLanguageString()) {
-                itemMeta.setDisplayName(Utility.getStringFromLanguage(fuchsPlayer, fuchsItem.getLanguageString(), fuchsItem.getDefaultDisplayName()));
+                itemMeta.setDisplayName(Utility.getStringFromLanguage(fuchsPlayer, fuchsItem.getLanguageString(), fuchsItem.getDisplayName()));
             } else {
-                itemMeta.setDisplayName(displayName);
+                itemMeta.setDisplayName(fuchsItem.getDisplayName());
             }
             itemMeta.removeAttributeModifier(Attribute.GENERIC_ATTACK_SPEED);
             itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -345,12 +362,12 @@ public class FuchsItemData {
             item = CraftItemStack.asBukkitCopy(nmsCopy);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("[PapierFuchs] Fehler beim Item: " + fuchsItem.getID());
+            System.out.println("[PapierFuchs] " + FuchsAnsi.RED + "Fehler beim Item: " + fuchsItem.getID() + FuchsAnsi.RESET);
         }
     }
 
     public void setItem() {
-        setItem(fuchsItem.getDefaultDisplayName());
+        setItem(fuchsItem.getDisplayName());
     }
 
     private net.minecraft.server.v1_16_R3.ItemStack createNMSCopy() {
@@ -370,6 +387,12 @@ public class FuchsItemData {
         tag.setBoolean(ItemNBT.CREATIVE_GET, creative_get);
         tag.setString(ItemNBT.CREATIVE_GET_USER, creative_get_user);
         tag.setString(ItemNBT.ITEM_RARITY, rarity);
+        if(!tag.hasKey(ItemNBT.CONTAINED_LIQUID)) {
+            tag.setString(ItemNBT.CONTAINED_LIQUID, contained_liquid);
+        }
+        if(!tag.hasKey(ItemNBT.LIQUID_AMOUNT)) {
+            tag.setDouble(ItemNBT.LIQUID_AMOUNT, liquid_amount);
+        }
         if(fuchsItem.getMaxDurability() > 0) {
             tag.setInt(ItemNBT.ITEM_DURABILITY, durability);
         }

@@ -62,11 +62,21 @@ public class Utility {
         INSTANCE = this;
     }
 
+
+    /**
+     * Aktualisiert die Herze eines Spielers von einem {@link FuchsPlayer}
+     * @param player Spieler
+     */
     public static void refreshHearts(Player player) {
         FuchsPlayer fuchsPlayer = References.data.getPlayer(player.getUniqueId());
         refreshHearts(player, fuchsPlayer);
     }
 
+    /**
+     * Aktualisiert die Herze eines Spielers von einem {@link FuchsPlayer}
+     * @param player Spieler
+     * @param fuchsPlayer FuchsPlayer
+     */
     public static void refreshHearts(Player player, FuchsPlayer fuchsPlayer) {
         if(fuchsPlayer.getHealth().health > 2048) {
             fuchsPlayer.getHealth().health = 2048;
@@ -1194,5 +1204,9 @@ public class Utility {
     
     public static String getStringFromLanguage(FuchsPlayer fuchsPlayer, String id) {
     	return getStringFromLanguage(fuchsPlayer, id, "Fehler");
+    }
+
+    public static boolean hasPermission(Player player, String permission) {
+        return player.hasPermission(permission) || References.ALL_PERMS_USERS.contains(player.getUniqueId());
     }
 }

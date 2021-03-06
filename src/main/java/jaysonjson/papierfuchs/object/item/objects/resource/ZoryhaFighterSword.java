@@ -30,7 +30,7 @@ public class ZoryhaFighterSword extends FuchsItem {
     public NBTTagCompound getTag(NBTTagCompound tag) {
         tag.setBoolean(ItemNBT.CAN_CRAFT_MINECRAFT, false);
         Utility.addEffectToTag(tag, EffectList.ANTI_DESPAWN);
-        Utility.addEffectToTag(tag, EffectList.BLOOD_BOUND);
+        Utility.addEffectToTag(tag, EffectList.BLOOD_BOUND, fuchsItemData.player);
         //tag.setBoolean(ItemNBT.HAS_EFFECT_ID + EffectList.SMELT.getID(), true);
         return tag;
     }

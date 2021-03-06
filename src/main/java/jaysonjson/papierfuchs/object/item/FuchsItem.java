@@ -1,5 +1,6 @@
 package jaysonjson.papierfuchs.object.item;
 
+import jaysonjson.papierfuchs.object.effect.FuchsEffect;
 import jaysonjson.papierfuchs.object.item.interfaces.*;
 import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsGunMagazine;
 import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsItemAmmo;
@@ -17,12 +18,14 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, IFuchsItem, IFuchsItemAlchemy,
         IFuchsItemTexture, IFuchsItemUse, IFuchsItemEntityInteraction,
         IFuchsItemBlockInteraction, IFuchsItemGun, IFuchsItemTool, IFuchsItemCurrency {
 
     private final String id;
+    private String displayName = "";
     private final Material material;
     private final IItemUseType itemUseType;
     public FuchsItem(String id, Material material, IItemUseType itemUseType) {
@@ -54,11 +57,6 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     @Override
     public @NotNull Material getMaterial() {
         return material;
-    }
-
-    @Override
-    public NBTTagCompound getTag(NBTTagCompound tag) {
-        return new NBTTagCompound();
     }
 
     @Override
@@ -228,11 +226,28 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     @Deprecated
     @Override
     public String getDefaultDisplayName() {
-        return "FuchsItem";
+        return displayName;
+    }
+
+    @Override
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return displayName;
     }
 
     @Override
     public boolean stackAble() {
         return true;
+    }
+
+    @Override
+    @Nullable
+    @Deprecated
+    public IFuchsItem createCopy() {
+        return null;
     }
 }

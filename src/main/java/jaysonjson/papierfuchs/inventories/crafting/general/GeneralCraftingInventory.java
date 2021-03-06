@@ -48,7 +48,7 @@ public class GeneralCraftingInventory implements Listener {
             if (page_index < 46) {
                 page_content.add(item);
             }
-            if (page_index >= 46 || page_index.equals(stacks.size()) || page_index.equals(page_check)) {
+            if (page_index >= 46 || page_index.equals(stacks.size() + 1) || page_index.equals(page_check + 1)) {
                 page++;
                 page_check -= 46;
                 InventoryPage<ArrayList<ItemStack>> pageInv = new InventoryPage<>(page_content, page);

@@ -19,6 +19,7 @@ public class ChatEvent implements Listener {
             guildName = "[" + ChatColor.AQUA + DataHandler.loadGuild(fuchsPlayer.getGuildUuid()).getName() + ChatColor.RESET + "] ";
         }
         event.setFormat(guildName + event.getPlayer().getDisplayName() + "§7: " + event.getMessage());
+        // PAPER -> event.formatter().chat(P, M);
     }
 
 }

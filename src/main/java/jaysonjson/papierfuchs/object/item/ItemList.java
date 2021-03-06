@@ -98,4 +98,7 @@ public class ItemList {
     public static ItemWithTexture GERMAN_FLAG = new ItemWithTexture("german_flag", Material.FEATHER, ItemUseType.OTHER, "Deutsch", 31, true);
 
     public static TestPlaceItem TEST_PLACE = new TestPlaceItem("test_place", Material.DIAMOND, ItemUseType.OTHER);
+    public static EffectBookItem EFFECT_BOOK = new EffectBookItem("effect_book", Material.FEATHER, ItemUseType.OTHER);
+
+    //public static CokeBottle COKE_BOTTLE = new CokeBottle("coke_bottle", Material.FEATHER, ItemUseType.ABILITY);
 }
