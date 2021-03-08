@@ -11,9 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class DrinkableWaterLiquid extends FuchsLiquid {
 
-    @Override
-    public String getID() {
-        return "drinkablewater";
+    public DrinkableWaterLiquid() {
+        super("drinkable_water");
     }
 
     @Override

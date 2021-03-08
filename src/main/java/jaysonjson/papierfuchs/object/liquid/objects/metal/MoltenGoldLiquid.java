@@ -5,11 +5,9 @@ import org.bukkit.ChatColor;
 
 public class MoltenGoldLiquid extends FuchsLiquid {
 
-	@Override
-	public String getID() {
-		return "moltenGold";
+	public MoltenGoldLiquid() {
+		super("molten_gold");
 	}
-
 	@Override
 	public String getDisplayName() {
 		return ChatColor.RESET + "" + ChatColor.GOLD + "Geschmolzenes Gold";

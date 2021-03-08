@@ -6,10 +6,10 @@ import org.bukkit.Material;
 
 public class WaterLiquid extends FuchsLiquid {
 
-	@Override
-	public String getID() {
-		return "water";
+	public WaterLiquid() {
+		super("water");
 	}
+
 
 	@Override
 	public String getDisplayName() {

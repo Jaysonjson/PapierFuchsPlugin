@@ -4,6 +4,7 @@ import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.item.interfaces.IFuchsItemName;
 import jaysonjson.papierfuchs.object.item.interfaces.IFuchsItemTexture;
+import jaysonjson.papierfuchs.registry.IFuchsPlugin;
 import jaysonjson.papierfuchs.registry.IFuchsRegistryObject;
 import jaysonjson.papierfuchs.registry.RegistryType;
 import org.bukkit.Material;
@@ -11,6 +12,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class FuchsLiquid implements IFuchsRegistryObject, IFuchsItemTexture, IFuchsLiquid, IFuchsItemName {
+
+    private String id;
+    public FuchsLiquid(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getID() {
+        return id;
+    }
 
     @Override
     public RegistryType getType() {
@@ -49,5 +60,10 @@ public abstract class FuchsLiquid implements IFuchsRegistryObject, IFuchsItemTex
     @Override
     public int getEmptyModelData() {
         return getCustomModelData();
+    }
+
+    @Override
+    public void updateID(IFuchsPlugin fuchsPlugin) {
+        this.id = fuchsPlugin.getPluginID() + ":" + getID();
     }
 }

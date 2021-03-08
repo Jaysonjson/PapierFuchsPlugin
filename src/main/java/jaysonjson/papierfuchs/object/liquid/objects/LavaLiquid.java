@@ -6,11 +6,9 @@ import org.bukkit.Material;
 
 public class LavaLiquid extends FuchsLiquid {
 
-	@Override
-	public String getID() {
-		return "lava";
+	public LavaLiquid() {
+		super("lava");
 	}
-
 	@Override
 	public String getDisplayName() {
 		return ChatColor.RESET + "" + ChatColor.DARK_RED + "Lava";

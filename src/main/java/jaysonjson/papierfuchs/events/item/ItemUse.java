@@ -1,17 +1,23 @@
 package jaysonjson.papierfuchs.events.item;
 
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.inventories.crafting.general.GeneralCraftingInventory;
 import jaysonjson.papierfuchs.object.BlockMetaData;
+import jaysonjson.papierfuchs.object.EntityMetaData;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.EulerAngle;
 
 public class ItemUse implements Listener {
 
@@ -58,6 +64,22 @@ public class ItemUse implements Listener {
                     if (block != null) {
                         if (block.getType() != Material.AIR) {
                             fuchsItem.onBlockInteract(event);
+                            if(fuchsItem.isPlaceAble()) {
+                                Location loc = event.getClickedBlock().getLocation();
+                                ArmorStand armorStand = player.getWorld().spawn(loc.add(0.5, 1, 0.5), ArmorStand.class);
+                                armorStand.setInvisible(true);
+                                armorStand.setInvulnerable(true);
+                                armorStand.setArms(true);
+                                armorStand.setRightArmPose(new EulerAngle(0f, 0f, 0f));
+                                armorStand.setLeftArmPose(new EulerAngle(0f, 0f, 0f));
+                                armorStand.setCustomNameVisible(false);
+                                armorStand.setItem(EquipmentSlot.HAND, fuchsItem.createItem(event.getPlayer(), itemStack));
+                                ItemStack clonedStack = event.getItem().clone();
+                                clonedStack.setAmount(1);
+                                event.getItem().setAmount(event.getItem().getAmount() - 1);
+                                Utility.addEntityMetadata(References.data.server, armorStand, EntityMetaData.ARMORSTAND_DONT_REMOVE_ITEM_ON_RIGHTCLICK, true);
+                                Utility.addEntityMetadata(References.data.server, armorStand, EntityMetaData.CONTAINED_ITEM, Utility.createItemStackString(clonedStack));
+                            }
                         }
                     }
                 }

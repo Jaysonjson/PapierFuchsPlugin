@@ -9,6 +9,7 @@ public enum RegistryType {
     ENTITY("entity"),
     SKILLCLASS("class"),
     INVENTORY("inventory"),
+    CURRENCY("currency"),
     NPC("npc");
 
     final String registryName;

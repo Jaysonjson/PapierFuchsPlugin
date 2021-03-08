@@ -1,44 +1,41 @@
 package jaysonjson.papierfuchs.data.area.data;
 
-import jaysonjson.papierfuchs.data.area.obj.zWorld;
-import jaysonjson.papierfuchs.data.area.obj.zLocation;
+import jaysonjson.papierfuchs.data.FuchsLocation;
+import jaysonjson.papierfuchs.data.FuchsSize;
+import jaysonjson.papierfuchs.data.area.obj.FuchsWorld;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class zArea {
 
     private UUID uuid;
     private String displayName;
-    private zLocation location = new zLocation();
-    private int size;
+    private FuchsLocation location = new FuchsLocation();
+    private FuchsSize size = new FuchsSize();
     private UUID owner;
-    private zWorld world = zWorld.OVERWORLD;
-    private boolean breakBlocks = false;
-    private boolean spawnMobs = false;
-    private boolean dropItems = false;
-    private boolean placeBlocks = false;
-    private boolean allowOverlap = false;
-    private boolean allowOwnerOverlap = true;
+    private FuchsWorld world = FuchsWorld.OVERWORLD;
+    private HashMap<String, Boolean> properties = new HashMap<>();
     private int priority = 0;
 
     public Location createLocation(World world) {
-        return new Location(world, location.x, location.y, location.z);
+        return new Location(world, location.getX(), location.getY(), location.getZ());
     }
 
     public Location createTeleportLocation(World world) {
-        return new Location(world, location.x, location.y + 2, location.z);
+        return new Location(world, location.getX(), location.getY() + 2, location.getZ());
     }
 
     public boolean canOverlap(Player player) {
         if(player != null) {
             if (player.getUniqueId().equals(owner)) {
-                return allowOwnerOverlap;
+                return isAllowOwnerOverlap();
             }
         }
-        return allowOverlap;
+        return isAllowOverlap();
     }
 
     public boolean canOverlap() {
@@ -57,7 +54,7 @@ public class zArea {
 		return displayName;
 	}
     
-    public zLocation getLocation() {
+    public FuchsLocation getLocation() {
 		return location;
 	}
    
@@ -69,24 +66,24 @@ public class zArea {
 		return priority;
 	}
     
-    public int getSize() {
+    public FuchsSize getSize() {
 		return size;
 	}
     
-    public zWorld getWorld() {
+    public FuchsWorld getWorld() {
 		return world;
 	}
     
     public void setAllowOverlap(boolean allowOverlap) {
-		this.allowOverlap = allowOverlap;
+        properties.put(FuchsAreaProperty.ALLOW_OVERLAP, allowOverlap);
 	}
     
     public void setAllowOwnerOverlap(boolean allowOwnerOverlap) {
-		this.allowOwnerOverlap = allowOwnerOverlap;
-	}
+        properties.put(FuchsAreaProperty.ALLOW_OWNER_OVERLAP, allowOwnerOverlap);
+    }
     
     public void setBreakBlocks(boolean breakBlocks) {
-		this.breakBlocks = breakBlocks;
+        properties.put(FuchsAreaProperty.BREAK_BLOCKS, breakBlocks);
 	}
     
     public void setDisplayName(String displayName) {
@@ -94,10 +91,10 @@ public class zArea {
 	}
     
     public void setDropItems(boolean dropItems) {
-		this.dropItems = dropItems;
+        properties.put(FuchsAreaProperty.DROP_ITEMS, dropItems);
 	}
     
-    public void setLocation(zLocation location) {
+    public void setLocation(FuchsLocation location) {
 		this.location = location;
 	}
     
@@ -106,46 +103,53 @@ public class zArea {
 	}
     
     public void setPlaceBlocks(boolean placeBlocks) {
-		this.placeBlocks = placeBlocks;
+        properties.put(FuchsAreaProperty.PLACE_BLOCKS, placeBlocks);
 	}
     
     public void setPriority(int priority) {
 		this.priority = priority;
 	}
     
-    public void setSize(int size) {
+    public void setSize(FuchsSize size) {
 		this.size = size;
 	}
     
     public void setSpawnMobs(boolean spawnMobs) {
-		this.spawnMobs = spawnMobs;
+        properties.put(FuchsAreaProperty.SPAWN_MOBS, spawnMobs);
 	}
     
-    public void setWorld(zWorld world) {
+    public void setWorld(FuchsWorld world) {
 		this.world = world;
 	}
     
     public boolean isAllowOverlap() {
-		return allowOverlap;
+		return getProperty(FuchsAreaProperty.ALLOW_OVERLAP);
 	}
     
     public boolean isAllowOwnerOverlap() {
-		return allowOwnerOverlap;
+		return getProperty(FuchsAreaProperty.ALLOW_OWNER_OVERLAP);
 	}
     
     public boolean isBreakBlocks() {
-		return breakBlocks;
+		return getProperty(FuchsAreaProperty.BREAK_BLOCKS);
 	}
     
     public boolean isDropItems() {
-		return dropItems;
+		return getProperty(FuchsAreaProperty.DROP_ITEMS);
 	}
     
     public boolean isPlaceBlocks() {
-		return placeBlocks;
+		return getProperty(FuchsAreaProperty.PLACE_BLOCKS);
 	}
     
     public boolean isSpawnMobs() {
-		return spawnMobs;
+		return getProperty(FuchsAreaProperty.SPAWN_MOBS);
 	}
+
+	public boolean getProperty(String property) {
+        if(properties.containsKey(property)) {
+            return properties.get(property);
+        }
+        return false;
+    }
 }

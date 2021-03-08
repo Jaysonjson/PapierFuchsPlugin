@@ -2,13 +2,13 @@ package jaysonjson.papierfuchs.data.area.obj;
 
 import org.bukkit.World;
 
-public enum zWorld {
+public enum FuchsWorld {
     OVERWORLD(World.Environment.NORMAL),
     NETHER(World.Environment.NETHER),
     END(World.Environment.THE_END);
 
     World.Environment environment;
-    zWorld(World.Environment environment) {
+    FuchsWorld(World.Environment environment) {
         this.environment = environment;
     }
 

@@ -8,8 +8,6 @@ import jaysonjson.papierfuchs.commands.item.ItemCommand;
 import jaysonjson.papierfuchs.commands.item.ItemIDCommand;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.FileHandler;
-import jaysonjson.papierfuchs.data.FuchsLoc;
-import jaysonjson.papierfuchs.data.FuchsLocation;
 import jaysonjson.papierfuchs.data.area.data.zArea;
 import jaysonjson.papierfuchs.events.ChatEvent;
 import jaysonjson.papierfuchs.events.Smelting;
@@ -24,6 +22,7 @@ import jaysonjson.papierfuchs.events.inventory.ItemClick;
 import jaysonjson.papierfuchs.events.item.*;
 import jaysonjson.papierfuchs.npc.NPC;
 import jaysonjson.papierfuchs.object.FuchsVanillaRecipes;
+import jaysonjson.papierfuchs.object.currency.CurrencyList;
 import jaysonjson.papierfuchs.object.effect.EffectList;
 import jaysonjson.papierfuchs.object.entity.EntityList;
 import jaysonjson.papierfuchs.object.gas.GasList;
@@ -34,6 +33,8 @@ import jaysonjson.papierfuchs.object.npc.NPCList;
 import jaysonjson.papierfuchs.object.rarity.RarityList;
 import jaysonjson.papierfuchs.object.skillclass.SkillClassList;
 import jaysonjson.papierfuchs.registry.FuchsRegistries;
+import jaysonjson.papierfuchs.registry.FuchsRegistry;
+import jaysonjson.papierfuchs.registry.IFuchsPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.event.Listener;
@@ -41,7 +42,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 
-public final class PapierFuchs extends JavaPlugin {
+public final class PapierFuchs extends JavaPlugin implements IFuchsPlugin {
 
     public static PapierFuchs INSTANCE;
 
@@ -62,17 +63,18 @@ public final class PapierFuchs extends JavaPlugin {
         References.loadServerData();
         //DataHandler.createGermanLangTest();
         DataHandler.loadLanguages();
-        FuchsRegistries.register(RarityList.class);
-        FuchsRegistries.register(EffectList.class);
-        FuchsRegistries.register(EntityList.class);
-        FuchsRegistries.register(SkillClassList.class);
-        FuchsRegistries.register(ItemList.class);
-        FuchsRegistries.register(GasList.class);
-        FuchsRegistries.register(LiquidList.class);
-        FuchsRegistries.register(InventoryList.class);
-        FuchsRegistries.register(NPCList.class);
+        FuchsRegistry fuchsRegistry = new FuchsRegistry(this);
+        fuchsRegistry.register(RarityList.class);
+        fuchsRegistry.register(EffectList.class);
+        fuchsRegistry.register(EntityList.class);
+        fuchsRegistry.register(SkillClassList.class);
+        fuchsRegistry.register(CurrencyList.class);
+        fuchsRegistry.register(ItemList.class);
+        fuchsRegistry.register(GasList.class);
+        fuchsRegistry.register(LiquidList.class);
+        fuchsRegistry.register(InventoryList.class);
+        fuchsRegistry.register(NPCList.class);
         FuchsRegistries.sort();
-        FuchsRegistries.CREATE();
         References.reloadDrops();
         References.reloadCraftings();
         Utility.reloadAreas();
@@ -147,5 +149,10 @@ public final class PapierFuchs extends JavaPlugin {
         for(SpigotCommand command : commands) {
             this.getCommand(command.getCommand()).setExecutor(command.getCommandExecutor());
         }
+    }
+
+    @Override
+    public String getPluginID() {
+        return "papierfuchs";
     }
 }

@@ -55,7 +55,7 @@ public class LegendaryChestBook extends FuchsItem {
                 Chest chest = (Chest) block.getState();
                 chest.open();
                 FuchsServer fuchsServer = DataHandler.loadServer();
-                FuchsLocation fuchsLocation =  new FuchsLocation(chest.getX(), chest.getY(), chest.getZ());
+                FuchsLocation fuchsLocation =  new FuchsLocation(chest.getLocation());
                 if(!Utility.arrayContainsFuchsLocation(fuchsServer.OPEN_CHESTS, fuchsLocation)) {
                     fuchsServer.OPEN_CHESTS.add(fuchsLocation);
                     DataHandler.saveServer(fuchsServer);

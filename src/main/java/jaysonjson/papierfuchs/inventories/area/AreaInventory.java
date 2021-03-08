@@ -61,9 +61,9 @@ public class AreaInventory implements Listener {
         }
         
         ArrayList<String> locationLore = new ArrayList<>();
-        locationLore.add("x: " + area.getLocation().x);
-        locationLore.add("y: " + area.getLocation().y);
-        locationLore.add("z: " + area.getLocation().z);
+        locationLore.add("x: " + area.getLocation().getX());
+        locationLore.add("y: " + area.getLocation().getY());
+        locationLore.add("z: " + area.getLocation().getZ());
         locationLore.add("Distanz: " + player.getLocation().distance(area.createLocation(player.getWorld())));
         
         inventory.setItem(11, Utility.createInventoryStack(Material.SLIME_BALL, prioItemAmount,"Priorität: " + area.getPriority()));

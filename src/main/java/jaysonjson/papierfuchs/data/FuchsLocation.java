@@ -10,10 +10,10 @@ import org.bukkit.World;
  */
 public class FuchsLocation {
 
-    private double x;
-    private double y;
-    private double z;
-    private String world_str;
+    private double x = 0;
+    private double y = 0;
+    private double z = 0;
+    private String world_str = "world";
     private transient World world;
 
     public FuchsLocation() {
@@ -22,12 +22,16 @@ public class FuchsLocation {
 
     public FuchsLocation(Location location) {
         this.world = location.getWorld();
+        if(world == null) {
+            updateWorldFromString();
+        }
         updateWorldString();
         this.x = location.getX();
         this.y = location.getY();
         this.z = location.getZ();
     }
 
+    @Deprecated
     public FuchsLocation(double x, double y, double z) {
         this.x = x;
         this.y = y;
@@ -36,6 +40,9 @@ public class FuchsLocation {
 
     public FuchsLocation(World world, double x, double y, double z) {
         this.world = world;
+        if(world == null) {
+            updateWorldFromString();
+        }
         updateWorldString();
         this.x = x;
         this.y = y;
@@ -71,6 +78,7 @@ public class FuchsLocation {
     }
 
     public void setWorld(World world) {
+        this.world_str = world.getName();
         this.world = world;
     }
 
@@ -83,6 +91,7 @@ public class FuchsLocation {
      * @return Bukkit-Location
      */
     public Location createLocation() {
+        updateWorldFromString();
         return createLocation(world);
     }
 
@@ -90,7 +99,11 @@ public class FuchsLocation {
      * Aktualisiert den Welt-String zum aktuellen Name der Welt
      */
     public void updateWorldString() {
-        this.world_str = world.getName();
+        if(world != null) {
+            this.world_str = world.getName();
+        } else {
+            this.world_str = "world";
+        }
     }
 
     /**

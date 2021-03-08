@@ -1,6 +1,7 @@
 package jaysonjson.papierfuchs.object.item.objects.currency;
 
 
+import jaysonjson.papierfuchs.object.currency.CurrencyList;
 import jaysonjson.papierfuchs.object.item.CurrencyType;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsItemData;
@@ -44,7 +45,7 @@ public class HackSilverItem extends FuchsItem {
 
     @Override
     public String getCurrencyType() {
-        return CurrencyType.HACKSILVER.getId();
+        return CurrencyList.HACKSILVER.getID();
     }
 
 }

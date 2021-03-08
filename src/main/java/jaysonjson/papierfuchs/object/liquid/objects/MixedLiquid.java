@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 public class MixedLiquid extends FuchsLiquid {
 
+	public MixedLiquid() {
+		super("mixed");
+	}
+
 	private ArrayList<String> containedLiquids = new ArrayList<>();
 	
 	public ArrayList<String> getContainedLiquids() {
@@ -26,11 +30,6 @@ public class MixedLiquid extends FuchsLiquid {
 			}
 		}
 		return liquids;
-	}
-	
-	@Override
-	public String getID() {
-		return "mixed";
 	}
 
 	@Override

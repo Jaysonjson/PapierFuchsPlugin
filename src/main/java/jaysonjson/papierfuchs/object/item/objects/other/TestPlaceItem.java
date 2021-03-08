@@ -40,21 +40,7 @@ public class TestPlaceItem extends FuchsItem {
     }
 
     @Override
-    public void onBlockInteract(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        Location loc = event.getClickedBlock().getLocation();
-        ArmorStand armorStand = player.getWorld().spawn(loc.add(0.5, 1, 0.5), ArmorStand.class);
-        armorStand.setInvisible(true);
-        armorStand.setInvulnerable(true);
-        armorStand.setArms(true);
-        armorStand.setRightArmPose(new EulerAngle(0f, 0f, 0f));
-        armorStand.setLeftArmPose(new EulerAngle(0f, 0f, 0f));
-        armorStand.setCustomNameVisible(false);
-        armorStand.setItem(EquipmentSlot.HAND, createItem(event.getPlayer()));
-        ItemStack itemStack = event.getItem().clone();
-        itemStack.setAmount(1);
-        event.getItem().setAmount(event.getItem().getAmount() - 1);
-        Utility.addEntityMetadata(References.data.server, armorStand, EntityMetaData.ARMORSTAND_DONT_REMOVE_ITEM_ON_RIGHTCLICK, true);
-        Utility.addEntityMetadata(References.data.server, armorStand, EntityMetaData.CONTAINED_ITEM, Utility.createItemStackString(itemStack));
+    public boolean isPlaceAble() {
+        return true;
     }
 }

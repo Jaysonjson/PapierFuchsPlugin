@@ -7,6 +7,7 @@ import jaysonjson.papierfuchs.data.guild.data.zGuild;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.data.guild.obj.zGuildRank;
 import jaysonjson.papierfuchs.inventories.guild.GuildInventory;
+import jaysonjson.papierfuchs.object.currency.CurrencyList;
 import jaysonjson.papierfuchs.object.item.CurrencyType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,7 +29,7 @@ public class CreateGuildCommand implements CommandExecutor {
                         player.sendMessage("Du bist bereits in einer Guilde!");
                         return true;
                     }
-                    if(Utility.countCurrency(player, CurrencyType.HACKSILVER.getId(), true) >= 50000) {
+                    if(Utility.countCurrency(player, CurrencyList.HACKSILVER.getID(), true) >= 50000) {
                         if(!Utility.guildExists(args[1])) {
                             zGuild zGuild = new zGuild();
                             zGuild.setName(args[1]);

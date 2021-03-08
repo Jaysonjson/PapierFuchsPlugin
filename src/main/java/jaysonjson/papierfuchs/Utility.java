@@ -4,7 +4,6 @@ import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.FileHandler;
 import jaysonjson.papierfuchs.data.FuchsLocation;
 import jaysonjson.papierfuchs.data.area.data.zArea;
-import jaysonjson.papierfuchs.data.area.obj.zLocation;
 import jaysonjson.papierfuchs.data.backpack.data.zBackPack;
 import jaysonjson.papierfuchs.data.guild.data.zGuild;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
@@ -116,8 +115,8 @@ public class Utility {
     }
 
     public static boolean isInArea(zArea area, Player player) {
-        Location p1 = area.createLocation(player.getWorld()).add(area.getSize(), area.getSize(), area.getSize());
-        Location p2 = area.createLocation(player.getWorld()).subtract(area.getSize(), area.getSize(), area.getSize());
+        Location p1 = area.createLocation(player.getWorld()).add(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
+        Location p2 = area.createLocation(player.getWorld()).subtract(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
         return isInArea(player.getLocation(), p1, p2);
     }
 
@@ -205,19 +204,19 @@ public class Utility {
     }
 
 
-    public static zLocation getNearestAreaDistance(World.Environment environment, Location location) {
+    public static FuchsLocation getNearestAreaDistance(World.Environment environment, Location location) {
         zArea area = getNearestArea(environment, location);
         //return new zLocation(area.location.x - location.getX() - area.size, 0, area.location.z - location.getZ() - area.size);
-        return new zLocation(area.getLocation().x - location.getX(), 0, area.getLocation().z - location.getZ());
+        return new FuchsLocation(area.getLocation().getWorld(),area.getLocation().getX() - location.getX(), 0, area.getLocation().getZ() - location.getZ());
     }
 
-    public static zLocation getNearestAreaDistanceOutsidePlayer(Player player) {
+    public static FuchsLocation getNearestAreaDistanceOutsidePlayer(Player player) {
         zArea area = getNearestAreaOutsidePlayer(player);
-        return new zLocation(area.getLocation().x - player.getLocation().getX(), 0, area.getLocation().z - player.getLocation().getZ());
+        return new FuchsLocation(area.getLocation().getWorld(), area.getLocation().getX() - player.getLocation().getX(), 0, area.getLocation().getZ() - player.getLocation().getZ());
     }
-    public static zLocation getNearestAreaDistanceOutsidePlayerExceptCurrent(Player player, zArea current) {
+    public static FuchsLocation getNearestAreaDistanceOutsidePlayerExceptCurrent(Player player, zArea current) {
         zArea area = getNearestAreaPlayerExceptCurrent(player, current);
-        return new zLocation(area.getLocation().x - player.getLocation().getX(), 0, area.getLocation().z - player.getLocation().getZ());
+        return new FuchsLocation(area.getLocation().getWorld(), area.getLocation().getX() - player.getLocation().getX(), 0, area.getLocation().getZ() - player.getLocation().getZ());
     }
 
     public static boolean areaOverlap(Location locationP1, Location locationP2, Location locationBP1, Location locationBP2)
@@ -231,13 +230,13 @@ public class Utility {
 
     public static boolean areaOverlap(World world, zArea area1, zArea area2) {
         Location p1 = area1.createLocation(world);
-        p1.add(area1.getSize(), area1.getSize(), area1.getSize());
+        p1.add(area1.getSize().getX(), area1.getSize().getY(), area1.getSize().getZ());
         Location p2 = area1.createLocation(world);
-        p2.subtract(area1.getSize(), area1.getSize(), area1.getSize());
+        p2.subtract(area1.getSize().getX(), area1.getSize().getY(), area1.getSize().getZ());
         Location pb1 = area2.createLocation(world);
-        pb1.add(area2.getSize(), area2.getSize(), area2.getSize());
+        pb1.add(area2.getSize().getX(), area2.getSize().getY(), area2.getSize().getZ());
         Location pb2 = area2.createLocation(world);
-        pb2.subtract(area2.getSize(), area2.getSize(), area2.getSize());
+        pb2.subtract(area2.getSize().getX(), area2.getSize().getY(), area2.getSize().getZ());
         return areaOverlap(p1, p2, pb1, pb2);
     }
 
@@ -253,8 +252,8 @@ public class Utility {
     public static boolean isInSpawnArea(Location location, World world) {
         zArea area = getNearestArea(world.getEnvironment(), location);
         if(area.getDisplayName().toLowerCase().equals("spawn")) {
-            Location locationP0 = area.createLocation(world).add(area.getSize(), area.getSize(), area.getSize());
-            Location locationP1 = area.createLocation(world).subtract(area.getSize(), area.getSize(), area.getSize());
+            Location locationP0 = area.createLocation(world).add(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
+            Location locationP1 = area.createLocation(world).subtract(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
             return Utility.isInArea(location, locationP0, locationP1);
         }
         return false;
@@ -262,8 +261,8 @@ public class Utility {
 
     public static boolean canBreakBlock(Player player, Location location, World world) {
         zArea area = getNearestArea(player.getWorld().getEnvironment(), location);
-        Location locationP0 = area.createLocation(world).add(area.getSize(), area.getSize(), area.getSize());
-        Location locationP1 = area.createLocation(world).subtract(area.getSize(), area.getSize(), area.getSize());
+        Location locationP0 = area.createLocation(world).add(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
+        Location locationP1 = area.createLocation(world).subtract(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
         if(Utility.isInArea(location, locationP0, locationP1)) {
             return area.isBreakBlocks() || player.isOp();
         }
@@ -272,8 +271,8 @@ public class Utility {
 
     public static boolean canPlaceBlock(Player player, Location location, World world) {
         zArea area = getNearestArea(world.getEnvironment(), location);
-        Location locationP0 = area.createLocation(world).add(area.getSize(), area.getSize(), area.getSize());
-        Location locationP1 = area.createLocation(world).subtract(area.getSize(), area.getSize(), area.getSize());
+        Location locationP0 = area.createLocation(world).add(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
+        Location locationP1 = area.createLocation(world).subtract(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
         if(Utility.isInArea(location, locationP0, locationP1)) {
             return area.isPlaceBlocks() || player.isOp();
         }
@@ -282,8 +281,8 @@ public class Utility {
 
     public static boolean canEntitySpawn(Location location, World world) {
         zArea area = getNearestArea(world.getEnvironment(), location);
-        Location locationP0 = area.createLocation(world).add(area.getSize(), area.getSize(), area.getSize());
-        Location locationP1 = area.createLocation(world).subtract(area.getSize(), area.getSize(), area.getSize());
+        Location locationP0 = area.createLocation(world).add(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
+        Location locationP1 = area.createLocation(world).subtract(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
         if(Utility.isInArea(location, locationP0, locationP1)) {
             return area.isSpawnMobs();
         }
@@ -292,8 +291,8 @@ public class Utility {
 
     public static boolean canDropItem(Player player, Location location, World world) {
         zArea area = getNearestArea(world.getEnvironment(), location);
-        Location locationP0 = area.createLocation(world).add(area.getSize(), area.getSize(), area.getSize());
-        Location locationP1 = area.createLocation(world).subtract(area.getSize(), area.getSize(), area.getSize());
+        Location locationP0 = area.createLocation(world).add(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
+        Location locationP1 = area.createLocation(world).subtract(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
         if(Utility.isInArea(location, locationP0, locationP1)) {
             return area.isDropItems() || player.isOp();
         }
@@ -958,7 +957,7 @@ public class Utility {
     public static void openOpenedChests(World world) {
         FuchsServer fuchsServer = DataHandler.loadServer();
         for (FuchsLocation fuchsLocation : fuchsServer.OPEN_CHESTS) {
-            if(world.getBlockAt(fuchsLocation.createLocation(world)).getState() instanceof Chest) {
+            if(world.getBlockAt(fuchsLocation.createLocation()).getState() instanceof Chest) {
                 Chest chest = (Chest) world.getBlockAt(fuchsLocation.createLocation(world)).getState();
                 chest.open();
                 System.out.println("Kiste bei " + fuchsLocation + " geöffnet!");

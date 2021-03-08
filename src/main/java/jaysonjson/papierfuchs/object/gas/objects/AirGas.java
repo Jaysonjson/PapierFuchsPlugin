@@ -5,10 +5,10 @@ import org.bukkit.ChatColor;
 
 public class AirGas extends FuchsGas {
 
-	@Override
-	public String getID() {
-		return "air";
+	public AirGas() {
+		super("air");
 	}
+
 
 	@Override
 	public String getDisplayName() {

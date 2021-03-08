@@ -3,6 +3,7 @@ package jaysonjson.papierfuchs.data;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+@Deprecated
 public record FuchsLoc(double x, double y, double z) {
 
     public Location createLocation(World world) {

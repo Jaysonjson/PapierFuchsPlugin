@@ -1,7 +1,9 @@
 package jaysonjson.papierfuchs.object.item;
 
+
+@Deprecated
 public enum CurrencyType {
-    HACKSILVER("hacksilver"),
+    /*HACKSILVER("hacksilver"),
     ZORYHA_SHARD("zoryhaShard");
 
     String id;
@@ -11,5 +13,5 @@ public enum CurrencyType {
 
     public String getId() {
         return id;
-    }
+    }*/
 }

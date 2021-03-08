@@ -7,20 +7,15 @@ import org.bukkit.inventory.ItemStack;
 
 public class AlcoholLiquid extends FuchsLiquid {
 
-    String id;
+
     String displayName;
     int modelData;
     int alcMinus;
     public AlcoholLiquid(String id, String displayName, int modelData, int alcMinus) {
-        this.id = id;
+        super(id);
         this.displayName = displayName;
         this.modelData = modelData;
         this.alcMinus = alcMinus;
-    }
-
-    @Override
-    public String getID() {
-        return id;
     }
 
     @Override

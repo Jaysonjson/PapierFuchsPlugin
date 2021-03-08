@@ -17,9 +17,8 @@ import java.util.Random;
 
 public class CokeLiquid extends FuchsLiquid {
 
-    @Override
-    public String getID() {
-        return "coke";
+    public CokeLiquid() {
+        super("coke");
     }
 
 

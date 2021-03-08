@@ -5,9 +5,8 @@ import org.bukkit.ChatColor;
 
 public class MoltenIronLiquid extends FuchsLiquid {
 
-	@Override
-	public String getID() {
-		return "moltenIron";
+	public MoltenIronLiquid() {
+		super("molten_iron");
 	}
 
 	@Override

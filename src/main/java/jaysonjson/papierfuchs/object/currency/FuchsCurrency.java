@@ -1,13 +1,14 @@
-package jaysonjson.papierfuchs.object.rarity;
+package jaysonjson.papierfuchs.object.currency;
 
 import jaysonjson.papierfuchs.registry.IFuchsPlugin;
 import jaysonjson.papierfuchs.registry.IFuchsRegistryObject;
 import jaysonjson.papierfuchs.registry.RegistryType;
 
-public abstract class FuchsRarity implements IFuchsRegistryObject, IFuchsRarity {
+public abstract class FuchsCurrency implements IFuchsRegistryObject, IFuchsCurrency {
+
 
     String id;
-    public FuchsRarity(String id) {
+    public FuchsCurrency(String id) {
         this.id = id;
     }
 
@@ -18,12 +19,7 @@ public abstract class FuchsRarity implements IFuchsRegistryObject, IFuchsRarity 
 
     @Override
     public RegistryType getType() {
-        return RegistryType.RARITY;
-    }
-
-    @Override
-    public String getLoreTextFromLanguage() {
-        return "";
+        return RegistryType.CURRENCY;
     }
 
     @Override

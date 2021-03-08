@@ -7,6 +7,7 @@ import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsItemAmmo;
 import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsItemGun;
 import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
 import jaysonjson.papierfuchs.object.rarity.RarityList;
+import jaysonjson.papierfuchs.registry.IFuchsPlugin;
 import jaysonjson.papierfuchs.registry.IFuchsRegistryObject;
 import jaysonjson.papierfuchs.registry.RegistryType;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
@@ -24,7 +25,7 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
         IFuchsItemTexture, IFuchsItemUse, IFuchsItemEntityInteraction,
         IFuchsItemBlockInteraction, IFuchsItemGun, IFuchsItemTool, IFuchsItemCurrency {
 
-    private final String id;
+    private String id;
     private String displayName = "";
     private final Material material;
     private final IItemUseType itemUseType;
@@ -249,5 +250,15 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     @Deprecated
     public IFuchsItem createCopy() {
         return null;
+    }
+
+    @Override
+    public boolean isPlaceAble() {
+        return false;
+    }
+
+    @Override
+    public void updateID(IFuchsPlugin fuchsPlugin) {
+        this.id = fuchsPlugin.getPluginID() + ":" + getID();
     }
 }

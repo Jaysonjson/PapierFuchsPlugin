@@ -49,8 +49,8 @@ public class PlayerMove implements Listener {
 
         ArrayList<zArea> areaList = Utility.getNearestAreas(750, player.getWorld().getEnvironment(), player.getLocation());
         for (zArea area : areaList) {
-            Location locationP0 = area.createLocation(player.getWorld()).add(area.getSize(), area.getSize(), area.getSize());
-            Location locationP1 = area.createLocation(player.getWorld()).subtract(area.getSize(), area.getSize(), area.getSize());
+            Location locationP0 = area.createLocation(player.getWorld()).add(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
+            Location locationP1 = area.createLocation(player.getWorld()).subtract(area.getSize().getX(), area.getSize().getY(), area.getSize().getZ());
             if (Utility.isInArea(player.getLocation(), locationP0, locationP1)) {
                 player.sendActionBar(new ComponentBuilder(area.getDisplayName().toUpperCase()).color(ChatColor.DARK_PURPLE).create());
             }

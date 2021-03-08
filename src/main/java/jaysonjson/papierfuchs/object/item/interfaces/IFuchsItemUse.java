@@ -22,5 +22,5 @@ public interface IFuchsItemUse {
     void onItemUse(PlayerInteractEvent event);
     void onItemRightClick(PlayerInteractEvent event);
     void onItemLeftClick(PlayerInteractEvent event);
-
+    boolean isPlaceAble();
 }

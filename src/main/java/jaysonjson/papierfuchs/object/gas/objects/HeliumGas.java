@@ -5,9 +5,8 @@ import org.bukkit.ChatColor;
 
 public class HeliumGas extends FuchsGas {
 
-	@Override
-	public String getID() {
-		return "helium";
+	public HeliumGas() {
+		super("helium");
 	}
 
 	@Override

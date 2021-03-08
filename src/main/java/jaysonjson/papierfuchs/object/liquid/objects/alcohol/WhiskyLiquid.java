@@ -9,6 +9,10 @@ import org.bukkit.inventory.ItemStack;
 @Deprecated
 public class WhiskyLiquid extends FuchsLiquid {
 
+    public WhiskyLiquid(String id) {
+        super(id);
+    }
+
     @Override
     public String getID() {
         return "whisky";

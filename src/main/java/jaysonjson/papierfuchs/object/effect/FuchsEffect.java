@@ -1,11 +1,12 @@
 package jaysonjson.papierfuchs.object.effect;
 
+import jaysonjson.papierfuchs.registry.IFuchsPlugin;
 import jaysonjson.papierfuchs.registry.IFuchsRegistryObject;
 import jaysonjson.papierfuchs.registry.RegistryType;
 
 public abstract class FuchsEffect implements IFuchsRegistryObject, IFuchsEffect {
 
-	private final String id;
+	private String id;
 	public FuchsEffect(String id) {
 		this.id = id;
 	}
@@ -23,5 +24,10 @@ public abstract class FuchsEffect implements IFuchsRegistryObject, IFuchsEffect 
 	@Override
 	public void onEnemyHit() {
 
+	}
+
+	@Override
+	public void updateID(IFuchsPlugin fuchsPlugin) {
+		this.id = fuchsPlugin.getPluginID() + ":" + getID();
 	}
 }

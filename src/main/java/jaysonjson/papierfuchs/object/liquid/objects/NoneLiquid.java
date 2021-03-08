@@ -5,9 +5,8 @@ import org.bukkit.ChatColor;
 
 public class NoneLiquid extends FuchsLiquid {
 
-	@Override
-	public String getID() {
-		return "none";
+	public NoneLiquid() {
+		super("none");
 	}
 
 	@Override
