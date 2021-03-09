@@ -1,6 +1,5 @@
 package jaysonjson.papierfuchs.registry;
 
-import jaysonjson.papierfuchs.FuchsAnsi;
 import jaysonjson.papierfuchs.LogType;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.object.currency.FuchsCurrency;
@@ -14,7 +13,6 @@ import jaysonjson.papierfuchs.object.npc.FuchsNPC;
 import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
 import jaysonjson.papierfuchs.object.skillclass.FuchsSkillclass;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -33,14 +31,14 @@ public class FuchsRegistries {
     public static Map<String, FuchsNPC> npcs = new HashMap<>();
 
     @Deprecated
-    public static Map<String, IFuchsRegistryObject> OBJECTS = new HashMap<>();
+    private static Map<String, IFuchsRegistryObject> OBJECTS = new HashMap<>();
 
     public static void sort() {
         items = new TreeMap<>(items);
     }
 
     @Deprecated
-    public static void CREATE(IFuchsPlugin fuchsPlugin) {
+    private static void CREATE(IFuchsPlugin fuchsPlugin) {
         effects.values().forEach(effect -> addToObjects(effect, fuchsPlugin));
         entities.values().forEach(fuchsEntity -> addToObjects(fuchsEntity, fuchsPlugin));
         gasses.values().forEach(fuchsGas -> addToObjects(fuchsGas, fuchsPlugin));

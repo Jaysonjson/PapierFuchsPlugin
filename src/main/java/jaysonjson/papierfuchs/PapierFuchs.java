@@ -36,7 +36,6 @@ import jaysonjson.papierfuchs.registry.FuchsRegistries;
 import jaysonjson.papierfuchs.registry.FuchsRegistry;
 import jaysonjson.papierfuchs.registry.IFuchsPlugin;
 import org.bukkit.Bukkit;
-import org.bukkit.WorldCreator;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -46,7 +45,6 @@ public final class PapierFuchs extends JavaPlugin implements IFuchsPlugin {
 
     public static PapierFuchs INSTANCE;
 
-    public ArrayList<zArea> areas = new ArrayList<>();
     public static double version = 0.1;
     public PapierFuchs() {
         INSTANCE = this;
@@ -77,7 +75,7 @@ public final class PapierFuchs extends JavaPlugin implements IFuchsPlugin {
         FuchsRegistries.sort();
         References.reloadDrops();
         References.reloadCraftings();
-        Utility.reloadAreas();
+        References.reloadAreas();
         NPC.loadNPCS();
         registerEvents(
                 new PlayerJoin(),

@@ -1,28 +1,15 @@
 package jaysonjson.papierfuchs.object.inventory;
 
+import jaysonjson.papierfuchs.registry.FuchsObject;
 import jaysonjson.papierfuchs.registry.IFuchsPlugin;
 import jaysonjson.papierfuchs.registry.IFuchsRegistryObject;
 import jaysonjson.papierfuchs.registry.RegistryType;
 
-public abstract class FuchsInventory implements IFuchsRegistryObject, IFuchsInventory {
+public abstract class FuchsInventory extends FuchsObject implements IFuchsInventory {
 
-    String id;
+
     public FuchsInventory(String id) {
-        this.id = id;
+        super(id, RegistryType.INVENTORY);
     }
 
-    @Override
-    public String getID() {
-        return id;
-    }
-
-    @Override
-    public RegistryType getType() {
-        return RegistryType.INVENTORY;
-    }
-
-    @Override
-    public void updateID(IFuchsPlugin fuchsPlugin) {
-        this.id = fuchsPlugin.getPluginID() + ":" + getID();
-    }
 }

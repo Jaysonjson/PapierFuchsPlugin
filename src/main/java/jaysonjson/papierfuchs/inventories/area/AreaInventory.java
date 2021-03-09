@@ -1,6 +1,7 @@
 package jaysonjson.papierfuchs.inventories.area;
 
 import jaysonjson.papierfuchs.PapierFuchs;
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.area.data.zArea;
@@ -176,7 +177,7 @@ public class AreaInventory implements Listener {
                         chatPlayersType.remove(player);
                     }
                     DataHandler.saveArea(area);
-                    Utility.reloadAreas();
+                    References.reloadAreas();
                     openInventory(player);
                 });
             } else {

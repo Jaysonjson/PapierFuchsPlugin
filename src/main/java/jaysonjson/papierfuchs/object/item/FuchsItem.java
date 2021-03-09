@@ -7,6 +7,7 @@ import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsItemAmmo;
 import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsItemGun;
 import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
 import jaysonjson.papierfuchs.object.rarity.RarityList;
+import jaysonjson.papierfuchs.registry.FuchsObject;
 import jaysonjson.papierfuchs.registry.IFuchsPlugin;
 import jaysonjson.papierfuchs.registry.IFuchsRegistryObject;
 import jaysonjson.papierfuchs.registry.RegistryType;
@@ -21,28 +22,17 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, IFuchsItem, IFuchsItemAlchemy,
+public abstract class FuchsItem extends FuchsObject implements IConsumeable, IFuchsItem, IFuchsItemAlchemy,
         IFuchsItemTexture, IFuchsItemUse, IFuchsItemEntityInteraction,
         IFuchsItemBlockInteraction, IFuchsItemGun, IFuchsItemTool, IFuchsItemCurrency {
 
-    private String id;
     private String displayName = "";
     private final Material material;
     private final IItemUseType itemUseType;
     public FuchsItem(String id, Material material, IItemUseType itemUseType) {
-        this.id = id;
+        super(id, RegistryType.ITEM);
         this.material = material;
         this.itemUseType = itemUseType;
-    }
-
-    @Override
-    public String getID() {
-        return id;
-    }
-
-    @Override
-    public RegistryType getType() {
-        return RegistryType.ITEM;
     }
 
     @Override
@@ -117,7 +107,7 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
     @Override
     public String toString() {
         return "FuchsItem{" +
-                "id='" + id + '\'' +
+                "id='" + getID() + '\'' +
                 ", material=" + material +
                 ", itemUseType=" + itemUseType +
                 '}';
@@ -257,8 +247,4 @@ public abstract class FuchsItem implements IFuchsRegistryObject, IConsumeable, I
         return false;
     }
 
-    @Override
-    public void updateID(IFuchsPlugin fuchsPlugin) {
-        this.id = fuchsPlugin.getPluginID() + ":" + getID();
-    }
 }

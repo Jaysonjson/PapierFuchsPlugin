@@ -1,7 +1,7 @@
 package jaysonjson.papierfuchs.commands.area;
 
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
-import jaysonjson.papierfuchs.PapierFuchs;
 import jaysonjson.papierfuchs.data.FuchsLocation;
 import jaysonjson.papierfuchs.data.FuchsSize;
 import jaysonjson.papierfuchs.data.area.data.zArea;
@@ -46,7 +46,7 @@ public class CreateAreaCommand implements CommandExecutor {
                         area.setLocation(new FuchsLocation(location));
                         DataHandler.saveArea(area);
                         player.sendMessage("Gebiet " + args[0] + " erstellt!");
-                        PapierFuchs.INSTANCE.areas.add(area);
+                        References.areas.add(area);
                         area.setWorld(FuchsWorld.OVERWORLD);
                         if(player.getWorld().getEnvironment() == World.Environment.NETHER) {
                             area.setWorld(FuchsWorld.NETHER);
@@ -65,14 +65,14 @@ public class CreateAreaCommand implements CommandExecutor {
                 return true;
             } else {
                 if(args[0].equalsIgnoreCase("Reload")) {
-                    Utility.reloadAreas();
+                    References.reloadAreas();
                     commandSender.sendMessage("Gebiete wurden Neugeladen!");
                     return true;
                 }
 
                 if(args[0].equalsIgnoreCase("delete")) {
                     Utility.deleteArea(args[1]);
-                    Utility.reloadAreas();
+                    References.reloadAreas();
                     commandSender.sendMessage("Gebiet wurde entfernt!");
                     return true;
                 }

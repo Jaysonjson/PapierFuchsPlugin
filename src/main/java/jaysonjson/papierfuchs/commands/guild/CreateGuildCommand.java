@@ -8,7 +8,6 @@ import jaysonjson.papierfuchs.data.player.FuchsPlayer;
 import jaysonjson.papierfuchs.data.guild.obj.zGuildRank;
 import jaysonjson.papierfuchs.inventories.guild.GuildInventory;
 import jaysonjson.papierfuchs.object.currency.CurrencyList;
-import jaysonjson.papierfuchs.object.item.CurrencyType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

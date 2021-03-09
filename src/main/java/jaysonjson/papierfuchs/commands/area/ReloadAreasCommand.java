@@ -1,5 +1,6 @@
 package jaysonjson.papierfuchs.commands.area;
 
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,7 +11,7 @@ public class ReloadAreasCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if(commandSender.isOp()) {
-            Utility.reloadAreas();
+            References.reloadAreas();
             commandSender.sendMessage("Gebiete wurden Neugeladen!");
             return true;
         }

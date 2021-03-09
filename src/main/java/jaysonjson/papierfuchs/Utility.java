@@ -123,10 +123,10 @@ public class Utility {
     public static zArea getNearestArea(World.Environment environment, Location location) {
         ArrayList<Double> distancesD = new ArrayList<>();
         HashMap<Double, zArea> distances = new HashMap<>();
-        if(PapierFuchs.INSTANCE.areas.size() < 1) {
+        if(References.areas.size() < 1) {
             return new zArea();
         }
-        for (zArea areas : PapierFuchs.INSTANCE.areas) {
+        for (zArea areas : References.areas) {
             // distances.put((location.getX() - areas.location.x), areas);
             // distancesD.add((location.getX() - areas.location.x));
             if(areas.getWorld().getEnvironment().equals(environment)) {
@@ -142,7 +142,7 @@ public class Utility {
 
     public static ArrayList<zArea> getNearestAreas(int radius, World.Environment environment, Location location) {
         ArrayList<zArea> areaList = new ArrayList<>();
-        for (zArea areas : PapierFuchs.INSTANCE.areas) {
+        for (zArea areas : References.areas) {
             if(areas.getWorld().getEnvironment().equals(environment)) {
                 double distance = location.distance(areas.createLocation(location.getWorld()));
                 if(distance <= radius) {
@@ -156,10 +156,10 @@ public class Utility {
     public static zArea getNearestAreaOutsidePlayer(Player player) {
         ArrayList<Double> distancesD = new ArrayList<>();
         HashMap<Double, zArea> distances = new HashMap<>();
-        if(PapierFuchs.INSTANCE.areas.size() < 1) {
+        if(References.areas.size() < 1) {
             return new zArea();
         }
-        for (zArea areas : PapierFuchs.INSTANCE.areas) {
+        for (zArea areas : References.areas) {
             if(!isInArea(areas, player)) {
                 if (areas.getWorld().getEnvironment().equals(player.getWorld().getEnvironment())) {
                     double distance = player.getLocation().distance(areas.createLocation(player.getWorld()));
@@ -179,10 +179,10 @@ public class Utility {
     public static zArea getNearestAreaPlayerExceptCurrent(Player player, zArea area) {
         ArrayList<Double> distancesD = new ArrayList<>();
         HashMap<Double, zArea> distances = new HashMap<>();
-        if(PapierFuchs.INSTANCE.areas.size() < 1) {
+        if(References.areas.size() < 1) {
             return new zArea();
         }
-        for (zArea areas : PapierFuchs.INSTANCE.areas) {
+        for (zArea areas : References.areas) {
             if(area != areas) {
                 if (areas.getWorld().getEnvironment().equals(player.getWorld().getEnvironment())) {
                     double distance = player.getLocation().distance(areas.createLocation(player.getWorld()));
@@ -442,28 +442,6 @@ public class Utility {
         return zoryhaShardAmount * Constant.HACKSILVER_TO_ZORYHASHARD_VALUE;
     }
 
-    public static void reloadAreas() {
-        PapierFuchs.INSTANCE.areas.clear();
-        HashMap<String, zArea> areaHash = new HashMap<>();
-        ArrayList<String> sortedHash = new ArrayList<>();
-        for (File file : new File(FileHandler.AREA_DIR).listFiles()) {
-            ///^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
-            try {
-                zArea area = DataHandler.loadArea(UUID.fromString(file.getName().replaceAll(".json", "")));
-                areaHash.put(area.getPriority() + "_" + area.getDisplayName(), area);
-                sortedHash.add(area.getPriority() + "_" + area.getDisplayName());
-                DataHandler.saveArea(area);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        Collections.sort(sortedHash);
-        Collections.reverse(sortedHash);
-        for (String hash : sortedHash) {
-            PapierFuchs.INSTANCE.areas.add(areaHash.get(hash));
-        }
-    }
-
     public static boolean guildExists(UUID uuid) {
         return new File(FileHandler.GUILD_DIR + uuid.toString() + ".json").exists();
     }
@@ -483,7 +461,7 @@ public class Utility {
     }
 
     public static boolean areaExists(String name) {
-        for (zArea area : PapierFuchs.INSTANCE.areas) {
+        for (zArea area : References.areas) {
             if(area.getDisplayName().toLowerCase().equalsIgnoreCase(name)) {
                 return true;
             }

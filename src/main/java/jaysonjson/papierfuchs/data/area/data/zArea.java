@@ -152,4 +152,8 @@ public class zArea {
         }
         return false;
     }
+
+    public String getArrayName() {
+        return getPriority() + "_" + getUuid().toString();
+    }
 }

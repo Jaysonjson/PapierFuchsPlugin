@@ -2,6 +2,7 @@ package jaysonjson.papierfuchs.inventories.area;
 
 
 import jaysonjson.papierfuchs.PapierFuchs;
+import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.area.data.zArea;
@@ -39,8 +40,8 @@ public class AreaListInventory implements Listener {
         Integer page_index = 0;
         Integer page = 0;
         ArrayList<ItemStack> page_content = new ArrayList<>();
-        int page_check = PapierFuchs.INSTANCE.areas.size();
-        for (zArea area : PapierFuchs.INSTANCE.areas) {
+        int page_check = References.areas.size();
+        for (zArea area : References.areas) {
             page_index++;
             if (page_index < 46) {
                 ItemStack itemStack = new ItemStack(Material.FILLED_MAP);
@@ -57,7 +58,7 @@ public class AreaListInventory implements Listener {
                 itemStack = CraftItemStack.asBukkitCopy(nmsCopy);
                 page_content.add(itemStack);
             }
-            if (page_index >= 46 || page_index.equals(PapierFuchs.INSTANCE.areas.size()) || page_index.equals(page_check)) {
+            if (page_index >= 46 || page_index.equals(References.areas.size()) || page_index.equals(page_check)) {
                 page_content.add(Utility.createInventoryStack(Material.EMERALD, 1, "Neues Gebiet"));
                 page++;
                 page_check -= 46;
