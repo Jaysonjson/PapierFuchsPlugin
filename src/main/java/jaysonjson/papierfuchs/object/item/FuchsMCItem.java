@@ -1,10 +1,13 @@
 package jaysonjson.papierfuchs.object.item;
 
 import jaysonjson.papierfuchs.Utility;
+import jaysonjson.papierfuchs.object.gas.FuchsGas;
+import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 public class FuchsMCItem {
     private FuchsItem item;
@@ -169,5 +172,55 @@ public class FuchsMCItem {
 
     public FuchsItem getItem() {
         return item;
+    }
+
+    public String getLiquidID() {
+        return getTagFromOriginal().getString(ItemNBT.CONTAINED_LIQUID);
+    }
+
+    @Nullable
+    public FuchsLiquid getLiquid() {
+        return Utility.getLiquidByID(getLiquidID());
+    }
+
+    public void setLiquidID(String id) {
+        NBTTagCompound tag = getTagFromOriginal();
+        tag.setString(ItemNBT.CONTAINED_LIQUID, id);
+        updateOriginalTag(tag);
+    }
+
+    public String getGasID() {
+        return getTagFromOriginal().getString(ItemNBT.CONTAINED_GAS);
+    }
+
+    @Nullable
+    public FuchsGas getGas() {
+        return Utility.getGasByID(getGasID());
+    }
+
+    public void setGasID(String id) {
+        NBTTagCompound tag = getTagFromOriginal();
+        tag.setString(ItemNBT.CONTAINED_GAS, id);
+        updateOriginalTag(tag);
+    }
+
+    public double getLiquidAmount() {
+        return getTagFromOriginal().getDouble(ItemNBT.LIQUID_AMOUNT);
+    }
+
+    public double getGasAmount() {
+        return getTagFromOriginal().getDouble(ItemNBT.GAS_AMOUNT);
+    }
+
+    public void setLiquidAmount(double amount) {
+        NBTTagCompound tag = getTagFromOriginal();
+        tag.setDouble(ItemNBT.LIQUID_AMOUNT, amount);
+        updateOriginalTag(tag);
+    }
+
+    public void setGasAmount(double amount) {
+        NBTTagCompound tag = getTagFromOriginal();
+        tag.setDouble(ItemNBT.GAS_AMOUNT, amount);
+        updateOriginalTag(tag);
     }
 }

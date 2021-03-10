@@ -62,18 +62,18 @@ public class ItemInventory implements Listener {
         FuchsRegistries.liquids.values().forEach(fuchsLiquid -> {
             if(fuchsLiquid != LiquidList.NONE) {
                 ItemStack liquidContainer = ItemList.LIQUID_CONTAINER.createItem(player);
-                FuchsMCItem fuchsMCItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(liquidContainer), liquidContainer);
-                fuchsMCItem.changeStringTag(ItemNBT.CONTAINED_LIQUID, fuchsLiquid.getID());
-                fuchsMCItem.changeDoubleTag(ItemNBT.LIQUID_AMOUNT, 500d);
+                FuchsMCItem fuchsMCItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(liquidContainer), player, liquidContainer);
+                fuchsMCItem.setLiquidID(fuchsLiquid.getID());
+                fuchsMCItem.setLiquidAmount(500d);
                 itemStacks.add(fuchsMCItem.getItemStack());
             }
         });
         FuchsRegistries.gasses.values().forEach(fuchsGas -> {
             if(fuchsGas != GasList.NONE) {
                 ItemStack gasContainer = ItemList.GAS_CONTAINER.createItem(player);
-                FuchsMCItem fuchsMCItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(gasContainer), gasContainer);
-                fuchsMCItem.changeStringTag(ItemNBT.CONTAINED_GAS, fuchsGas.getID());
-                fuchsMCItem.changeDoubleTag(ItemNBT.GAS_AMOUNT, 500d);
+                FuchsMCItem fuchsMCItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(gasContainer), player, gasContainer);
+                fuchsMCItem.setGasID(fuchsGas.getID());
+                fuchsMCItem.setGasAmount(500d);
                 itemStacks.add(fuchsMCItem.getItemStack());
             }
         });
