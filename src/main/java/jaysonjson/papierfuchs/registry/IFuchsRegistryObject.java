@@ -3,7 +3,10 @@ package jaysonjson.papierfuchs.registry;
 public interface IFuchsRegistryObject {
 
     String getID();
+    @Deprecated
     void updateID(IFuchsPlugin fuchsPlugin);
+
+    void updateID();
     RegistryType getType();
 
     @Deprecated

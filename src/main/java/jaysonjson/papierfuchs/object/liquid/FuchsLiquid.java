@@ -53,4 +53,13 @@ public abstract class FuchsLiquid extends FuchsObject implements IFuchsItemTextu
         return getCustomModelData();
     }
 
+    @Override
+    @Deprecated
+    public void setDisplayName(String displayName) {
+    }
+
+    @Override
+    public boolean isDisplayNameChangeable() {
+        return false;
+    }
 }

@@ -223,4 +223,18 @@ public class FuchsMCItem {
         tag.setDouble(ItemNBT.GAS_AMOUNT, amount);
         updateOriginalTag(tag);
     }
+
+    public boolean isCharged() {
+        return getTagFromOriginal().getBoolean(ItemNBT.CHARGED);
+    }
+
+    public void setCharged(boolean value) {
+        NBTTagCompound tag = getTagFromOriginal();
+        tag.setBoolean(ItemNBT.CHARGED, value);
+        updateOriginalTag(tag);
+    }
+
+    public void toggleCharged() {
+        setCharged(!isCharged());
+    }
 }

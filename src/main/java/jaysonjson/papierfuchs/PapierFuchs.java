@@ -28,6 +28,7 @@ import jaysonjson.papierfuchs.object.entity.EntityList;
 import jaysonjson.papierfuchs.object.gas.GasList;
 import jaysonjson.papierfuchs.object.inventory.InventoryList;
 import jaysonjson.papierfuchs.object.item.ItemList;
+import jaysonjson.papierfuchs.object.language.LanguageList;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
 import jaysonjson.papierfuchs.object.npc.NPCList;
 import jaysonjson.papierfuchs.object.rarity.RarityList;
@@ -60,8 +61,8 @@ public final class PapierFuchs extends JavaPlugin implements IFuchsPlugin {
         }
         References.loadServerData();
         //DataHandler.createGermanLangTest();
-        DataHandler.loadLanguages();
         FuchsRegistry fuchsRegistry = new FuchsRegistry(this);
+        fuchsRegistry.register(LanguageList.class);
         fuchsRegistry.register(RarityList.class);
         fuchsRegistry.register(EffectList.class);
         fuchsRegistry.register(EntityList.class);

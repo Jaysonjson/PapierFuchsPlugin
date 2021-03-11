@@ -5,6 +5,8 @@ import jaysonjson.papierfuchs.object.item.interfaces.*;
 import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsGunMagazine;
 import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsItemAmmo;
 import jaysonjson.papierfuchs.object.item.interfaces.gun.IFuchsItemGun;
+import jaysonjson.papierfuchs.object.item.objects.other.FallBackItem;
+import jaysonjson.papierfuchs.object.item.objects.other.ScrapItem;
 import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
 import jaysonjson.papierfuchs.object.rarity.RarityList;
 import jaysonjson.papierfuchs.registry.FuchsObject;
@@ -24,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class FuchsItem extends FuchsObject implements IConsumeable, IFuchsItem, IFuchsItemAlchemy,
         IFuchsItemTexture, IFuchsItemUse, IFuchsItemEntityInteraction,
-        IFuchsItemBlockInteraction, IFuchsItemGun, IFuchsItemTool, IFuchsItemCurrency {
+        IFuchsItemBlockInteraction, IFuchsItemGun, IFuchsItemTool, IFuchsItemCurrency, Cloneable, IFuchsItemName {
 
     private String displayName = "";
     private final Material material;
@@ -214,12 +216,6 @@ public abstract class FuchsItem extends FuchsObject implements IConsumeable, IFu
         return "";
     }
 
-    @Deprecated
-    @Override
-    public String getDefaultDisplayName() {
-        return displayName;
-    }
-
     @Override
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
@@ -239,7 +235,12 @@ public abstract class FuchsItem extends FuchsObject implements IConsumeable, IFu
     @Nullable
     @Deprecated
     public IFuchsItem createCopy() {
-        return null;
+        try {
+            return (IFuchsItem) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -247,4 +248,18 @@ public abstract class FuchsItem extends FuchsObject implements IConsumeable, IFu
         return false;
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Override
+    public boolean isChargeAble() {
+        return false;
+    }
+
+    @Override
+    public boolean isDisplayNameChangeable() {
+        return false;
+    }
 }

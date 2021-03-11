@@ -51,19 +51,11 @@ public interface IFuchsItem {
     }
 
     FuchsRarity getDefaultRarity();
-    String getDefaultDisplayName();
-    String getDisplayName();
-    void setDisplayName(String displayName);
-    String getLanguageString();
     boolean stackAble();
     IFuchsItem createCopy();
     default boolean hasCopy() {
         return createCopy() != null;
     }
-    default boolean hasLanguageString() {
-    	return getLanguageString() != "";
-    }
-    
     default boolean isIngot() {
         return false;
     }

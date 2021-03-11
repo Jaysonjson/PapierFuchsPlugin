@@ -17,4 +17,13 @@ public abstract class FuchsGas extends FuchsObject implements IFuchsGas, IFuchsI
         return null;
     }
 
+    @Override
+    @Deprecated
+    public void setDisplayName(String displayName) {
+    }
+
+    @Override
+    public boolean isDisplayNameChangeable() {
+        return false;
+    }
 }

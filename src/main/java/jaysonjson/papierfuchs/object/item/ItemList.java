@@ -100,5 +100,6 @@ public class ItemList {
     public static TestPlaceItem TEST_PLACE = new TestPlaceItem("test_place", Material.DIAMOND, ItemUseType.OTHER);
     public static EffectBookItem EFFECT_BOOK = new EffectBookItem("effect_book", Material.FEATHER, ItemUseType.OTHER);
 
+    public static WhereWasIItem WHERE_WAS_I = new WhereWasIItem("where_was_i", Material.FEATHER, ItemUseType.ABILITY);
     //public static CokeBottle COKE_BOTTLE = new CokeBottle("coke_bottle", Material.FEATHER, ItemUseType.ABILITY);
 }

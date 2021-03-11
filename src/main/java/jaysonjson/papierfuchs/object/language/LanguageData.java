@@ -1,8 +1,7 @@
-package jaysonjson.papierfuchs;
+package jaysonjson.papierfuchs.object.language;
 
 import java.util.HashMap;
 
-public class Language {
+public class LanguageData {
     public HashMap<String, String> CONTENT = new HashMap<>();
-    public String language;
 }

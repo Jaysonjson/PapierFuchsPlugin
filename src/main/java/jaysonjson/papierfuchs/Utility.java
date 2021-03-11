@@ -17,6 +17,7 @@ import jaysonjson.papierfuchs.object.item.FuchsItem;
 import jaysonjson.papierfuchs.object.item.FuchsMCItem;
 import jaysonjson.papierfuchs.object.item.ItemList;
 import jaysonjson.papierfuchs.object.item.ItemNBT;
+import jaysonjson.papierfuchs.object.language.FuchsLanguage;
 import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 import jaysonjson.papierfuchs.object.liquid.LiquidList;
 import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
@@ -475,6 +476,18 @@ public class Utility {
             return FuchsRegistries.items.get(id);
         }
         return null;
+    }
+
+    @Nullable
+    public static FuchsLanguage getFuchsLanguageByID(String id) {
+        if(languageIDExists(id)) {
+            return FuchsRegistries.languages.get(id);
+        }
+        return null;
+    }
+
+    public static boolean languageIDExists(String id) {
+        return FuchsRegistries.languages.containsKey(id);
     }
 
     public static boolean itemIDExists(String id) {
@@ -1173,8 +1186,8 @@ public class Utility {
     }
 
     public static String getStringFromLanguage(FuchsPlayer fuchsPlayer, String id, String fallback) {
-        if(fuchsPlayer.getLanguage().getContent().CONTENT.containsKey(id)) {
-            return fuchsPlayer.getLanguage().getContent().CONTENT.get(id);
+        if(languageIDExists(fuchsPlayer.getLanguage()) && getFuchsLanguageByID(fuchsPlayer.getLanguage()).language.CONTENT.containsKey(id)) {
+            return getFuchsLanguageByID(fuchsPlayer.getLanguage()).language.CONTENT.get(id);
         }
         return fallback;
     }

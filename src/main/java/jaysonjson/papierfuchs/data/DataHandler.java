@@ -3,7 +3,7 @@ package jaysonjson.papierfuchs.data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jaysonjson.papierfuchs.FuchsAnsi;
-import jaysonjson.papierfuchs.Language;
+import jaysonjson.papierfuchs.object.language.LanguageData;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.area.data.zArea;
 import jaysonjson.papierfuchs.data.backpack.data.zBackPack;
@@ -45,8 +45,7 @@ import java.util.stream.Stream;
 
 public class DataHandler {
 
-    private static final Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
-    private static final Gson gson = new Gson();
+    public static final Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
 
 
     public static FuchsPlayer loadPlayer(UUID uuid) {
@@ -64,7 +63,7 @@ public class DataHandler {
     }
 
     public static void savePlayer(FuchsPlayer player) {
-        String json = gsonBuilder.toJson(player);
+        String json = gson.toJson(player);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.PLAYER_DIR + player.getUUID().toString() + ".json"));
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -90,7 +89,7 @@ public class DataHandler {
     }
 
     public static void saveBackPack(zBackPack backPack) {
-        String json = gsonBuilder.toJson(backPack);
+        String json = gson.toJson(backPack);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.BACKPACK_DIR + backPack.getUUID().toString() + ".json"));
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -111,7 +110,7 @@ public class DataHandler {
 
 
     public static void saveServer(FuchsServer server) {
-        String json = gsonBuilder.toJson(server);
+        String json = gson.toJson(server);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.SERVER_DIR + "server.json"));
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -135,7 +134,7 @@ public class DataHandler {
     }
 
     public static void saveDiscord(zDiscord discord) {
-        String json = gsonBuilder.toJson(discord);
+        String json = gson.toJson(discord);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.SERVER_DIR + "discord.json"));
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -161,7 +160,7 @@ public class DataHandler {
 
 
     public static void saveArea(zArea area) {
-        String json = gsonBuilder.toJson(area);
+        String json = gson.toJson(area);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.AREA_DIR + area.getUuid().toString() + ".json"));
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -186,7 +185,7 @@ public class DataHandler {
     }
 
     public static void saveGuild(zGuild guild) {
-        String json = gsonBuilder.toJson(guild);
+        String json = gson.toJson(guild);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.GUILD_DIR + guild.getUUID().toString() + ".json"));
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -334,7 +333,7 @@ public class DataHandler {
         zMobDrop mobDrop = new zMobDrop();
         mobDrop.type = EntityType.ZOMBIE;
         mobDrop.items.add(new ItemDropChance("scrap", 2, 1, 1));
-        String json = gsonBuilder.toJson(mobDrop);
+        String json = gson.toJson(mobDrop);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(FileHandler.MOBDROPS_DIR + "test.json");
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -349,7 +348,7 @@ public class DataHandler {
         FuchsBlockDrop blockDrop = new FuchsBlockDrop();
         blockDrop.material = Material.STONE;
         blockDrop.items.add(new ItemDropChance(ItemList.TIN_INGOT.getID(), 2, 1, 1));
-        String json = gsonBuilder.toJson(blockDrop);
+        String json = gson.toJson(blockDrop);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(FileHandler.BLOCK_DROPS_DIR + "stone.json");
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -373,7 +372,7 @@ public class DataHandler {
         liquidOutput.liquidOutputID = LiquidList.BEER.getID();
         craftingBrewery.liquidInput = liquidInput;
         craftingBrewery.liquidOutput = liquidOutput;
-        String json = gsonBuilder.toJson(craftingBrewery);
+        String json = gson.toJson(craftingBrewery);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.BREWERY_DIR + "test.json"));
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -398,7 +397,7 @@ public class DataHandler {
         ouput.nbt.add(new CraftingItemNBT());
         ouput.nbt.add(new CraftingItemNBT());
         general.output = ouput;
-        String json = gsonBuilder.toJson(general);
+        String json = gson.toJson(general);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(new File(FileHandler.CRAFTING_GENERAL_DIR + "test.json"));
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -409,11 +408,11 @@ public class DataHandler {
         }
     }
 
-    public static void loadLanguages() {
+    /*public static void loadLanguages() {
         File langs = new File(FileHandler.LANG_DIR);
         for (File file : langs.listFiles()) {
             if (file.getName().toLowerCase().contains("json")) {
-                Language language = gson.fromJson(readDataISO(file), Language.class);
+                LanguageData language = gson.fromJson(readDataISO(file), LanguageData.class);
                 Languages.valueOf(language.language).setLanguage(language);
                 Languages.NOT_SET.setLanguage(language);
             }
@@ -421,11 +420,11 @@ public class DataHandler {
     }
 
     public static void createGermanLangTest() {
-        Language language = new Language();
+        LanguageData language = new LanguageData();
         language.language = Languages.GERMAN.name();
         language.CONTENT.put("zoryha_tear", ChatColor.AQUA.toString() + "Zoryha's Träne");
         language.CONTENT.put("test", "Test");
-        String json = gsonBuilder.toJson(language);
+        String json = gson.toJson(language);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(FileHandler.LANG_DIR + "german.json");
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -434,9 +433,9 @@ public class DataHandler {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
+    }*/
 
-    private static String readData(File file) {
+    public static String readData(File file) {
         StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(file.getPath()), StandardCharsets.UTF_8)) {
@@ -448,7 +447,7 @@ public class DataHandler {
         return contentBuilder.toString();
     }
 
-    private static String readDataISO(File file) {
+    public static String readDataISO(File file) {
         StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(file.getPath()), StandardCharsets.ISO_8859_1)) {

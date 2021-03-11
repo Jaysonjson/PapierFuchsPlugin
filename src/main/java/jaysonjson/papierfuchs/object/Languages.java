@@ -1,21 +1,22 @@
 package jaysonjson.papierfuchs.object;
 
-import jaysonjson.papierfuchs.Language;
+import jaysonjson.papierfuchs.object.language.LanguageData;
 
+@Deprecated
 public enum Languages {
     GERMAN(),
     ENGLISH(),
     NOT_SET();
 
-    Language language;
+    LanguageData language;
     Languages() {
     }
 
-    public void setLanguage(Language language) {
+    public void setLanguage(LanguageData language) {
         this.language = language;
     }
 
-    public Language getContent() {
+    public LanguageData getContent() {
         return language;
     }
 }

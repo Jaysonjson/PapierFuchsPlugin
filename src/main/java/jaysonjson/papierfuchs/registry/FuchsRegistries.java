@@ -8,6 +8,7 @@ import jaysonjson.papierfuchs.object.entity.FuchsEntity;
 import jaysonjson.papierfuchs.object.gas.FuchsGas;
 import jaysonjson.papierfuchs.object.inventory.FuchsInventory;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
+import jaysonjson.papierfuchs.object.language.FuchsLanguage;
 import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 import jaysonjson.papierfuchs.object.npc.FuchsNPC;
 import jaysonjson.papierfuchs.object.rarity.FuchsRarity;
@@ -29,6 +30,8 @@ public class FuchsRegistries {
     public static Map<String, FuchsInventory> inventories = new HashMap<>();
     public static Map<String, FuchsCurrency> currencies = new HashMap<>();
     public static Map<String, FuchsNPC> npcs = new HashMap<>();
+    public static Map<String, FuchsLanguage> languages = new HashMap<>();
+    public static Map<String, FuchsObject> others = new HashMap<>();
 
     @Deprecated
     private static Map<String, IFuchsRegistryObject> OBJECTS = new HashMap<>();
@@ -49,6 +52,8 @@ public class FuchsRegistries {
         rarities.values().forEach(fuchsRarity -> addToObjects(fuchsRarity, fuchsPlugin));
         skill_classes.values().forEach(fuchsSkillclass -> addToObjects(fuchsSkillclass, fuchsPlugin));
         currencies.values().forEach(fuchsCurrency -> addToObjects(fuchsCurrency, fuchsPlugin));
+        others.values().forEach(fuchsObject -> addToObjects(fuchsObject, fuchsPlugin));
+        languages.values().forEach(fuchsLanguage -> addToObjects(fuchsLanguage, fuchsPlugin));
         //Utility.log(OBJECTS.toString());
         for (String s : OBJECTS.keySet()) {
             Utility.log(LogType.REGISTRY, s);

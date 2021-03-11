@@ -23,4 +23,5 @@ public interface IFuchsItemUse {
     void onItemRightClick(PlayerInteractEvent event);
     void onItemLeftClick(PlayerInteractEvent event);
     boolean isPlaceAble();
+    boolean isChargeAble();
 }

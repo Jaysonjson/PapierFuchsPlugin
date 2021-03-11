@@ -78,9 +78,14 @@ public class ItemInventory implements Listener {
             }
         });
         FuchsRegistries.effects.values().forEach(effect -> {
-            EffectBookItem effectBookItem = (EffectBookItem) ItemList.EFFECT_BOOK.createCopy();
-            effectBookItem.setDisplayName(effect.getDisplayName());
-            itemStacks.add(effectBookItem.createItem(player));
+            //EffectBookItem effectBookItem = (EffectBookItem) ItemList.EFFECT_BOOK.createCopy();
+            try {
+                EffectBookItem effectBookItem = (EffectBookItem) ItemList.EFFECT_BOOK.clone();
+                effectBookItem.setDisplayName(effect.getDisplayName());
+                itemStacks.add(effectBookItem.createItem(player));
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
         });
         return itemStacks;
     }

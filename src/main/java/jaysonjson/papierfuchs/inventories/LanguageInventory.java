@@ -53,10 +53,10 @@ public class LanguageInventory implements Listener {
             if (clickedItem != null) {
                 ItemMeta clickedItemMeta = clickedItem.getItemMeta();
                 if (clickedItemMeta.getDisplayName().equalsIgnoreCase("Deutsch")) {
-                    fuchsPlayer.setLanguage(Languages.GERMAN);
+                    //fuchsPlayer.setLanguage(Languages.GERMAN);
                     Utility.updateInventory(player);
                 } else if (clickedItemMeta.getDisplayName().equalsIgnoreCase("English")) {
-                    fuchsPlayer.setLanguage(Languages.ENGLISH);
+                    //fuchsPlayer.setLanguage(Languages.ENGLISH);
                     Utility.updateInventory(player);
                 }
                 //DataHandler.savePlayer(fuchsPlayer);

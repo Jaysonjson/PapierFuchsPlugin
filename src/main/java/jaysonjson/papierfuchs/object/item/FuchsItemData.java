@@ -65,6 +65,7 @@ public class FuchsItemData {
     public double light_magic_amount = 0;
     public double air_magic_amount = 0;
     public String rarity = "";
+    public boolean charged = false;
 
     @Deprecated
     public FuchsItemData(FuchsItem fuchsItem, Player player) {
@@ -162,6 +163,9 @@ public class FuchsItemData {
                 }
                 if(tag.hasKey(ItemNBT.ITEM_RARITY)) {
                     rarity = tag.getString(ItemNBT.ITEM_RARITY);
+                }
+                if(tag.hasKey(ItemNBT.CHARGED)) {
+                    charged = tag.getBoolean(ItemNBT.CHARGED);
                 }
                 fuchsLiquid = Utility.liquidExists(contained_liquid) ? Utility.getLiquidByID(contained_liquid) : LiquidList.NONE;
             }
@@ -261,9 +265,17 @@ public class FuchsItemData {
 
     //@Deprecated
     public void setItem(String displayName) {
+        preTag = Utility.getItemTag(item);
         FuchsPlayer fuchsPlayer = null;
         if (player != null) {
             fuchsPlayer = References.data.getPlayer(player.getUniqueId());
+        }
+        if(preTag.hasKey(ItemNBT.CHARGED)) {
+            if(charged) {
+                lore.add(ChatColor.AQUA + "Aufgeladen");
+            } else {
+                lore.add(ChatColor.AQUA + "Entladen");
+            }
         }
         addRarityLore(fuchsPlayer);
         addEffectLores();
@@ -276,7 +288,6 @@ public class FuchsItemData {
         if(fuchsItem.getMaxDurability() > 0) {
             addDurabilityLore(fuchsPlayer);
         }
-        preTag = Utility.getItemTag(item);
         try {
 
             if(fuchsItem.getToolEfficiency() > 0) {
@@ -404,6 +415,9 @@ public class FuchsItemData {
         }
         if(!fuchsItem.stackAble()) {
             tag.setString(ItemNBT.ITEM_UUID, UUID.randomUUID().toString());
+        }
+        if(fuchsItem.isChargeAble()) {
+            tag.setBoolean(ItemNBT.CHARGED, charged);
         }
         return tag;
     }

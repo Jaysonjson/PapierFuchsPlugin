@@ -10,6 +10,8 @@ public class ItemNBT {
     public static final String CREATIVE_GET = "creativeGet";
     public static final String CAN_ENCHANT_MINECRAFT = "canEnchantMinecraft";
     public static final String HAS_EFFECT_ID = "hasEffect_";
+    public static final String CHARGED = "charged";
+
     //INT
     public static final String ITEM_DURABILITY = "itemDurability";
     public static final String ITEM_AMOUNT = "FuchsItemAmount";
