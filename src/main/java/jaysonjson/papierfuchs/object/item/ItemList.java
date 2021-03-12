@@ -29,23 +29,23 @@ public class ItemList {
 
     /*public static GoldBarItem GOLD_BAR = new GoldBarItem("goldBarItem", Material.GOLD_INGOT, ItemUseType.CURRENCY);
     public static GoldNuggetItem GOLD_NUGGET = new GoldNuggetItem("goldNuggetItem", Material.GOLD_NUGGET, ItemUseType.CURRENCY);*/
-    public static HackSilverItem HACKSILVER = new HackSilverItem("hacksilver", Material.IRON_NUGGET, ItemUseType.CURRENCY);
-    public static SkillBookItem SKILL_BOOK = new SkillBookItem("skillbook", Material.WRITTEN_BOOK, ItemUseType.OTHER);
-    public static ZoryhaShardItem ZORYHA_SHARD = new ZoryhaShardItem("zoryha_shard", Material.NETHER_STAR, ItemUseType.CURRENCY);
-    public static CopperIngotItem COPPER_INGOT = new CopperIngotItem("copper_ingot", Material.FEATHER, ItemUseType.CRAFTING);
-    public static SilverIngotItem SILVER_INGOT = new SilverIngotItem("silver_ingot", Material.FEATHER, ItemUseType.CRAFTING);
-    public static MaltItem MALT = new MaltItem("malt", Material.FEATHER, ItemUseType.CRAFTING);
-    public static HopItem HOP = new HopItem("hop", Material.FEATHER, ItemUseType.CRAFTING);
-    public static GlassItem GLASS = new GlassItem("glass", Material.FEATHER, ItemUseType.ABILITY);
-    public static LiquidContainerItem LIQUID_CONTAINER = new LiquidContainerItem("liquid_container", Material.FEATHER, ItemUseType.CRAFTING);
-    public static GasContainerItem GAS_CONTAINER = new GasContainerItem("gas_container", Material.FEATHER, ItemUseType.CRAFTING);
-    public static VilumIngotItem VILUM_INGOT = new VilumIngotItem("vilum_ingot", Material.FEATHER, ItemUseType.CRAFTING);
-    public static IronOreItem IRON_ORE = new IronOreItem("iron_ore", Material.IRON_ORE, ItemUseType.CRAFTING);
-    public static ScrapItem SCRAP = new ScrapItem("scrap", Material.NETHERITE_SCRAP, ItemUseType.CURRENCY);
-    public static ItemWithTexture DARK_OAK_BOWL = new ItemWithTexture("dark_oak_bowl", Material.FEATHER, ItemUseType.DECO, "Schüssel", 21, "§8Dunkle Eiche");
-    public static ItemWithTexture OAK_BOWL = new ItemWithTexture("oak_bowl", Material.FEATHER, ItemUseType.DECO, "Schüssel", 23, "§8Eiche");
-    public static LegendaryChestBook LEGENDARY_CHEST_BOOK = new LegendaryChestBook("legendary_chest_book", Material.WRITTEN_BOOK, ItemUseType.OTHER);
-    public static IDCardItem ID_CARD = new IDCardItem("id_card", Material.WRITTEN_BOOK, ItemUseType.OTHER);
+    public static FuchsItemRegistry<HackSilverItem> HACKSILVER = new FuchsItemRegistry<>(new HackSilverItem("hacksilver", Material.IRON_NUGGET, ItemUseType.CURRENCY));
+    public static FuchsItemRegistry<SkillBookItem> SKILL_BOOK = new FuchsItemRegistry<>(new SkillBookItem("skillbook", Material.WRITTEN_BOOK, ItemUseType.OTHER));
+    public static FuchsItemRegistry<ZoryhaShardItem> ZORYHA_SHARD = new FuchsItemRegistry<>(new ZoryhaShardItem("zoryha_shard", Material.NETHER_STAR, ItemUseType.CURRENCY));
+    public static FuchsItemRegistry<CopperIngotItem> COPPER_INGOT = new FuchsItemRegistry<>(new CopperIngotItem("copper_ingot", Material.FEATHER, ItemUseType.CRAFTING));
+    public static FuchsItemRegistry<SilverIngotItem> SILVER_INGOT = new FuchsItemRegistry<>(new SilverIngotItem("silver_ingot", Material.FEATHER, ItemUseType.CRAFTING));
+    public static FuchsItemRegistry<MaltItem> MALT = new FuchsItemRegistry<>(new MaltItem("malt", Material.FEATHER, ItemUseType.CRAFTING));
+    public static FuchsItemRegistry<HopItem> HOP = new FuchsItemRegistry<>(new HopItem("hop", Material.FEATHER, ItemUseType.CRAFTING));
+    public static FuchsItemRegistry<GlassItem> GLASS = new FuchsItemRegistry<>(new GlassItem("glass", Material.FEATHER, ItemUseType.ABILITY));
+    public static FuchsItemRegistry<LiquidContainerItem> LIQUID_CONTAINER = new FuchsItemRegistry<>(new LiquidContainerItem("liquid_container", Material.FEATHER, ItemUseType.CRAFTING));
+    public static FuchsItemRegistry<GasContainerItem> GAS_CONTAINER = new FuchsItemRegistry<>(new GasContainerItem("gas_container", Material.FEATHER, ItemUseType.CRAFTING));
+    public static FuchsItemRegistry<VilumIngotItem> VILUM_INGOT = new FuchsItemRegistry<>(new VilumIngotItem("vilum_ingot", Material.FEATHER, ItemUseType.CRAFTING));
+    public static FuchsItemRegistry<IronOreItem> IRON_ORE = new FuchsItemRegistry<>(new IronOreItem("iron_ore", Material.IRON_ORE, ItemUseType.CRAFTING));
+    public static FuchsItemRegistry<ScrapItem> SCRAP = new FuchsItemRegistry<>(new ScrapItem("scrap", Material.NETHERITE_SCRAP, ItemUseType.CURRENCY));
+    public static FuchsItemRegistry<ItemWithTexture> DARK_OAK_BOWL = new FuchsItemRegistry<>(new ItemWithTexture("dark_oak_bowl", Material.FEATHER, ItemUseType.DECO, "Schüssel", 21, "§8Dunkle Eiche"));
+    public static FuchsItemRegistry<ItemWithTexture> OAK_BOWL = new FuchsItemRegistry<>(new ItemWithTexture("oak_bowl", Material.FEATHER, ItemUseType.DECO, "Schüssel", 23, "§8Eiche"));
+    public static FuchsItemRegistry<LegendaryChestBook> LEGENDARY_CHEST_BOOK = new FuchsItemRegistry<>(new LegendaryChestBook("legendary_chest_book", Material.WRITTEN_BOOK, ItemUseType.OTHER));
+    public static FuchsItemRegistry<IDCardItem> ID_CARD = new FuchsItemRegistry<>(new IDCardItem("id_card", Material.WRITTEN_BOOK, ItemUseType.OTHER));
 
    /* public static BackPackItem BACKPACK_9 = new BackPackItem("backPackItem9", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 9);
     public static BackPackItem BACKPACK_18 = new BackPackItem("backPackItem18", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 18);
@@ -54,52 +54,51 @@ public class ItemList {
     public static BackPackItem BACKPACK_45 = new BackPackItem("backPackItem45", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 45);
     public static BackPackItem BACKPACK_54 = new BackPackItem("backPackItem54", Material.HEART_OF_THE_SEA, ItemUseType.ABILITY, 54);
 */
-    public static FireEs01BlazeRodItem FIRE_ESSENCE_01 = new FireEs01BlazeRodItem("fireEs01BlazeRodItem", Material.BLAZE_POWDER, ItemUseType.ABILITY);
-    public static WallBlazeRodItem WALL_BLAZE_ROD = new WallBlazeRodItem("wallBlazeRodItem", Material.BLAZE_POWDER, ItemUseType.ABILITY);
+    public static FuchsItemRegistry<FireEs01BlazeRodItem> FIRE_ESSENCE_01 = new FuchsItemRegistry<>(new FireEs01BlazeRodItem("fireEs01BlazeRodItem", Material.BLAZE_POWDER, ItemUseType.ABILITY));
+    public static FuchsItemRegistry<WallBlazeRodItem> WALL_BLAZE_ROD = new FuchsItemRegistry<>(new WallBlazeRodItem("wallBlazeRodItem", Material.BLAZE_POWDER, ItemUseType.ABILITY));
 
-    public static AlcoholTestItem ALCOHOL_TEST = new AlcoholTestItem("alcohol_tester", Material.FEATHER, ItemUseType.ABILITY);
+    public static FuchsItemRegistry<AlcoholTestItem> ALCOHOL_TEST = new FuchsItemRegistry<>(new AlcoholTestItem("alcohol_tester", Material.FEATHER, ItemUseType.ABILITY));
 
-    public static MagicPowderItem FIRE_POWDER = new MagicPowderItem("fire_magic_powder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.FIRE, 1);
-    public static MagicPowderItem WATER_POWDER = new MagicPowderItem("water_magic_powder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.WATER, 4);
-    public static MagicPowderItem EARTH_POWDER = new MagicPowderItem("earth_magic_powder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.EARTH, 3);
-    public static MagicPowderItem AIR_POWDER = new MagicPowderItem("air_magic_powder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.AIR, 2);
-    public static MagicPowderItem LIGHT_POWDER = new MagicPowderItem("light_magic_powder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.LIGHT, 5);
+    public static FuchsItemRegistry<MagicPowderItem> FIRE_POWDER = new FuchsItemRegistry<>(new MagicPowderItem("fire_magic_powder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.FIRE, 1));
+    public static FuchsItemRegistry<MagicPowderItem> WATER_POWDER = new FuchsItemRegistry<>(new MagicPowderItem("water_magic_powder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.WATER, 4));
+    public static FuchsItemRegistry<MagicPowderItem> EARTH_POWDER = new FuchsItemRegistry<>(new MagicPowderItem("earth_magic_powder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.EARTH, 3));
+    public static FuchsItemRegistry<MagicPowderItem> AIR_POWDER = new FuchsItemRegistry<>(new MagicPowderItem("air_magic_powder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.AIR, 2));
+    public static FuchsItemRegistry<MagicPowderItem> LIGHT_POWDER = new FuchsItemRegistry<>(new MagicPowderItem("light_magic_powder", Material.GLOWSTONE_DUST, ItemUseType.CRAFTING, MagicType.LIGHT, 5));
 
-    public static CraftingUpgradekitItem CRAFTING_UPGRADE_KIT = new CraftingUpgradekitItem("crafting_upgrade_kit", Material.FEATHER, ItemUseType.ABILITY);
+    public static FuchsItemRegistry<CraftingUpgradekitItem> CRAFTING_UPGRADE_KIT = new FuchsItemRegistry<>(new CraftingUpgradekitItem("crafting_upgrade_kit", Material.FEATHER, ItemUseType.ABILITY));
 
-    public static CopperPipeItem COPPER_PIPE = new CopperPipeItem("copper_pipe", Material.FEATHER, ItemUseType.CRAFTING);
-    public static CopperRodItem COPPER_ROD = new CopperRodItem("copper_rod", Material.FEATHER, ItemUseType.CRAFTING);
+    public static FuchsItemRegistry<CopperPipeItem> COPPER_PIPE = new FuchsItemRegistry<>(new CopperPipeItem("copper_pipe", Material.FEATHER, ItemUseType.CRAFTING));
+    public static FuchsItemRegistry<CopperRodItem> COPPER_ROD = new FuchsItemRegistry<>(new CopperRodItem("copper_rod", Material.FEATHER, ItemUseType.CRAFTING));
     //public static CopperSwordItem COPPER_SWORD = new CopperSwordItem("copper_sword", Material.FEATHER, ItemUseType.TOOL);
 
-    public static BackPackItemNBT BACKPACK_9_NBT = new BackPackItemNBT("backpack_9", Material.FEATHER, ItemUseType.ABILITY, 9);
-    public static BackPackItemNBT BACKPACK_18_NBT = new BackPackItemNBT("backpack_18", Material.FEATHER, ItemUseType.ABILITY, 18);
-    public static BackPackItemNBT BACKPACK_27_NBT = new BackPackItemNBT("backpack_27", Material.FEATHER, ItemUseType.ABILITY, 27);
-    public static BackPackItemNBT BACKPACK_36_NBT = new BackPackItemNBT("backpack_36", Material.FEATHER, ItemUseType.ABILITY, 36);
-    public static BackPackItemNBT BACKPACK_45_NBT = new BackPackItemNBT("backpack_45", Material.FEATHER, ItemUseType.ABILITY, 45);
-    public static BackPackItemNBT BACKPACK_54_NBT = new BackPackItemNBT("backpack_54", Material.FEATHER, ItemUseType.ABILITY, 54);
+    public static FuchsItemRegistry<BackPackItemNBT> BACKPACK_9_NBT = new FuchsItemRegistry<>(new BackPackItemNBT("backpack_9", Material.FEATHER, ItemUseType.ABILITY, 9));
+    public static FuchsItemRegistry<BackPackItemNBT> BACKPACK_18_NBT = new FuchsItemRegistry<>(new BackPackItemNBT("backpack_18", Material.FEATHER, ItemUseType.ABILITY, 18));
+    public static FuchsItemRegistry<BackPackItemNBT> BACKPACK_27_NBT = new FuchsItemRegistry<>(new BackPackItemNBT("backpack_27", Material.FEATHER, ItemUseType.ABILITY, 27));
+    public static FuchsItemRegistry<BackPackItemNBT> BACKPACK_36_NBT = new FuchsItemRegistry<>(new BackPackItemNBT("backpack_36", Material.FEATHER, ItemUseType.ABILITY, 36));
+    public static FuchsItemRegistry<BackPackItemNBT> BACKPACK_45_NBT = new FuchsItemRegistry<>(new BackPackItemNBT("backpack_45", Material.FEATHER, ItemUseType.ABILITY, 45));
+    public static FuchsItemRegistry<BackPackItemNBT> BACKPACK_54_NBT = new FuchsItemRegistry<>(new BackPackItemNBT("backpack_54", Material.FEATHER, ItemUseType.ABILITY, 54));
 
-    public static TestSwordItem TEST_SWORD = new TestSwordItem("test_sword", Material.FEATHER, ItemUseType.WEAPON);
+    public static FuchsItemRegistry<TestSwordItem> TEST_SWORD = new FuchsItemRegistry<>(new TestSwordItem("test_sword", Material.FEATHER, ItemUseType.WEAPON));
 
-    public static BatBookItem BAT_BOOK = new BatBookItem("bat_book", Material.BOOK, ItemUseType.ABILITY);
+    public static FuchsItemRegistry<BatBookItem> BAT_BOOK = new FuchsItemRegistry<>(new BatBookItem("bat_book", Material.BOOK, ItemUseType.ABILITY));
 
-    public static TinIngotItem TIN_INGOT = new TinIngotItem("tin_ingot", Material.FEATHER, ItemUseType.CRAFTING);
+    public static FuchsItemRegistry<TinIngotItem> TIN_INGOT = new FuchsItemRegistry<>(new TinIngotItem("tin_ingot", Material.FEATHER, ItemUseType.CRAFTING));
 
-    public static HammerItem SILVER_HAMMER = new HammerItem("silver_hammer", "Silber", 7, 5, -0.27f, 27, Material.FEATHER, ItemUseType.WEAPON);
+    public static FuchsItemRegistry<HammerItem> SILVER_HAMMER = new FuchsItemRegistry<>(new HammerItem("silver_hammer", "Silber", 7, 5, -0.27f, 27, Material.FEATHER, ItemUseType.WEAPON));
 
-    public static SwordItem TIN_SWORD = new SwordItem("tin_sword", ChatColor.GRAY + "Zinn", 5, 221, 1.2f, 28, Material.FEATHER, ItemUseType.WEAPON);
-    public static SwordItem VILUM_SWORD = new VilumSwordItem("vilum_sword", ChatColor.LIGHT_PURPLE + "Vilum", 17, 120, 1.2f, 25, Material.FEATHER, ItemUseType.WEAPON);
-    public static SwordItem SILVER_SWORD = new SwordItem("silver_sword", ChatColor.DARK_GRAY + "Silver", 8, 1225, 1.2f, 25, Material.FEATHER, ItemUseType.WEAPON);
+    public static FuchsItemRegistry<SwordItem> TIN_SWORD = new FuchsItemRegistry<>(new SwordItem("tin_sword", ChatColor.GRAY + "Zinn", 5, 221, 1.2f, 28, Material.FEATHER, ItemUseType.WEAPON));
+    public static FuchsItemRegistry<SwordItem> VILUM_SWORD = new FuchsItemRegistry<>(new VilumSwordItem("vilum_sword", ChatColor.LIGHT_PURPLE + "Vilum", 17, 120, 1.2f, 25, Material.FEATHER, ItemUseType.WEAPON));
+    public static FuchsItemRegistry<SwordItem> SILVER_SWORD = new FuchsItemRegistry<>(new SwordItem("silver_sword", ChatColor.DARK_GRAY + "Silver", 8, 1225, 1.2f, 25, Material.FEATHER, ItemUseType.WEAPON));
 
-    public static OreItem TIN_ORE = new OreItem("tin_ore", ChatColor.GRAY + "Zinn", -1, Material.FEATHER, ItemUseType.CRAFTING);
-    public static ZoryhaFighterSword ZORYHA_FIGHTER_SWORD = new ZoryhaFighterSword("zoryha_fighter_sword", Material.FEATHER, ItemUseType.WEAPON);
-    public static ZoryhaTear ZORYHA_TEAR = new ZoryhaTear("zoryha_tear", Material.FEATHER, ItemUseType.CRAFTING);
+    public static FuchsItemRegistry<OreItem> TIN_ORE = new FuchsItemRegistry<>(new OreItem("tin_ore", ChatColor.GRAY + "Zinn", -1, Material.FEATHER, ItemUseType.CRAFTING));
+    public static FuchsItemRegistry<ZoryhaFighterSword> ZORYHA_FIGHTER_SWORD = new FuchsItemRegistry<>(new ZoryhaFighterSword("zoryha_fighter_sword", Material.FEATHER, ItemUseType.WEAPON));
+    public static FuchsItemRegistry<ZoryhaTear> ZORYHA_TEAR = new FuchsItemRegistry<>(new ZoryhaTear("zoryha_tear", Material.FEATHER, ItemUseType.CRAFTING));
 
-    public static ItemWithTexture UK_FLAG = new ItemWithTexture("uk_flag", Material.FEATHER, ItemUseType.OTHER, "English", 32, true);
-    public static ItemWithTexture GERMAN_FLAG = new ItemWithTexture("german_flag", Material.FEATHER, ItemUseType.OTHER, "Deutsch", 31, true);
+    public static FuchsItemRegistry<ItemWithTexture> UK_FLAG = new FuchsItemRegistry<>(new ItemWithTexture("uk_flag", Material.FEATHER, ItemUseType.OTHER, "English", 32, true));
+    public static FuchsItemRegistry<ItemWithTexture> GERMAN_FLAG = new FuchsItemRegistry<>(new ItemWithTexture("german_flag", Material.FEATHER, ItemUseType.OTHER, "Deutsch", 31, true));
 
-    public static TestPlaceItem TEST_PLACE = new TestPlaceItem("test_place", Material.DIAMOND, ItemUseType.OTHER);
-    public static EffectBookItem EFFECT_BOOK = new EffectBookItem("effect_book", Material.FEATHER, ItemUseType.OTHER);
+    public static FuchsItemRegistry<TestPlaceItem> TEST_PLACE = new FuchsItemRegistry<>(new TestPlaceItem("test_place", Material.DIAMOND, ItemUseType.OTHER));
+    public static FuchsItemRegistry<EffectBookItem> EFFECT_BOOK = new FuchsItemRegistry<>(new EffectBookItem("effect_book", Material.FEATHER, ItemUseType.OTHER));
 
-    public static WhereWasIItem WHERE_WAS_I = new WhereWasIItem("where_was_i", Material.FEATHER, ItemUseType.ABILITY);
-    //public static CokeBottle COKE_BOTTLE = new CokeBottle("coke_bottle", Material.FEATHER, ItemUseType.ABILITY);
+    public static FuchsItemRegistry<WhereWasIItem> WHERE_WAS_I = new FuchsItemRegistry<>(new WhereWasIItem("where_was_i", Material.FEATHER, ItemUseType.ABILITY));
 }

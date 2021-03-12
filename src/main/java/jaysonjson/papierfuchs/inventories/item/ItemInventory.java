@@ -61,7 +61,7 @@ public class ItemInventory implements Listener {
         FuchsRegistries.items.values().forEach(fuchsItem -> itemStacks.add(fuchsItem.createItem(player)));
         FuchsRegistries.liquids.values().forEach(fuchsLiquid -> {
             if(fuchsLiquid != LiquidList.NONE) {
-                ItemStack liquidContainer = ItemList.LIQUID_CONTAINER.createItem(player);
+                ItemStack liquidContainer = ItemList.LIQUID_CONTAINER.get().createItem(player);
                 FuchsMCItem fuchsMCItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(liquidContainer), player, liquidContainer);
                 fuchsMCItem.setLiquidID(fuchsLiquid.getID());
                 fuchsMCItem.setLiquidAmount(500d);
@@ -70,7 +70,7 @@ public class ItemInventory implements Listener {
         });
         FuchsRegistries.gasses.values().forEach(fuchsGas -> {
             if(fuchsGas != GasList.NONE) {
-                ItemStack gasContainer = ItemList.GAS_CONTAINER.createItem(player);
+                ItemStack gasContainer = ItemList.GAS_CONTAINER.get().createItem(player);
                 FuchsMCItem fuchsMCItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(gasContainer), player, gasContainer);
                 fuchsMCItem.setGasID(fuchsGas.getID());
                 fuchsMCItem.setGasAmount(500d);
@@ -79,13 +79,9 @@ public class ItemInventory implements Listener {
         });
         FuchsRegistries.effects.values().forEach(effect -> {
             //EffectBookItem effectBookItem = (EffectBookItem) ItemList.EFFECT_BOOK.createCopy();
-            try {
-                EffectBookItem effectBookItem = (EffectBookItem) ItemList.EFFECT_BOOK.clone();
-                effectBookItem.setDisplayName(effect.getDisplayName());
-                itemStacks.add(effectBookItem.createItem(player));
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
+            EffectBookItem effectBookItem = ItemList.EFFECT_BOOK.get();
+            effectBookItem.setDisplayName(effect.getDisplayName());
+            itemStacks.add(effectBookItem.createItem(player));
         });
         return itemStacks;
     }

@@ -4,7 +4,6 @@ import jaysonjson.papierfuchs.PapierFuchs;
 import jaysonjson.papierfuchs.References;
 import jaysonjson.papierfuchs.Utility;
 import jaysonjson.papierfuchs.data.player.FuchsPlayer;
-import jaysonjson.papierfuchs.object.Languages;
 import jaysonjson.papierfuchs.object.item.ItemList;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -39,9 +38,9 @@ public class LanguageInventory implements Listener {
         for (int i = 0; i < inventory.getSize(); i++) {
             inventory.setItem(i, new ItemStack(Material.GLASS_PANE));
         }
-        inventory.setItem(20, ItemList.GERMAN_FLAG.createItem());
+        inventory.setItem(20, ItemList.GERMAN_FLAG.get().createItem());
         inventory.setItem(29, Utility.createInventoryStack(Material.PAPER, 1, "German"));
-        inventory.setItem(24, ItemList.UK_FLAG.createItem());
+        inventory.setItem(24, ItemList.UK_FLAG.get().createItem());
         inventory.setItem(33, Utility.createInventoryStack(Material.PAPER, 1, "Englisch"));
         Utility.createInventoryBorder(inventory, Material.WHITE_STAINED_GLASS_PANE);
     }

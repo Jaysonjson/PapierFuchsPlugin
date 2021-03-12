@@ -347,7 +347,7 @@ public class DataHandler {
     public static void createBlockDrop() {
         FuchsBlockDrop blockDrop = new FuchsBlockDrop();
         blockDrop.material = Material.STONE;
-        blockDrop.items.add(new ItemDropChance(ItemList.TIN_INGOT.getID(), 2, 1, 1));
+        blockDrop.items.add(new ItemDropChance(ItemList.TIN_INGOT.get().getID(), 2, 1, 1));
         String json = gson.toJson(blockDrop);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(FileHandler.BLOCK_DROPS_DIR + "stone.json");
@@ -362,8 +362,8 @@ public class DataHandler {
     public static void createBreweryCrafting() {
 
         zCraftingBrewery craftingBrewery = new zCraftingBrewery();
-        craftingBrewery.inputsID.add(ItemList.HOP.getID());
-        craftingBrewery.inputsID.add(ItemList.MALT.getID());
+        craftingBrewery.inputsID.add(ItemList.HOP.get().getID());
+        craftingBrewery.inputsID.add(ItemList.MALT.get().getID());
         zCraftingBreweryLiquidInput liquidInput = new zCraftingBreweryLiquidInput();
         liquidInput.liquidAmount = 1.5;
         liquidInput.liquidInputID = LiquidList.WATER.getID();
@@ -386,14 +386,14 @@ public class DataHandler {
     public static void createGeneralCraftingTest() {
         zCraftingGeneral general = new zCraftingGeneral();
         zCraftingItem input0 = new zCraftingItem();
-        input0.fuchsItem = ItemList.HOP.getID();
+        input0.fuchsItem = ItemList.HOP.get().getID();
         input0.nbt.add(new CraftingItemNBT());
         zCraftingItem input1 = new zCraftingItem();
         input1.material = Material.GOLDEN_APPLE;
         general.inputs.add(input0);
         general.inputs.add(input1);
         zCraftingItem ouput = new zCraftingItem();
-        ouput.fuchsItem = ItemList.ALCOHOL_TEST.getID();
+        ouput.fuchsItem = ItemList.ALCOHOL_TEST.get().getID();
         ouput.nbt.add(new CraftingItemNBT());
         ouput.nbt.add(new CraftingItemNBT());
         general.output = ouput;

@@ -45,7 +45,7 @@ public abstract class FuchsLiquid extends FuchsObject implements IFuchsItemTextu
 
     @Override
     public FuchsItem getEmptyBottle() {
-        return ItemList.GLASS;
+        return ItemList.GLASS.get();
     }
 
     @Override

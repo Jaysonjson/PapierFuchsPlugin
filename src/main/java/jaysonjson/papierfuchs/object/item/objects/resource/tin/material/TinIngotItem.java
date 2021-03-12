@@ -51,6 +51,6 @@ public class TinIngotItem extends IngotItem {
     @Nullable
     @Override
     public OreItem getOre() {
-        return ItemList.TIN_ORE;
+        return ItemList.TIN_ORE.get();
     }
 }

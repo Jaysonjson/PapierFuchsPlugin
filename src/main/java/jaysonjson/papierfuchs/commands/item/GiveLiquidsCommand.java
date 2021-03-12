@@ -20,7 +20,7 @@ public class GiveLiquidsCommand implements CommandExecutor {
 			Player player = (Player) arg0;
 			if (arg0.isOp()) {
 				for (FuchsLiquid fuchsLiquid : FuchsRegistries.liquids.values()) {
-					ItemStack liquidContainer = ItemList.LIQUID_CONTAINER.createItem(player);
+					ItemStack liquidContainer = ItemList.LIQUID_CONTAINER.get().createItem(player);
 					FuchsMCItem fuchsMCItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(liquidContainer), liquidContainer);
 					fuchsMCItem.changeStringTag(ItemNBT.CONTAINED_LIQUID, fuchsLiquid.getID());
 					fuchsMCItem.changeDoubleTag(ItemNBT.LIQUID_AMOUNT, 500d);

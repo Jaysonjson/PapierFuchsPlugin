@@ -473,7 +473,11 @@ public class Utility {
     @Nullable
     public static FuchsItem getFuchsItemByID(String id) {
         if(itemIDExists(id)) {
-            return FuchsRegistries.items.get(id);
+            try {
+                return (FuchsItem) FuchsRegistries.items.get(id).clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -1104,7 +1108,7 @@ public class Utility {
                 if(fuchsItem.getDoubleFromTag(ItemNBT.LIQUID_AMOUNT) > 0) {
                     itemStack = fuchsItem.getItemStack();
                 } else {
-                    itemStack = ItemList.GLASS.createItem(player);
+                    itemStack = getLiquidByID(fuchsItem.getLiquidID()).getEmptyBottle().createItem(player);
                 }
 
                 player.getInventory().setItemInMainHand(itemStack);

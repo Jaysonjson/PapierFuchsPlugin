@@ -262,4 +262,5 @@ public abstract class FuchsItem extends FuchsObject implements IConsumeable, IFu
     public boolean isDisplayNameChangeable() {
         return false;
     }
+
 }
