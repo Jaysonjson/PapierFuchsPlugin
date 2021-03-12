@@ -1,5 +1,7 @@
 package jaysonjson.papierfuchs.object.item;
 
+import jaysonjson.papierfuchs.registry.IFuchsPlugin;
+
 public class FuchsItemRegistry<T extends FuchsItem> {
 
     public T item;
@@ -8,9 +10,16 @@ public class FuchsItemRegistry<T extends FuchsItem> {
         this.item = item;
     }
 
+    public void update(IFuchsPlugin fuchsPlugin) {
+        this.item.setFuchsPlugin(fuchsPlugin);
+    }
+
+    @Deprecated
     public T get() {
         try {
-            return (T) item.clone();
+            T t = (T) item.clone();
+            t.updateID();
+            return t;
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }

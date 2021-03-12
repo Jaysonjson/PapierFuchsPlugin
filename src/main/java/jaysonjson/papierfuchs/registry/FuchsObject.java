@@ -38,4 +38,8 @@ public class FuchsObject implements IFuchsRegistryObject {
     public void setFuchsPlugin(IFuchsPlugin fuchsPlugin) {
         this.fuchsPlugin = fuchsPlugin;
     }
+
+    public boolean hasRightID() {
+        return getID().contains(":");
+    }
 }

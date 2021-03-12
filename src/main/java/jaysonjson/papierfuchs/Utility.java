@@ -472,6 +472,10 @@ public class Utility {
 
     @Nullable
     public static FuchsItem getFuchsItemByID(String id) {
+        if(!id.contains(":")) {
+            //id = id.substring(id.lastIndexOf(":"));
+            id = PapierFuchs.INSTANCE.getPluginID() + ":" + id;
+        }
         if(itemIDExists(id)) {
             try {
                 return (FuchsItem) FuchsRegistries.items.get(id).clone();

@@ -8,6 +8,7 @@ import jaysonjson.papierfuchs.object.entity.FuchsEntity;
 import jaysonjson.papierfuchs.object.gas.FuchsGas;
 import jaysonjson.papierfuchs.object.inventory.FuchsInventory;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
+import jaysonjson.papierfuchs.object.item.FuchsItemRegistry;
 import jaysonjson.papierfuchs.object.language.FuchsLanguage;
 import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 import jaysonjson.papierfuchs.object.npc.FuchsNPC;

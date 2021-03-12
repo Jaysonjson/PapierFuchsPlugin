@@ -9,6 +9,7 @@ import jaysonjson.papierfuchs.object.entity.FuchsEntity;
 import jaysonjson.papierfuchs.object.gas.FuchsGas;
 import jaysonjson.papierfuchs.object.inventory.FuchsInventory;
 import jaysonjson.papierfuchs.object.item.FuchsItem;
+import jaysonjson.papierfuchs.object.item.FuchsItemRegistry;
 import jaysonjson.papierfuchs.object.language.FuchsLanguage;
 import jaysonjson.papierfuchs.object.liquid.FuchsLiquid;
 import jaysonjson.papierfuchs.object.npc.FuchsNPC;
@@ -26,8 +27,10 @@ public class FuchsRegistry {
 
     public void registerItems(FuchsItem... fuchsItem) {
         for (FuchsItem item : fuchsItem) {
-            item.setFuchsPlugin(fuchsPlugin);
-            item.updateID();
+            if(!item.hasRightID()) {
+                item.setFuchsPlugin(fuchsPlugin);
+                item.updateID();
+            }
             if(!FuchsRegistries.items.containsKey(item.getID())) {
                 FuchsRegistries.items.put(item.getID(), item);
                 System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "Item mit der ID " + FuchsAnsi.CYAN + item.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
@@ -191,8 +194,9 @@ public class FuchsRegistry {
         for (Field field : fields) {
             try {
                 Object obj = field.get(listClass);
-                if(obj instanceof FuchsItem) {
-                    registerItems((FuchsItem) obj);
+                if(obj instanceof FuchsItemRegistry<?> itemRegistry) {
+                    itemRegistry.update(fuchsPlugin);
+                    registerItems(itemRegistry.get());
                 } else
                 if(obj instanceof FuchsGas) {
                     registerGasses((FuchsGas) obj);

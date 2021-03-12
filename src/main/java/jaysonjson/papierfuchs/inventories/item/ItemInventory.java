@@ -62,7 +62,7 @@ public class ItemInventory implements Listener {
         FuchsRegistries.liquids.values().forEach(fuchsLiquid -> {
             if(fuchsLiquid != LiquidList.NONE) {
                 ItemStack liquidContainer = ItemList.LIQUID_CONTAINER.get().createItem(player);
-                FuchsMCItem fuchsMCItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(liquidContainer), player, liquidContainer);
+                FuchsMCItem fuchsMCItem = new FuchsMCItem(ItemList.LIQUID_CONTAINER.get(), player, liquidContainer);
                 fuchsMCItem.setLiquidID(fuchsLiquid.getID());
                 fuchsMCItem.setLiquidAmount(500d);
                 itemStacks.add(fuchsMCItem.getItemStack());
@@ -71,7 +71,7 @@ public class ItemInventory implements Listener {
         FuchsRegistries.gasses.values().forEach(fuchsGas -> {
             if(fuchsGas != GasList.NONE) {
                 ItemStack gasContainer = ItemList.GAS_CONTAINER.get().createItem(player);
-                FuchsMCItem fuchsMCItem = new FuchsMCItem(Utility.getFuchsItemFromNMS(gasContainer), player, gasContainer);
+                FuchsMCItem fuchsMCItem = new FuchsMCItem(ItemList.GAS_CONTAINER.get(), player, gasContainer);
                 fuchsMCItem.setGasID(fuchsGas.getID());
                 fuchsMCItem.setGasAmount(500d);
                 itemStacks.add(fuchsMCItem.getItemStack());
