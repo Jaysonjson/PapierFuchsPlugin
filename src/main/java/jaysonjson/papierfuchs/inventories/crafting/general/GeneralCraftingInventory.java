@@ -48,7 +48,7 @@ public class GeneralCraftingInventory implements Listener {
             if (page_index < 46) {
                 page_content.add(item);
             }
-            if (page_index >= 46 || page_index.equals(stacks.size() + 1) || page_index.equals(page_check + 1)) {
+            if (page_index >= 46 || page_index.equals(stacks.size()) || page_index.equals(page_check + 1)) {
                 page++;
                 page_check -= 46;
                 InventoryPage<ArrayList<ItemStack>> pageInv = new InventoryPage<>(page_content, page);
@@ -65,6 +65,9 @@ public class GeneralCraftingInventory implements Listener {
         int id = 0;
         for (zCraftingGeneral general : References.craftings.generals) {
             ItemStack itemStack = new ItemStack(general.output.itemStack);
+            if(Utility.getFuchsItemFromNMS(general.output.itemStack) != null) {
+                itemStack = Utility.getFuchsItemFromNMS(general.output.itemStack).createItem(player, itemStack);
+            }
             ItemMeta itemMeta = itemStack.getItemMeta();
             List<String> defaultLore = itemMeta.getLore();
             if(defaultLore == null) {

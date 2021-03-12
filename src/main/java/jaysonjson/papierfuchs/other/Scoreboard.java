@@ -92,7 +92,7 @@ public class Scoreboard {
            alcoholScore = score.getScore(ChatColor.RED + "Alkohol: " + ChatColor.GOLD + new DecimalFormat("#.##").format(fuchsPlayer.getPlayerSpecial().getAlcohol()));
         }
         Score lineSpace3 = score.getScore("-0------=3=------0-");
-        Score classSore = score.getScore(ChatColor.RED + fuchsPlayer.getPlayerClass().current.getName());
+        Score classSore = score.getScore(ChatColor.RED + fuchsPlayer.getPlayerClass());
         setScores(
                 classSore,
                 lineSpace3,

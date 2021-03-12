@@ -33,9 +33,9 @@ public class FuchsRegistry {
             }
             if(!FuchsRegistries.items.containsKey(item.getID())) {
                 FuchsRegistries.items.put(item.getID(), item);
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "Item mit der ID " + FuchsAnsi.CYAN + item.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.GREEN + "Item mit der ID " + FuchsAnsi.CYAN + item.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
             } else {
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.RED + "Item mit der ID " + FuchsAnsi.CYAN + item.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.RED + "Item mit der ID " + FuchsAnsi.CYAN + item.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
             }
         }
     }
@@ -46,9 +46,9 @@ public class FuchsRegistry {
             liquid.updateID();
             if(!FuchsRegistries.liquids.containsKey(liquid.getID())) {
                 FuchsRegistries.liquids.put(liquid.getID(), liquid);
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "Flüssigkeit mit der ID " + FuchsAnsi.CYAN + liquid.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.GREEN + "Flüssigkeit mit der ID " + FuchsAnsi.CYAN + liquid.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
             } else {
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.RED + "Flüssigkeit mit der ID " + FuchsAnsi.CYAN + liquid.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.RED + "Flüssigkeit mit der ID " + FuchsAnsi.CYAN + liquid.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
             }
         }
     }
@@ -59,9 +59,9 @@ public class FuchsRegistry {
             gas.updateID();
             if(!FuchsRegistries.gasses.containsKey(gas.getID())) {
                 FuchsRegistries.gasses.put(gas.getID(), gas);
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "Gas mit der ID " + FuchsAnsi.CYAN + gas.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.GREEN + "Gas mit der ID " + FuchsAnsi.CYAN + gas.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
             } else {
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.RED + "Gas mit der ID " + FuchsAnsi.CYAN + gas.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.RED + "Gas mit der ID " + FuchsAnsi.CYAN + gas.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
             }
         }
     }
@@ -72,9 +72,9 @@ public class FuchsRegistry {
             effect.updateID();
             if(!FuchsRegistries.effects.containsKey(effect.getID())) {
                 FuchsRegistries.effects.put(effect.getID(), effect);
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "Effekt mit der ID " + FuchsAnsi.CYAN + effect.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.GREEN + "Effekt mit der ID " + FuchsAnsi.CYAN + effect.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
             } else {
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.RED + "Effekt mit der ID " + FuchsAnsi.CYAN + effect.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.RED + "Effekt mit der ID " + FuchsAnsi.CYAN + effect.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
             }
         }
     }
@@ -85,9 +85,9 @@ public class FuchsRegistry {
             rarity.updateID();
             if(!FuchsRegistries.rarities.containsKey(rarity.getID())) {
                 FuchsRegistries.rarities.put(rarity.getID(), rarity);
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "Rarität mit der ID " + FuchsAnsi.CYAN + rarity.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.GREEN + "Rarität mit der ID " + FuchsAnsi.CYAN + rarity.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
             } else {
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.RED + "Rarität mit der ID " + FuchsAnsi.CYAN + rarity.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.RED + "Rarität mit der ID " + FuchsAnsi.CYAN + rarity.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
             }
         }
     }
@@ -98,9 +98,9 @@ public class FuchsRegistry {
             fuchsEntity.updateID();
             if(!FuchsRegistries.entities.containsKey(fuchsEntity.getID())) {
                 FuchsRegistries.entities.put(fuchsEntity.getID(), fuchsEntity);
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "Entity mit der ID " + FuchsAnsi.CYAN + fuchsEntity.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.GREEN + "Entity mit der ID " + FuchsAnsi.CYAN + fuchsEntity.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
             } else {
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.RED + "Entity mit der ID " + FuchsAnsi.CYAN + fuchsEntity.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.RED + "Entity mit der ID " + FuchsAnsi.CYAN + fuchsEntity.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
             }
         }
     }
@@ -111,9 +111,9 @@ public class FuchsRegistry {
             fuchsSkillclass.updateID();
             if(!FuchsRegistries.skill_classes.containsKey(fuchsSkillclass.getID())) {
                 FuchsRegistries.skill_classes.put(fuchsSkillclass.getID(), fuchsSkillclass);
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "Skill-Class mit der ID " + FuchsAnsi.CYAN + fuchsSkillclass.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.GREEN + "Skill-Class mit der ID " + FuchsAnsi.CYAN + fuchsSkillclass.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
             } else {
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.RED + "Skill-Class mit der ID " + FuchsAnsi.CYAN + fuchsSkillclass.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.RED + "Skill-Class mit der ID " + FuchsAnsi.CYAN + fuchsSkillclass.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
             }
         }
     }
@@ -124,9 +124,9 @@ public class FuchsRegistry {
             fuchsInventory.updateID();
             if(!FuchsRegistries.inventories.containsKey(fuchsInventory.getID())) {
                 FuchsRegistries.inventories.put(fuchsInventory.getID(), fuchsInventory);
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "Inventar mit der ID " + FuchsAnsi.CYAN + fuchsInventory.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.GREEN + "Inventar mit der ID " + FuchsAnsi.CYAN + fuchsInventory.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
             } else {
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.RED + "Inventar mit der ID " + FuchsAnsi.CYAN + fuchsInventory.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.RED + "Inventar mit der ID " + FuchsAnsi.CYAN + fuchsInventory.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
             }
         }
     }
@@ -137,9 +137,9 @@ public class FuchsRegistry {
             fuchsNPC.updateID();
             if(!FuchsRegistries.npcs.containsKey(fuchsNPC.getID())) {
                 FuchsRegistries.npcs.put(fuchsNPC.getID(), fuchsNPC);
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.GREEN + "NPC mit der ID " + FuchsAnsi.CYAN + fuchsNPC.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.GREEN + "NPC mit der ID " + FuchsAnsi.CYAN + fuchsNPC.getID() + FuchsAnsi.GREEN + " registriert!\033[0m");
             } else {
-                System.out.println("[PapierFuchs {Registry}] " + FuchsAnsi.RED + "NPC mit der ID " + FuchsAnsi.CYAN + fuchsNPC.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
+                Utility.log(LogType.REGISTRY, FuchsAnsi.RED + "NPC mit der ID " + FuchsAnsi.CYAN + fuchsNPC.getID() + FuchsAnsi.GREEN + " existiert bereits!\033[0m");
             }
         }
     }

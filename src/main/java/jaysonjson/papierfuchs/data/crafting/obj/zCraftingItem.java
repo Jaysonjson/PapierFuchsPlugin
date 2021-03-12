@@ -22,4 +22,16 @@ public class zCraftingItem {
 	public String getItemID() {
 		return fuchsItem;
 	}
+
+	@Override
+	public String toString() {
+		return "zCraftingItem{" +
+				"fuchsItem='" + fuchsItem + '\'' +
+				", itemData='" + itemData + '\'' +
+				", material=" + material +
+				", amount=" + amount +
+				", nbt=" + nbt +
+				", itemStack=" + itemStack +
+				'}';
+	}
 }

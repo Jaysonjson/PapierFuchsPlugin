@@ -9,12 +9,10 @@ import java.io.File;
 
 public class FuchsLanguage extends FuchsObject implements IFuchsLanguage {
 
-
     public LanguageData language = new LanguageData();
     public FuchsLanguage(String id) {
         super(id, RegistryType.LANGUAGE);
     }
-
 
     @Override
     public void loadContent() {

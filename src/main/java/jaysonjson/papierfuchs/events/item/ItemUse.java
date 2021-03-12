@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -51,14 +52,28 @@ public class ItemUse implements Listener {
                         }
                     }
                     */
-                    fuchsItem.onItemUse(event);
-                    switch (event.getAction()) {
-                        case RIGHT_CLICK_BLOCK: fuchsItem.onItemRightClickBlock(event); fuchsItem.onItemRightClick(event); break;
-                        case LEFT_CLICK_BLOCK: fuchsItem.onItemLeftClickBlock(event); fuchsItem.onItemLeftClick(event); break;
-                        case LEFT_CLICK_AIR: fuchsItem.onItemLeftClickAir(event); fuchsItem.onItemLeftClick(event); break;
-                        case RIGHT_CLICK_AIR: fuchsItem.onItemRightClickAir(event); fuchsItem.onItemRightClick(event); break;
-					default:
-						break;
+                    if(player.getOpenInventory().getType() == InventoryType.CRAFTING || player.getOpenInventory().getType() == InventoryType.CREATIVE) {
+                        fuchsItem.onItemUse(event);
+                        switch (event.getAction()) {
+                            case RIGHT_CLICK_BLOCK:
+                                fuchsItem.onItemRightClickBlock(event);
+                                fuchsItem.onItemRightClick(event);
+                                break;
+                            case LEFT_CLICK_BLOCK:
+                                fuchsItem.onItemLeftClickBlock(event);
+                                fuchsItem.onItemLeftClick(event);
+                                break;
+                            case LEFT_CLICK_AIR:
+                                fuchsItem.onItemLeftClickAir(event);
+                                fuchsItem.onItemLeftClick(event);
+                                break;
+                            case RIGHT_CLICK_AIR:
+                                fuchsItem.onItemRightClickAir(event);
+                                fuchsItem.onItemRightClick(event);
+                                break;
+                            default:
+                                break;
+                        }
                     }
 
                     if (block != null) {

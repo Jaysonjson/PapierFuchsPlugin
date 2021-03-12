@@ -20,7 +20,7 @@ public class FuchsPlayer implements IHasUUID {
 
     private FuchsLevel level = new FuchsLevel();
 
-    private FuchsPlayerClass playerClass = new FuchsPlayerClass();
+    private String playerClass = "";
 
     private FuchsPlayerSpecial playerSpecial = new FuchsPlayerSpecial();
 
@@ -34,7 +34,7 @@ public class FuchsPlayer implements IHasUUID {
         this.language = language;
     }
 
-    public FuchsPlayerClass getPlayerClass() {
+    public String getPlayerClass() {
         return playerClass;
     }
 
@@ -102,6 +102,10 @@ public class FuchsPlayer implements IHasUUID {
 
     public int countBounty() {
         return Utility.countBounty(this);
+    }
+
+    public boolean hasClass() {
+        return getPlayerClass().equals("");
     }
 
 }

@@ -2,6 +2,8 @@ package jaysonjson.papierfuchs.object.item;
 
 import jaysonjson.papierfuchs.registry.IFuchsPlugin;
 
+import javax.annotation.Nullable;
+
 public class FuchsItemRegistry<T extends FuchsItem> {
 
     public T item;
@@ -14,7 +16,7 @@ public class FuchsItemRegistry<T extends FuchsItem> {
         this.item.setFuchsPlugin(fuchsPlugin);
     }
 
-    @Deprecated
+    @Nullable
     public T get() {
         try {
             T t = (T) item.clone();

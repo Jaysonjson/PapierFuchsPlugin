@@ -6,9 +6,7 @@ import jaysonjson.papierfuchs.commands.area.CreateAreaCommand;
 import jaysonjson.papierfuchs.commands.guild.CreateGuildCommand;
 import jaysonjson.papierfuchs.commands.item.ItemCommand;
 import jaysonjson.papierfuchs.commands.item.ItemIDCommand;
-import jaysonjson.papierfuchs.data.DataHandler;
 import jaysonjson.papierfuchs.data.FileHandler;
-import jaysonjson.papierfuchs.data.area.data.zArea;
 import jaysonjson.papierfuchs.events.ChatEvent;
 import jaysonjson.papierfuchs.events.Smelting;
 import jaysonjson.papierfuchs.events.WorldLoad;
@@ -39,8 +37,6 @@ import jaysonjson.papierfuchs.registry.IFuchsPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.ArrayList;
 
 public final class PapierFuchs extends JavaPlugin implements IFuchsPlugin {
 
@@ -151,6 +147,7 @@ public final class PapierFuchs extends JavaPlugin implements IFuchsPlugin {
     }
 
     @Override
+    @Deprecated
     public String getPluginID() {
         return "papierfuchs";
     }

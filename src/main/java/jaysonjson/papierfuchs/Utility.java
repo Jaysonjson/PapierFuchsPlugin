@@ -474,7 +474,7 @@ public class Utility {
     public static FuchsItem getFuchsItemByID(String id) {
         if(!id.contains(":")) {
             //id = id.substring(id.lastIndexOf(":"));
-            id = PapierFuchs.INSTANCE.getPluginID() + ":" + id;
+            id = PapierFuchs.INSTANCE.getRegistryID() + ":" + id;
         }
         if(itemIDExists(id)) {
             try {
