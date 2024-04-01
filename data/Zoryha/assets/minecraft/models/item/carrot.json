@@ -1,0 +1,16 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/carrot"
+  },
+  "overrides": [
+    {"predicate":{"custom_model_data": 1},"model": "papierfuchs:item/fallback/carrot"}
+  ],
+  "display": {
+    "head": {
+      "rotation": [0, 0, 45],
+      "translation": [-1, 13, 7],
+      "scale": [1, 1, 1]
+    }
+  }
+}

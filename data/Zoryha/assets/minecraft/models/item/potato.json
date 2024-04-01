@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/potato"
+  },
+  "overrides": [
+    {"predicate":{ "custom_model_data": 1 }, "model": "papierfuchs:item/fallback/potato" },
+    {"predicate":{ "custom_model_data": 2 }, "model": "zoryha:item/food/strawberry" },
+    {"predicate":{ "custom_model_data": 3 }, "model": "zoryha:item/food/pizza" }
+  ],
+  "display": {
+    "head": {
+      "rotation": [0, 0, 45],
+      "translation": [-1, 13, 7],
+      "scale": [1, 1, 1]
+    }
+  }
+}

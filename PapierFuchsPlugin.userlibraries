@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.20-M1">
+    <archive path="/home/jay/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.5.20-M1/kotlin-stdlib-jdk8-1.5.20-M1.jar" />
+  </library>
+  <library name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.5.20-M1">
+    <archive path="/home/jay/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.5.20-M1/kotlin-stdlib-1.5.20-M1.jar" />
+  </library>
+  <library name="Maven: org.jetbrains:annotations:13.0">
+    <archive path="/home/jay/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar" />
+  </library>
+  <library name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.5.20-M1">
+    <archive path="/home/jay/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.5.20-M1/kotlin-stdlib-common-1.5.20-M1.jar" />
+  </library>
+  <library name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.20-M1">
+    <archive path="/home/jay/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.5.20-M1/kotlin-stdlib-jdk7-1.5.20-M1.jar" />
+  </library>
+  <library name="Maven: org.jetbrains.kotlin:kotlin-test:1.5.20-M1">
+    <archive path="/home/jay/.m2/repository/org/jetbrains/kotlin/kotlin-test/1.5.20-M1/kotlin-test-1.5.20-M1.jar" />
+  </library>
+  <library name="Maven: io.papermc.paper:paper:1.17-R0.1-SNAPSHOT">
+    <archive path="/home/jay/.m2/repository/io/papermc/paper/paper/1.17-R0.1-SNAPSHOT/paper-1.17-R0.1-SNAPSHOT.jar" />
+  </library>
+</eclipse-userlibraries>
+
