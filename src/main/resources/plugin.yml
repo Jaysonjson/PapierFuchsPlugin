@@ -1,0 +1,55 @@
+name: PapierFuchs
+version: ${project.version}
+main: jaysonjson.papierfuchs.PapierFuchs
+api-version: 1.17
+commands:
+  area:
+    description: Erstellt ein Gebiet
+    usage: /<command> <name> <area>
+  guild:
+    description: Guild Commands
+    usage: /<command>
+    aliases:
+      - guild create
+      - guild accept
+      - guild invite
+      - guild leave
+      - guild disband
+  guild banner:
+    description: Guild Banner
+    usage: /<command>
+  areas:
+    description: Zeigt Gebiete an
+    usage: /areas
+  report:
+    description: Melde einen Spieler
+    usage: /report <spieler> <grund>
+  cosmetic:
+    description: Kosmetik
+    usage: /cosmetic
+  group:
+    description: gruppe
+    usage: /group
+  drops:
+    description: Drops
+    usage: /drops
+  settings:
+    description: Öffnet die Spielereinstellungen
+    usage: /settings
+    aliases:
+      - fuchs
+      - papierfuchs
+      - paperfox
+      - gms
+      - gma
+      - gmsp
+      - gmc
+      - test
+  recipelist:
+    description: Rezepte
+    usage: /recipelist
+    aliases:
+      - rezepte
+  admin:
+    description: Admin Befehle
+    usage: /admin

@@ -1,0 +1,54 @@
+package jaysonjson.papierfuchs.fuchs.io.persistentdata.objects;
+
+import jaysonjson.papierfuchs.fuchs.io.persistentdata.objects.ids.FuchsItemKey;
+import jaysonjson.papierfuchs.fuchs.object.intern.item.FuchsItem;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.HashMap;
+
+public class FuchsItemAlchemyData implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 0L;
+
+    private HashMap<FuchsItemKey, Float> keys = new HashMap<>();
+
+    public FuchsItemAlchemyData() {
+
+    }
+
+    public FuchsItemAlchemyData(FuchsItem fuchsItem) {
+
+    }
+
+    public void setKey(FuchsItemKey key, float value) {
+        if(value < 1) {
+            getKeys().remove(key);
+        } else {
+            getKeys().put(key, value);
+        }
+    }
+
+    public float getKey(FuchsItemKey key) {
+        if(getKeys().containsKey(key)) {
+            return getKeys().get(key);
+        }
+        return 0;
+    }
+
+    public HashMap<FuchsItemKey, Float> getKeys() {
+        return keys;
+    }
+
+    public void setKeys(HashMap<FuchsItemKey, Float> keys) {
+        this.keys = keys;
+    }
+
+    @Override
+    public String toString() {
+        return "FuchsItemAlchemyData{" +
+                "keys=" + keys +
+                '}';
+    }
+}
